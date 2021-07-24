@@ -11,7 +11,6 @@
 #include <sstream>
 #include <stdio.h>
 
-#define WSL_ALLOW_DISPLAY setenv("DISPLAY", "127.0.0.1:0", true)
 
 void ResizeCallback(GLFWwindow *window, int width, int height);
 
@@ -77,7 +76,7 @@ static GLuint CreateShader(const std::string &vertexShaderSource, const std::str
 }
 
 int main(int, char **) {
-    WSL_ALLOW_DISPLAY;
+    ALLOW_DISPLAY;
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -152,13 +151,13 @@ int main(int, char **) {
     }
 
     GLuint pbo;
-    glGenBuffers(1, &pbo);
-    glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
-    glBufferData(GL_PIXEL_UNPACK_BUFFER, 256 * 256 * 4, nullptr, GL_STREAM_DRAW);
+    GlAssert(glGenBuffers(1, &pbo));
+    GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
+    GlAssert(glBufferData(GL_PIXEL_UNPACK_BUFFER, 256 * 256 * 4, nullptr, GL_STREAM_DRAW));
 
     void *mappedBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
     std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte *>(mappedBuffer));
-    glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
+    GlAssert(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER));
 
 
     GLuint textureID;
@@ -168,16 +167,16 @@ int main(int, char **) {
     //GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+    //GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE));
+    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 
     GlAssert(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr));
 
-    glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+    GlAssert(glBindTexture(GL_TEXTURE_2D, 0));
 
     //GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
 
@@ -189,13 +188,12 @@ int main(int, char **) {
 
         GlAssert(glClear(GL_COLOR_BUFFER_BIT));
         //glDrawArrays(GL_TRIANGLES, 0, 6);
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
         GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
 
         GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
     }
 
-    glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
     GlAssert(glDeleteProgram(shader));
     glfwTerminate();
     return 0;

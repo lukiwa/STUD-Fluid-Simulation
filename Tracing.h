@@ -4,7 +4,11 @@
 #include <cstdio>
 #include <cstdlib>
 
-#define DEBUG
+#ifndef WSL1
+#define ALLOW_DISPLAY
+#else
+#define ALLOW_DISPLAY setenv("DISPLAY", "127.0.0.1:0", true)
+#endif
 
 #ifndef DEBUG
 #define LOG(fmt, ...)
