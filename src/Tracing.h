@@ -45,7 +45,7 @@
         fflush(stderr);                                                                                                 \
     } while (0)
 
-const char* GLErrorToString(GLenum const error)
+static const char* GLErrorToString(GLenum const error)
 {
     switch (error) {
     // opengl 2 errors (8)
@@ -83,13 +83,13 @@ const char* GLErrorToString(GLenum const error)
     }
 }
 
-void GLClearError()
+static void GLClearError()
 {
     while (glGetError() != GL_NO_ERROR) {
     }
 }
 
-void GLCheckError(const char* code, const char* filename, uint32_t lineNumber)
+static void GLCheckError(const char* code, const char* filename, uint32_t lineNumber)
 {
     uint32_t errorCount = 0;
     while (GLenum error = glGetError()) {

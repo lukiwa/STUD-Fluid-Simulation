@@ -1,3 +1,4 @@
+#include "OpenGL/ShaderProgram.h"
 #include "Tracing.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -5,77 +6,15 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cassert>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <memory>
 #include <sstream>
-#include <stdio.h>
 
 void ResizeCallback(GLFWwindow* window, int width, int height);
 
 void ProcessInput(GLFWwindow* window);
-
-static std::string FileToString(const std::string& filepath)
-{
-    std::ifstream file(filepath);
-    std::ostringstream oss;
-    if (file.is_open()) {
-        oss << file.rdbuf();
-    } else {
-        std::cerr << "ERROR OPENING FILE\n";
-    }
-    return oss.str();
-}
-
-static GLuint CompileShader(GLuint type, const std::string& source)
-{
-    GLuint id = glCreateShader(type);
-    const char* src_c_str = source.c_str();
-    glShaderSource(id, 1, &src_c_str, nullptr);
-    glCompileShader(id);
-
-    int result;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-    if (result == GL_FALSE) {
-        char message[1024];
-
-        glGetShaderInfoLog(id, sizeof(message), nullptr, message);
-        std::cerr << "FAILED TO COMPILE SHADER OF TYPE: " << type;
-        std::cerr << " MESSAGE: \n"
-                  << message << std::endl;
-        glDeleteShader(id);
-        return 0;
-    }
-
-    return id;
-}
-
-static GLuint CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
-{
-    GLuint program = glCreateProgram();
-    GLuint vs = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-
-    glAttachShader(program, vs);
-    glAttachShader(program, fs);
-    glLinkProgram(program);
-    glValidateProgram(program);
-
-    int result;
-    glGetProgramiv(program, GL_LINK_STATUS, &result);
-    if (result == GL_FALSE) {
-        char message[512];
-        glGetProgramInfoLog(program, sizeof(message), nullptr, message);
-        std::cerr << "FAILED TO LINK SHADERS TO PROGRAM: ";
-        std::cerr << "MESSAGE: \n"
-                  << message << std::endl;
-    }
-
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-
-    return program;
-}
 
 int main(int, char**)
 {
@@ -133,10 +72,12 @@ int main(int, char**)
     GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
     GlAssert(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
 
-    auto vertexShader = FileToString("../shaders/vertex_shader.glsl");
-    auto fragmentShader = FileToString("../shaders/fragment_shader.glsl");
-    GLuint shader = CreateShader(vertexShader, fragmentShader);
-    GlAssert(glUseProgram(shader));
+    ShaderProgram program;
+    program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
+        .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
+        .CompileShaders()
+        .LinkAndValidate()
+        .Use();
 
     GLubyte pixels[256 * 256 * 4];
     for (int i = 0; i < sizeof(pixels); i++) {
@@ -165,12 +106,13 @@ int main(int, char**)
     GlAssert(glGenTextures(1, &textureID));
     GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
 
-    //GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    // GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+    // GL_LINEAR)); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+    // GL_LINEAR_MIPMAP_NEAREST); glTexParameteri(GL_TEXTURE_2D,
+    // GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
     GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-    //GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE));
+    // GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE));
     GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
     GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 
@@ -179,7 +121,7 @@ int main(int, char**)
     GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
     GlAssert(glBindTexture(GL_TEXTURE_2D, 0));
 
-    //GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
+    // GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
 
     while (!glfwWindowShouldClose(window)) {
         ProcessInput(window);
@@ -188,22 +130,19 @@ int main(int, char**)
         glfwPollEvents();
 
         GlAssert(glClear(GL_COLOR_BUFFER_BIT));
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        // glDrawArrays(GL_TRIANGLES, 0, 6);
         GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
         GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
 
         GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
     }
 
-    GlAssert(glDeleteProgram(shader));
+    program.Delete();
     glfwTerminate();
     return 0;
 }
 
-void ResizeCallback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
+void ResizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
 
 void ProcessInput(GLFWwindow* window)
 {
