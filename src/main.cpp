@@ -73,8 +73,8 @@ int main(int, char**)
     GlAssert(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
 
     ShaderProgram program;
-    program.VertexShaderFilename("vertex_shader.glsl")
-        .FragmentShaderFilename("fragment_shader.glsl")
+    program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
+        .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
         .CompileShaders()
         .LinkAndValidate()
         .Use();

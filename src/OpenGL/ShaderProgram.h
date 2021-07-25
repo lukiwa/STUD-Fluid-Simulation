@@ -8,8 +8,8 @@ public:
     ShaderProgram();
     ~ShaderProgram() = default;
 
-    ShaderProgram& VertexShaderFilename(const std::string& vertexShaderFilename);
-    ShaderProgram& FragmentShaderFilename(const std::string& fragmentShaderFilename);
+    ShaderProgram& ShadersRoot(const std::string& root);
+    ShaderProgram& ShaderFilename(GLuint type, const std::string& shaderFilename);
     ShaderProgram& CompileShaders();
     const ShaderProgram& LinkAndValidate() const;
     void Use() const;
@@ -20,7 +20,7 @@ private:
     static std::string FileToString(const std::string& filepath);
     static GLuint CompileShader(GLuint type, const std::string& source);
 
-    const std::string _shadersRoot;
+    std::string _shadersRoot;
     GLuint _programId{};
     GLuint _vertexShaderId{};
     GLuint _fragmentShaderId{};

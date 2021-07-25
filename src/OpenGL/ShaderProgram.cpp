@@ -11,18 +11,42 @@ ShaderProgram::ShaderProgram()
 }
 
 // public methods
-ShaderProgram& ShaderProgram::VertexShaderFilename(const std::string& vertexShaderFilename)
+/**
+ * Change default shaders root (default: src/OpenGL/shaders/)
+ * @param root new root
+ * @return "this" reference
+ */
+ShaderProgram& ShaderProgram::ShadersRoot(const std::string& root)
 {
-    _vertexShaderSource = FileToString(_shadersRoot + vertexShaderFilename);
+    _shadersRoot = root;
     return *this;
 }
 
-ShaderProgram& ShaderProgram::FragmentShaderFilename(const std::string& fragmentShaderFilename)
+/**
+ * Read shaders source from filename inside _shadersRoot directory
+ * @param type type of the shader
+ * @param shaderFilename filename of the shader
+ * @return "this" reference
+ */
+ShaderProgram& ShaderProgram::ShaderFilename(const GLuint type, const std::string& shaderFilename)
 {
-    _fragmentShaderSource = FileToString(_shadersRoot + fragmentShaderFilename);
+    switch (type) {
+    case GL_VERTEX_SHADER:
+        _vertexShaderSource = FileToString(_shadersRoot + shaderFilename);
+        break;
+    case GL_FRAGMENT_SHADER:
+        _fragmentShaderSource = FileToString(_shadersRoot + shaderFilename);
+        break;
+    default:
+        LOG_ERROR("SHADER TYPE NOT RECOGNIZED");
+    }
     return *this;
 }
 
+/**
+ * Create program and compile shaders. Proper error message will be displayed on error.
+ * @return "this" reference
+ */
 ShaderProgram& ShaderProgram::CompileShaders()
 {
     _programId = glCreateProgram();
@@ -36,6 +60,10 @@ ShaderProgram& ShaderProgram::CompileShaders()
     return *this;
 }
 
+/**
+ * Link and validate program. Proper error message will be displayed on error
+ * @return const "this" reference
+ */
 const ShaderProgram& ShaderProgram::LinkAndValidate() const
 {
     GlAssert(glAttachShader(_programId, _vertexShaderId));
@@ -56,10 +84,22 @@ const ShaderProgram& ShaderProgram::LinkAndValidate() const
     GlAssert(glDeleteShader(_fragmentShaderId));
     return *this;
 }
+/**
+ * Use created program
+ */
 void ShaderProgram::Use() const { GlAssert(glUseProgram(_programId)); }
+
+/**
+ * Delete program
+ */
 void ShaderProgram::Delete() const { GlAssert(glDeleteProgram(_programId)); }
 
 // private methods
+/**
+ * Read content of filepath and store return as string
+ * @param filepath path to file
+ * @return read content
+ */
 std::string ShaderProgram::FileToString(const std::string& filepath)
 {
     {
@@ -73,6 +113,12 @@ std::string ShaderProgram::FileToString(const std::string& filepath)
         return oss.str();
     }
 }
+/**
+ * Compile single shader
+ * @param type type of the shader to be compiled
+ * @param source source code of th shader
+ * @return shader id
+ */
 GLuint ShaderProgram::CompileShader(GLuint type, const std::string& source)
 {
     GLuint id = glCreateShader(type);
