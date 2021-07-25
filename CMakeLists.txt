@@ -23,14 +23,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 #Project target
-#file(GLOB ROOT_SOURCES src/main.cpp)
-#file(GLOB OPENGL_SOURCES src/OpenGL/ShaderProgram.cpp)
-#file(GLOB SIMULATION_SOURCES src/Simulation/*.cpp)
-#set(ROOT_SOURCES src/main.cpp)
-#set(OPENGL_SOURCES src/OpenGL/ShaderProgram.cpp)
+set(ROOT_SOURCES src/main.cpp)
+set(OPENGL_SOURCES src/OpenGL/ShaderProgram.cpp)
 #set(SIMULATION_SOURCES src/Simulation/*.cpp)
-#add_executable(${PROJECT_NAME} ${ROOT_SOURCES} ${OPENGL_SOURCES} ${SIMULATION_SOURCES})
-add_executable(${PROJECT_NAME} src/main.cpp src/OpenGL/ShaderProgram.cpp src/OpenGL/ShaderProgram.h)
+add_executable(${PROJECT_NAME} ${ROOT_SOURCES} ${OPENGL_SOURCES} ${SIMULATION_SOURCES})
 
 
 #glew
