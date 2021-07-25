@@ -133,8 +133,8 @@ int main(int, char**)
     GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
     GlAssert(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
 
-    auto vertexShader = FileToString("../shaders/vertex_shader.glsl");
-    auto fragmentShader = FileToString("../shaders/fragment_shader.glsl");
+    auto vertexShader = FileToString("../src/OpenGL/shaders/vertex_shader.glsl");
+    auto fragmentShader = FileToString("../src/OpenGL/shaders/fragment_shader.glsl");
     GLuint shader = CreateShader(vertexShader, fragmentShader);
     GlAssert(glUseProgram(shader));
 
