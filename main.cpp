@@ -11,12 +11,12 @@
 #include <sstream>
 #include <stdio.h>
 
+void ResizeCallback(GLFWwindow* window, int width, int height);
 
-void ResizeCallback(GLFWwindow *window, int width, int height);
+void ProcessInput(GLFWwindow* window);
 
-void ProcessInput(GLFWwindow *window);
-
-static std::string FileToString(const std::string &filepath) {
+static std::string FileToString(const std::string& filepath)
+{
     std::ifstream file(filepath);
     std::ostringstream oss;
     if (file.is_open()) {
@@ -27,9 +27,10 @@ static std::string FileToString(const std::string &filepath) {
     return oss.str();
 }
 
-static GLuint CompileShader(GLuint type, const std::string &source) {
+static GLuint CompileShader(GLuint type, const std::string& source)
+{
     GLuint id = glCreateShader(type);
-    const char *src_c_str = source.c_str();
+    const char* src_c_str = source.c_str();
     glShaderSource(id, 1, &src_c_str, nullptr);
     glCompileShader(id);
 
@@ -49,7 +50,8 @@ static GLuint CompileShader(GLuint type, const std::string &source) {
     return id;
 }
 
-static GLuint CreateShader(const std::string &vertexShaderSource, const std::string &fragmentShaderSource) {
+static GLuint CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
+{
     GLuint program = glCreateProgram();
     GLuint vs = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
     GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
@@ -75,14 +77,15 @@ static GLuint CreateShader(const std::string &vertexShaderSource, const std::str
     return program;
 }
 
-int main(int, char **) {
+int main(int, char**)
+{
     ALLOW_DISPLAY;
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow *window = glfwCreateWindow(512, 512, "LearnOpenGL", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(512, 512, "LearnOpenGL", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -100,15 +103,15 @@ int main(int, char **) {
     GlAssert(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
 
     float positions[] = {
-            // positions   // texture coords
-            0.5f, 0.5f, 1.0f, 1.0f, // top right
-            0.5f, -0.5f, 1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
-            -0.5f, 0.5f, 0.0f, 1.0f // top left
+        // positions   // texture coords
+        0.5f, 0.5f, 1.0f, 1.0f, // top right
+        0.5f, -0.5f, 1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
+        -0.5f, 0.5f, 0.0f, 1.0f // top left
     };
     GLuint indices[] = {
-            0, 1, 3, // first triangle
-            1, 2, 3 // second triangle
+        0, 1, 3, // first triangle
+        1, 2, 3 // second triangle
     };
 
     GLuint VAO;
@@ -123,7 +126,7 @@ int main(int, char **) {
     GlAssert(glEnableVertexAttribArray(0));
     GlAssert(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0));
     GlAssert(glEnableVertexAttribArray(1));
-    GlAssert(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) (2 * sizeof(float))));
+    GlAssert(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float))));
 
     GLuint ibo;
     GlAssert(glGenBuffers(1, &ibo));
@@ -134,7 +137,6 @@ int main(int, char **) {
     auto fragmentShader = FileToString("../shaders/fragment_shader.glsl");
     GLuint shader = CreateShader(vertexShader, fragmentShader);
     GlAssert(glUseProgram(shader));
-
 
     GLubyte pixels[256 * 256 * 4];
     for (int i = 0; i < sizeof(pixels); i++) {
@@ -155,10 +157,9 @@ int main(int, char **) {
     GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
     GlAssert(glBufferData(GL_PIXEL_UNPACK_BUFFER, 256 * 256 * 4, nullptr, GL_STREAM_DRAW));
 
-    void *mappedBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
-    std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte *>(mappedBuffer));
+    void* mappedBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
+    std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte*>(mappedBuffer));
     GlAssert(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER));
-
 
     GLuint textureID;
     GlAssert(glGenTextures(1, &textureID));
@@ -199,11 +200,13 @@ int main(int, char **) {
     return 0;
 }
 
-void ResizeCallback(GLFWwindow *window, int width, int height) {
+void ResizeCallback(GLFWwindow* window, int width, int height)
+{
     glViewport(0, 0, width, height);
 }
 
-void ProcessInput(GLFWwindow *window) {
+void ProcessInput(GLFWwindow* window)
+{
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
