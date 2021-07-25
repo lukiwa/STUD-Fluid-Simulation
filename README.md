@@ -4,6 +4,6 @@ To build and run:
 - cd STUD-Fluid-Simulation
 - mkdir build && cd build
 - cmake -DCMAKE_BUILD_TYPE=Debug or -DCMAKE_BUILD_TYPE=Release
-- Optionally, if building in WSL1 environemnt add option -DWSLS1=ON
+- Optionally, if building in WSL1 environemnt add option -DWSL1=ON
 - make
 - ./fluid_simulation
