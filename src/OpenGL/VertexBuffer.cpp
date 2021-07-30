@@ -11,7 +11,7 @@
  * @param size vertex size
  */
 VertexBuffer::VertexBuffer(const void* data, uint32_t size)
-    : _id(0)
+    : _id(1)
 {
     GlAssert(glGenBuffers(1, &_id));
     GlAssert(glBindBuffer(GL_ARRAY_BUFFER, _id));

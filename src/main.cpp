@@ -14,6 +14,7 @@
 
 #include "OpenGL/IndexBuffer.h"
 #include "OpenGL/ShaderProgram.h"
+#include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 
 void ResizeCallback(GLFWwindow* window, int width, int height);
@@ -47,7 +48,7 @@ int main(int, char**)
 
     //create a scope, so all bound gl stuff will be unbind before glfw terminate
     {
-        float positions[] = {
+        GLfloat positions[] = {
             // positions   // texture coords
             0.5f, 0.5f, 1.0f, 1.0f, // top right
             0.5f, -0.5f, 1.0f, 0.0f, // bottom right
@@ -65,10 +66,10 @@ int main(int, char**)
 
         VertexBuffer vertexBuffer(positions, sizeof(positions));
 
-        GlAssert(glEnableVertexAttribArray(0));
-        GlAssert(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0));
-        GlAssert(glEnableVertexAttribArray(1));
-        GlAssert(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float))));
+        VertexAttributes attributes;
+        attributes.AddAttribute(2, GL_FLOAT); //positions
+        attributes.AddAttribute(2, GL_FLOAT); //texture coordinates
+        attributes.Bind();
 
         IndexBuffer indexBuffer(indices, 6);
 
