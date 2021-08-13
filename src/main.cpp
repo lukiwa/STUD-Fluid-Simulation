@@ -13,6 +13,7 @@
 #include <sstream>
 
 #include "OpenGL/IndexBuffer.h"
+#include "OpenGL/PixelBufferObject.h"
 #include "OpenGL/ShaderProgram.h"
 #include "OpenGL/VertexArray.h"
 #include "OpenGL/VertexAttributes.h"
@@ -57,7 +58,7 @@ int main(int, char**)
         attributes.Bind();
 
         GLuint indices[] = {
-            0, 1, 3, // first triangle
+            0, 1, 3, // first  triangle
             1, 2, 3 // second triangle
         };
         IndexBuffer indexBuffer(indices, 6);
@@ -83,14 +84,11 @@ int main(int, char**)
             }
         }
 
-        GLuint pbo;
-        GlAssert(glGenBuffers(1, &pbo));
-        GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
-        GlAssert(glBufferData(GL_PIXEL_UNPACK_BUFFER, 256 * 256 * 4, nullptr, GL_STREAM_DRAW));
+        PixelBufferObject pbo(256, 256, GL_RGBA);
 
-        void* mappedBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
+        void* mappedBuffer = pbo.MapBuffer();
         std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte*>(mappedBuffer));
-        GlAssert(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER));
+        pbo.UnmapBuffer();
 
         GLuint textureID;
         GlAssert(glGenTextures(1, &textureID));
@@ -108,7 +106,7 @@ int main(int, char**)
 
         GlAssert(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr));
 
-        GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+        pbo.Unbind();
         GlAssert(glBindTexture(GL_TEXTURE_2D, 0));
 
         // GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
@@ -121,7 +119,7 @@ int main(int, char**)
             GlAssert(glClear(GL_COLOR_BUFFER_BIT));
             indexBuffer.Bind();
 
-            GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
+            pbo.Bind();
             GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
 
             GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
@@ -129,4 +127,3 @@ int main(int, char**)
     }
     return 0;
 }
-
