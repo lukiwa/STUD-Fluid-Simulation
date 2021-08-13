@@ -10,6 +10,8 @@ ShaderProgram::ShaderProgram()
 {
 }
 
+ShaderProgram::~ShaderProgram() { Delete(); }
+
 // public methods
 /**
  * Change default shaders root (default: src/OpenGL/shaders/)

@@ -6,7 +6,7 @@
 class ShaderProgram {
 public:
     ShaderProgram();
-    ~ShaderProgram() = default;
+    ~ShaderProgram();
 
     ShaderProgram& ShadersRoot(const std::string& root);
     ShaderProgram& ShaderFilename(GLuint type, const std::string& shaderFilename);
