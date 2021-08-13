@@ -8,7 +8,10 @@ public:
 
     void Bind() const;
     void Unbind() const;
-    inline uint32_t Count() const { return _count; }
+    inline uint32_t Count() const
+    {
+        return _count;
+    }
 
 private:
     GLuint _id;

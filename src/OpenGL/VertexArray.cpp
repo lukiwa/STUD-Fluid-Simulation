@@ -15,14 +15,23 @@ VertexArray::VertexArray()
 /**
  * Destroy (delete) buffer
  */
-VertexArray::~VertexArray() { Unbind(); }
+VertexArray::~VertexArray()
+{
+    GlAssert(glDeleteVertexArrays(1, &_id));
+}
 
 /**
  * Bind buffer
  */
-void VertexArray::Bind() const { GlAssert(glBindVertexArray(_id)); }
+void VertexArray::Bind() const
+{
+    GlAssert(glBindVertexArray(_id));
+}
 
 /**
  * Undbind buffer
  */
-void VertexArray::Unbind() const { GlAssert(glBindVertexArray(0)); }
+void VertexArray::Unbind() const
+{
+    GlAssert(glBindVertexArray(0));
+}

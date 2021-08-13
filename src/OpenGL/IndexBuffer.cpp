@@ -22,14 +22,23 @@ IndexBuffer::IndexBuffer(const uint32_t* data, uint32_t count)
 /**
  * Destroy (delete) buffer
  */
-IndexBuffer::~IndexBuffer() { GlAssert(glDeleteBuffers(1, &_id)); }
+IndexBuffer::~IndexBuffer()
+{
+    GlAssert(glDeleteBuffers(1, &_id));
+}
 
 /**
  * Bind buffer
  */
-void IndexBuffer::Bind() const { GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _id)); }
+void IndexBuffer::Bind() const
+{
+    GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _id));
+}
 
 /**
  * Undbind buffer
  */
-void IndexBuffer::Unbind() const { GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)); }
+void IndexBuffer::Unbind() const
+{
+    GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+}

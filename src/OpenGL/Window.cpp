@@ -8,8 +8,19 @@
 namespace GLFW {
 
 // needs to be a free function
-void ResizeCallback(GLFWwindow*, int width, int height) { glViewport(0, 0, width, height); }
+void ResizeCallback(GLFWwindow*, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
 
+/**
+ * Constructs a new glfw windows and context
+ * @param width window width
+ * @param height window height
+ * @param title window title
+ * @param glfwContextMajorVersion OpenGL major version (default 3)
+ * @param glfwContextMinorVersion OpenGL minor version (default 3)
+ */
 Window::Window(int width, int height, const char* title, int glfwContextMajorVersion, int glfwContextMinorVersion)
 {
     glfwInit();
@@ -24,12 +35,34 @@ Window::Window(int width, int height, const char* title, int glfwContextMajorVer
     }
     glfwMakeContextCurrent(_windowHandle);
     glfwSetFramebufferSizeCallback(_windowHandle, ResizeCallback);
-    glViewport(0, 0, width, height); // fullscren
+    glViewport(0, 0, width, height); // full viewport
 }
 
-Window::~Window() { glfwTerminate(); }
-bool Window::ShouldClose() const { return glfwWindowShouldClose(_windowHandle); }
-void Window::SwapBuffers() const { glfwSwapBuffers(_windowHandle); }
+Window::~Window()
+{
+    glfwTerminate();
+}
+
+/**
+ * Should window close
+ * @return true if should close false otherwise
+ */
+bool Window::ShouldClose() const
+{
+    return glfwWindowShouldClose(_windowHandle);
+}
+
+/**
+ * Swap buffers
+ */
+void Window::SwapBuffers() const
+{
+    glfwSwapBuffers(_windowHandle);
+}
+
+/**
+ * Handle inputs to a program
+ */
 void Window::ProcessInput()
 {
     glfwPollEvents();

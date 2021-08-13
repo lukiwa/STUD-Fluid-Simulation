@@ -1,6 +1,5 @@
 #include <GL/glew.h>
 
-
 #pragma once
 class VertexArray {
 public:
@@ -9,6 +8,7 @@ public:
 
     void Bind() const;
     void Unbind() const;
+
 private:
     GLuint _id;
 };

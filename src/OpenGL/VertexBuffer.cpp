@@ -11,7 +11,7 @@
  * @param size vertex size
  */
 VertexBuffer::VertexBuffer(const void* data, uint32_t size)
-    : _id(1)
+    : _id(0)
 {
     GlAssert(glGenBuffers(1, &_id));
     GlAssert(glBindBuffer(GL_ARRAY_BUFFER, _id));
@@ -21,14 +21,23 @@ VertexBuffer::VertexBuffer(const void* data, uint32_t size)
 /**
  * Destroy (delete) buffer
  */
-VertexBuffer::~VertexBuffer() { GlAssert(glDeleteBuffers(1, &_id)); }
+VertexBuffer::~VertexBuffer()
+{
+    GlAssert(glDeleteBuffers(1, &_id));
+}
 
 /**
  * Bind buffer
  */
-void VertexBuffer::Bind() const { GlAssert(glBindBuffer(GL_ARRAY_BUFFER, _id)); }
+void VertexBuffer::Bind() const
+{
+    GlAssert(glBindBuffer(GL_ARRAY_BUFFER, _id));
+}
 
 /**
  * Undbind buffer
  */
-void VertexBuffer::Unbind() const { GlAssert(glBindBuffer(GL_ARRAY_BUFFER, 0)); }
+void VertexBuffer::Unbind() const
+{
+    GlAssert(glBindBuffer(GL_ARRAY_BUFFER, 0));
+}

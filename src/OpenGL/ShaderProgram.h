@@ -2,7 +2,6 @@
 #include "string"
 #include <GL/glew.h>
 
-
 class ShaderProgram {
 public:
     ShaderProgram();
@@ -15,7 +14,6 @@ public:
     void Use() const;
     void Delete() const;
 
-
 private:
     static std::string FileToString(const std::string& filepath);
     static GLuint CompileShader(GLuint type, const std::string& source);
@@ -27,4 +25,3 @@ private:
     std::string _vertexShaderSource;
     std::string _fragmentShaderSource;
 };
-
