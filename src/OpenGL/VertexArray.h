@@ -1,11 +1,14 @@
-//
-// Created by shaux on 29.07.2021.
-//
+#include <GL/glew.h>
 
-#ifndef FLUID_SIMULATION_VERTEXARRAY_H
-#define FLUID_SIMULATION_VERTEXARRAY_H
 
+#pragma once
 class VertexArray {
-};
+public:
+    VertexArray();
+    ~VertexArray();
 
-#endif // FLUID_SIMULATION_VERTEXARRAY_H
+    void Bind() const;
+    void Unbind() const;
+private:
+    GLuint _id;
+};
