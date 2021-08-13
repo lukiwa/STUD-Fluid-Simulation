@@ -14,8 +14,10 @@
 
 #include "OpenGL/IndexBuffer.h"
 #include "OpenGL/ShaderProgram.h"
+#include "OpenGL/VertexArray.h"
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
+#include "OpenGL/Window.h"
 
 void ResizeCallback(GLFWwindow* window, int width, int height);
 
@@ -24,53 +26,40 @@ void ProcessInput(GLFWwindow* window);
 int main(int, char**)
 {
     ALLOW_DISPLAY;
-
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow* window = glfwCreateWindow(512, 512, "LearnOpenGL", nullptr, nullptr);
-    if (window == nullptr) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
+    GLFW::Window window(512, 512, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to initialize OpenGL loader!\n";
-        return -1;
+        throw std::runtime_error("Failed to initialize OpenGL loader!");
     }
 
-    GlAssert(glViewport(0, 0, 512, 512));
-    GlAssert(glfwSetFramebufferSizeCallback(window, ResizeCallback));
     GlAssert(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
 
-    //create a scope, so all bound gl stuff will be unbind before glfw terminate
+    // create a scope, so all bound gl stuff will be unbind before glfw terminate
     {
+        VertexArray vao;
+        vao.Bind();
+
+        // clang-format off
         GLfloat positions[] = {
             // positions   // texture coords
-            0.5f, 0.5f, 1.0f, 1.0f, // top right
-            0.5f, -0.5f, 1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
-            -0.5f, 0.5f, 0.0f, 1.0f // top left
+            0.5f, 0.5f,     1.0f, 1.0f, // top right
+            0.5f, -0.5f,    1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f,   0.0f, 0.0f, // bottom left
+            -0.5f, 0.5f,    0.0f, 1.0f // top left
         };
-        GLuint indices[] = {
-            0, 1, 3, // first triangle
-            1, 2, 3 // second triangle
-        };
-
-        GLuint VAO;
-        GlAssert(glGenVertexArrays(1, &VAO));
-        GlAssert(glBindVertexArray(VAO));
+        // clang-format on
 
         VertexBuffer vertexBuffer(positions, sizeof(positions));
 
         VertexAttributes attributes;
-        attributes.AddAttribute(2, GL_FLOAT); //positions
-        attributes.AddAttribute(2, GL_FLOAT); //texture coordinates
+        attributes.AddAttribute(2, GL_FLOAT); // positions
+        attributes.AddAttribute(2, GL_FLOAT); // texture coordinates
         attributes.Bind();
 
+        GLuint indices[] = {
+            0, 1, 3, // first triangle
+            1, 2, 3 // second triangle
+        };
         IndexBuffer indexBuffer(indices, 6);
 
         ShaderProgram program;
@@ -124,11 +113,10 @@ int main(int, char**)
 
         // GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
 
-        while (!glfwWindowShouldClose(window)) {
-            ProcessInput(window);
+        while (!window.ShouldClose()) {
+            window.ProcessInput();
 
-            glfwSwapBuffers(window);
-            glfwPollEvents();
+            window.SwapBuffers();
 
             GlAssert(glClear(GL_COLOR_BUFFER_BIT));
             indexBuffer.Bind();
@@ -138,18 +126,7 @@ int main(int, char**)
 
             GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         }
-
-        program.Delete();
     }
-    glfwTerminate();
     return 0;
 }
 
-void ResizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
-
-void ProcessInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-}

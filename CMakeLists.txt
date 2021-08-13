@@ -24,7 +24,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 #Project target
 set(ROOT_SOURCES src/main.cpp)
-set(OPENGL_SOURCES src/OpenGL/ShaderProgram.cpp src/OpenGL/VertexBuffer.cpp src/OpenGL/IndexBuffer.cpp src/OpenGL/VertexAttributes.cpp src/OpenGL/VertexAttributes.h src/OpenGL/VertexArray.cpp src/OpenGL/VertexArray.h)
+set(OPENGL_SOURCES src/OpenGL/ShaderProgram.cpp src/OpenGL/VertexBuffer.cpp src/OpenGL/IndexBuffer.cpp src/OpenGL/VertexAttributes.cpp  src/OpenGL/VertexArray.cpp src/OpenGL/Texture.cpp src/OpenGL/Window.cpp)
 #set(SIMULATION_SOURCES src/Simulation/*.cpp)
 add_executable(${PROJECT_NAME} ${ROOT_SOURCES} ${OPENGL_SOURCES} ${SIMULATION_SOURCES})
 
