@@ -1,4 +1,13 @@
 #include "VertexAttributes.h"
+
+VertexAttributes::VertexAttributes()
+    : _stride(0)
+{
+}
+
+/**
+ * Bind vertex attributes
+ */
 void VertexAttributes::Bind()
 {
 
@@ -24,6 +33,11 @@ void VertexAttributes::AddAttribute(uint32_t count, GLenum type)
     _attributes.push_back(attribute);
 }
 
+/**
+ * Convert GLType (eg. GL_FLOAT to sizeof type - eg. sizeof(float))
+ * @param type GL type
+ * @return size of type
+ */
 uint32_t VertexAttributes::GlTypeToSize(GLenum type)
 {
     switch (type) {

@@ -8,11 +8,12 @@
 
 class VertexAttributes {
 public:
+    VertexAttributes();
+    ~VertexAttributes() = default;
     void Bind();
 
     void AddAttribute(uint32_t count, GLenum type);
 
-private:
     static uint32_t GlTypeToSize(GLenum type);
 
 private:
