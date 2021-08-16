@@ -1,76 +1,51 @@
-#include "OpenGL/ShaderProgram.h"
 #include "Tracing.h"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <cassert>
-#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <sstream>
+#include <random>
+#include <thread>
 
-void ResizeCallback(GLFWwindow* window, int width, int height);
-
-void ProcessInput(GLFWwindow* window);
+#include "OpenGL/IndexBuffer.h"
+#include "OpenGL/PixelBufferObject.h"
+#include "OpenGL/PixelMap.h"
+#include "OpenGL/Renderer.h"
+#include "OpenGL/ShaderProgram.h"
+#include "OpenGL/VertexArray.h"
+#include "OpenGL/VertexAttributes.h"
+#include "OpenGL/VertexBuffer.h"
+#include "OpenGL/Window.h"
+#include "Random.h"
 
 int main(int, char**)
 {
     ALLOW_DISPLAY;
-
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow* window = glfwCreateWindow(512, 512, "LearnOpenGL", nullptr, nullptr);
-    if (window == nullptr) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
+    GLFW::Window window(512, 512, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to initialize OpenGL loader!\n";
-        return -1;
+        throw std::runtime_error("Failed to initialize OpenGL loader!");
     }
 
-    GlAssert(glViewport(0, 0, 512, 512));
-    GlAssert(glfwSetFramebufferSizeCallback(window, ResizeCallback));
-    GlAssert(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+    VertexArray vao;
 
-    float positions[] = {
-        // positions   // texture coords
-        0.5f, 0.5f, 1.0f, 1.0f, // top right
-        0.5f, -0.5f, 1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f, 0.0f, 1.0f // top left
-    };
+    // clang-format off
+        GLfloat positions[] = {
+            1.0, 1.0f,     1.0f, 1.0f, // top right
+            1.0f, -1.0f,    1.0f, 0.0f, // bottom right
+            -1.0f, -1.0f,   0.0f, 0.0f, // bottom left
+            -1.0f, 1.0f,    0.0f, 1.0f // top left
+        };
+    // clang-format on
+    VertexBuffer vertexBuffer(positions, sizeof(positions));
+    VertexAttributes attributes;
+    attributes.AddAttribute(2, GL_FLOAT); // positions
+    attributes.AddAttribute(2, GL_FLOAT); // texture coordinates
+    attributes.Bind();
+
     GLuint indices[] = {
-        0, 1, 3, // first triangle
+        0, 1, 3, // first  triangle
         1, 2, 3 // second triangle
     };
-
-    GLuint VAO;
-    GlAssert(glGenVertexArrays(1, &VAO));
-    GlAssert(glBindVertexArray(VAO));
-
-    GLuint buffer;
-    GlAssert(glGenBuffers(1, &buffer));
-    GlAssert(glBindBuffer(GL_ARRAY_BUFFER, buffer));
-    GlAssert(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW));
-
-    GlAssert(glEnableVertexAttribArray(0));
-    GlAssert(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0));
-    GlAssert(glEnableVertexAttribArray(1));
-    GlAssert(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float))));
-
-    GLuint ibo;
-    GlAssert(glGenBuffers(1, &ibo));
-    GlAssert(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
-    GlAssert(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+    IndexBuffer indexBuffer(indices, 6);
 
     ShaderProgram program;
     program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
@@ -79,74 +54,23 @@ int main(int, char**)
         .LinkAndValidate()
         .Use();
 
-    GLubyte pixels[256 * 256 * 4];
-    for (int i = 0; i < sizeof(pixels); i++) {
-        pixels[i] = 255;
+    PixelMap pixelMap(512, 512, GL_RGBA);
+    pixelMap.SetAllPixels({ 255, 255, 255, 255 });
+
+    Renderer renderer(vao, indexBuffer, program, pixelMap);
+
+    while (!window.ShouldClose()) {
+        window.ProcessInput();
+
+        pixelMap.SetPixel(Random::Int(0, 512), Random::Int(0, 512),
+            { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+
+
+
+        //renderer.Clear();
+        renderer.Draw();
+
+        window.SwapBuffers();
     }
-
-    for (int x = 0; x < 128; x++) {
-        for (int y = 0; y < 128; y++) {
-            pixels[4 * (x + y * 256) + 0] = 125;
-            pixels[4 * (x + y * 256) + 1] = 125;
-            pixels[4 * (x + y * 256) + 2] = 125;
-            pixels[4 * (x + y * 256) + 3] = 125;
-        }
-    }
-
-    GLuint pbo;
-    GlAssert(glGenBuffers(1, &pbo));
-    GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
-    GlAssert(glBufferData(GL_PIXEL_UNPACK_BUFFER, 256 * 256 * 4, nullptr, GL_STREAM_DRAW));
-
-    void* mappedBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
-    std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte*>(mappedBuffer));
-    GlAssert(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER));
-
-    GLuint textureID;
-    GlAssert(glGenTextures(1, &textureID));
-    GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
-
-    // GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-    // GL_LINEAR)); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-    // GL_LINEAR_MIPMAP_NEAREST); glTexParameteri(GL_TEXTURE_2D,
-    // GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-    // GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE));
-    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-    GlAssert(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-
-    GlAssert(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr));
-
-    GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
-    GlAssert(glBindTexture(GL_TEXTURE_2D, 0));
-
-    // GlAssert(glGenerateMipmap(GL_TEXTURE_2D));
-
-    while (!glfwWindowShouldClose(window)) {
-        ProcessInput(window);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-
-        GlAssert(glClear(GL_COLOR_BUFFER_BIT));
-        // glDrawArrays(GL_TRIANGLES, 0, 6);
-        GlAssert(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo));
-        GlAssert(glBindTexture(GL_TEXTURE_2D, textureID));
-
-        GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-    }
-
-    program.Delete();
-    glfwTerminate();
     return 0;
-}
-
-void ResizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
-
-void ProcessInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
 }

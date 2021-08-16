@@ -10,6 +10,11 @@ ShaderProgram::ShaderProgram()
 {
 }
 
+ShaderProgram::~ShaderProgram()
+{
+    Delete();
+}
+
 // public methods
 /**
  * Change default shaders root (default: src/OpenGL/shaders/)
@@ -87,12 +92,18 @@ const ShaderProgram& ShaderProgram::LinkAndValidate() const
 /**
  * Use created program
  */
-void ShaderProgram::Use() const { GlAssert(glUseProgram(_programId)); }
+void ShaderProgram::Use() const
+{
+    GlAssert(glUseProgram(_programId));
+}
 
 /**
  * Delete program
  */
-void ShaderProgram::Delete() const { GlAssert(glDeleteProgram(_programId)); }
+void ShaderProgram::Delete() const
+{
+    GlAssert(glDeleteProgram(_programId));
+}
 
 // private methods
 /**
