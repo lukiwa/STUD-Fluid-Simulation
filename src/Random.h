@@ -16,7 +16,7 @@ public:
         return (distribution(_random_engine));
     }
 
-    static double Int(int min, int max)
+    static int Int(int min, int max)
     {
         std::uniform_int_distribution<int> distribution(min, max);
         return (distribution(_random_engine));

@@ -11,6 +11,7 @@
 #endif
 
 #ifndef DEBUG
+#error essa
 #define LOG(fmt, ...)
 #define LOG_ERROR(fmt, ...)
 #define LOG_WARNING(fmt, ...)
@@ -83,13 +84,13 @@ static const char* GLErrorToString(GLenum const error)
     }
 }
 
-static void GLClearError()
+inline static void GLClearError()
 {
     while (glGetError() != GL_NO_ERROR) {
     }
 }
 
-static void GLCheckError(const char* code, const char* filename, uint32_t lineNumber)
+inline static void GLCheckError(const char* code, const char* filename, uint32_t lineNumber)
 {
     uint32_t errorCount = 0;
     while (GLenum error = glGetError()) {

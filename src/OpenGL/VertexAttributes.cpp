@@ -16,7 +16,7 @@ void VertexAttributes::Bind()
         const auto& attribute = _attributes[i];
         GlAssert(glEnableVertexAttribArray(i));
         GlAssert(glVertexAttribPointer(
-            i, attribute.count, attribute.type, attribute.normalized, _stride, (const void*)offset));
+            i, attribute.count, attribute.type, attribute.normalized, _stride, reinterpret_cast<const void*>(offset)));
         offset += attribute.count * GlTypeToSize(attribute.type);
     }
 }

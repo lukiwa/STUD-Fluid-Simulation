@@ -1,6 +1,6 @@
 #include "PixelMap.h"
-#include <iostream>
 #include <chrono>
+#include <iostream>
 
 /**
  * Create new pixelmap
@@ -12,8 +12,8 @@ PixelMap::PixelMap(int width, int height, int type)
     : _pixelType(type)
     , _width(width)
     , _height(height)
-    , _pbo(width, height, type)
     , _type(type)
+    , _pbo(width, height, type)
 {
     _texture = Texture::Factory::Create(GL_TEXTURE_2D, width, height, 0, type, GL_UNSIGNED_BYTE, nullptr);
 }
@@ -51,7 +51,7 @@ void PixelMap::SetPixel(int x, int y, const std::vector<int>& components)
     auto* pixels = static_cast<GLubyte*>(_pbo.MapBuffer());
     int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
 
-    assert(pixelDepth == components.size());
+    assert(static_cast<std::size_t>(pixelDepth) == components.size());
 
     for (int i = 0; i < pixelDepth; ++i) {
         pixels[pixelDepth * (x + y * _width) + i] = components[i];
@@ -66,7 +66,6 @@ void PixelMap::SetPixel(int x, int y, const std::vector<int>& components)
  * Set all pixels to component values
  * @param components components values
  */
-
 
 void PixelMap::SetAllPixels(const std::vector<int>& components)
 {
