@@ -9,8 +9,8 @@ public:
     void Bind() const;
     void Unbind() const;
 
-    void* MapBuffer();
-    void UnmapBuffer();
+    void* MapBuffer() const;
+    void UnmapBuffer() const;
 
     static int ConvertFormatToNumber(int internalFormat);
 

@@ -31,6 +31,7 @@ int PixelBufferObject::ConvertFormatToNumber(int internalFormat)
 {
     switch (internalFormat) {
     case GL_RGBA:
+    case GL_BGRA:
         return 4;
     case GL_RGB:
         return 3;
@@ -59,7 +60,7 @@ void PixelBufferObject::Unbind() const
  * Map buffer
  * @return mapped buffer ready to be written to
  */
-void* PixelBufferObject::MapBuffer()
+void* PixelBufferObject::MapBuffer() const
 {
     return glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
 }
@@ -67,7 +68,7 @@ void* PixelBufferObject::MapBuffer()
 /**
  * Unmap buffer
  */
-void PixelBufferObject::UnmapBuffer()
+void PixelBufferObject::UnmapBuffer() const
 {
     GlAssert(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER));
 }
