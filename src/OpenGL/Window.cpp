@@ -35,7 +35,6 @@ Window::Window(int width, int height, const char* title, int glfwContextMajorVer
     }
     glfwMakeContextCurrent(_windowHandle);
     glfwSetFramebufferSizeCallback(_windowHandle, ResizeCallback);
-    glViewport(0, 0, width, height); // full viewport
 }
 
 Window::~Window()
