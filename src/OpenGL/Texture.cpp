@@ -64,13 +64,14 @@ std::unique_ptr<Texture> Texture::Factory::Create(
     std::unique_ptr<Texture> texture(new Texture(textureType));
     texture->Bind();
     texture->SetTextureParameters();
+    GLenum formatConverted = pixelFormat == GL_BGRA || GL_RGBA ? GL_RGBA : pixelFormat;
 
     switch (textureType) {
     case GL_TEXTURE_2D:
-        GlAssert(glTexImage2D(GL_TEXTURE_2D, 0, pixelFormat, width, height, 0, pixelFormat, dataType, data));
+        GlAssert(glTexImage2D(GL_TEXTURE_2D, 0, formatConverted, width, height, 0, pixelFormat, dataType, data));
         break;
     case GL_TEXTURE_3D:
-        GlAssert(glTexImage3D(GL_TEXTURE_3D, 0, pixelFormat, width, height, depth, 0, pixelFormat, dataType, data));
+        GlAssert(glTexImage3D(GL_TEXTURE_3D, 0, formatConverted, width, height, depth, 0, pixelFormat, dataType, data));
         break;
     default:
         LOG_ERROR("UNKNOWN TEXTURE TYPE!");
