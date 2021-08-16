@@ -1,29 +1,20 @@
 #include "Tracing.h"
-
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <cassert>
-#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <sstream>
+#include <random>
+#include <thread>
 
 #include "OpenGL/IndexBuffer.h"
 #include "OpenGL/PixelBufferObject.h"
+#include "OpenGL/PixelMap.h"
+#include "OpenGL/Renderer.h"
 #include "OpenGL/ShaderProgram.h"
-#include "OpenGL/Texture.h"
 #include "OpenGL/VertexArray.h"
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
-
-void ResizeCallback(GLFWwindow* window, int width, int height);
-
-void ProcessInput(GLFWwindow* window);
+#include "Random.h"
 
 int main(int, char**)
 {
@@ -34,81 +25,52 @@ int main(int, char**)
         throw std::runtime_error("Failed to initialize OpenGL loader!");
     }
 
-    GlAssert(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+    VertexArray vao;
 
-    // create a scope, so all bound gl stuff will be unbind before glfw terminate
-    {
-        VertexArray vao;
-        vao.Bind();
-
-        // clang-format off
+    // clang-format off
         GLfloat positions[] = {
-            // positions   // texture coords
-            0.5f, 0.5f,     1.0f, 1.0f, // top right
-            0.5f, -0.5f,    1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f,   0.0f, 0.0f, // bottom left
-            -0.5f, 0.5f,    0.0f, 1.0f // top left
+            1.0, 1.0f,     1.0f, 1.0f, // top right
+            1.0f, -1.0f,    1.0f, 0.0f, // bottom right
+            -1.0f, -1.0f,   0.0f, 0.0f, // bottom left
+            -1.0f, 1.0f,    0.0f, 1.0f // top left
         };
-        // clang-format on
+    // clang-format on
+    VertexBuffer vertexBuffer(positions, sizeof(positions));
+    VertexAttributes attributes;
+    attributes.AddAttribute(2, GL_FLOAT); // positions
+    attributes.AddAttribute(2, GL_FLOAT); // texture coordinates
+    attributes.Bind();
 
-        VertexBuffer vertexBuffer(positions, sizeof(positions));
+    GLuint indices[] = {
+        0, 1, 3, // first  triangle
+        1, 2, 3 // second triangle
+    };
+    IndexBuffer indexBuffer(indices, 6);
 
-        VertexAttributes attributes;
-        attributes.AddAttribute(2, GL_FLOAT); // positions
-        attributes.AddAttribute(2, GL_FLOAT); // texture coordinates
-        attributes.Bind();
+    ShaderProgram program;
+    program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
+        .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
+        .CompileShaders()
+        .LinkAndValidate()
+        .Use();
 
-        GLuint indices[] = {
-            0, 1, 3, // first  triangle
-            1, 2, 3 // second triangle
-        };
-        IndexBuffer indexBuffer(indices, 6);
+    PixelMap pixelMap(512, 512, GL_RGBA);
+    pixelMap.SetAllPixels({ 255, 255, 255, 255 });
 
-        ShaderProgram program;
-        program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
-            .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
-            .CompileShaders()
-            .LinkAndValidate()
-            .Use();
+    Renderer renderer(vao, indexBuffer, program, pixelMap);
 
-        GLubyte pixels[256 * 256 * 4];
-        for (int i = 0; i < sizeof(pixels); i++) {
-            pixels[i] = 255;
-        }
+    while (!window.ShouldClose()) {
+        window.ProcessInput();
 
-        for (int x = 0; x < 128; x++) {
-            for (int y = 0; y < 128; y++) {
-                pixels[4 * (x + y * 256) + 0] = 125;
-                pixels[4 * (x + y * 256) + 1] = 125;
-                pixels[4 * (x + y * 256) + 2] = 125;
-                pixels[4 * (x + y * 256) + 3] = 125;
-            }
-        }
+        pixelMap.SetPixel(Random::Int(0, 512), Random::Int(0, 512),
+            { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
 
-        PixelBufferObject pbo(256, 256, GL_RGBA);
 
-        void* mappedBuffer = pbo.MapBuffer();
-        std::copy(std::begin(pixels), std::end(pixels), static_cast<GLubyte*>(mappedBuffer));
-        pbo.UnmapBuffer();
 
-        auto texture = Texture::Factory::Create(GL_TEXTURE_2D, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        //renderer.Clear();
+        renderer.Draw();
 
-        pbo.Unbind();
-        texture->Unbind();
-
-        while (!window.ShouldClose()) {
-            window.ProcessInput();
-
-            window.SwapBuffers();
-
-            GlAssert(glClear(GL_COLOR_BUFFER_BIT));
-            indexBuffer.Bind();
-
-            pbo.Bind();
-            texture->Bind();
-
-            GlAssert(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-        }
+        window.SwapBuffers();
     }
     return 0;
 }
