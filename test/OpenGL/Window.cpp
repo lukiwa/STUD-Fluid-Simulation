@@ -2,13 +2,13 @@
 #include "Window.h"
 #include "gtest/gtest.h"
 #include <gmock/gmock.h>
-
+#include "Tracing.h"
 
 class WindowTextFixture : public ::testing::Test {
 public:
     WindowTextFixture()
     {
-        setenv("DISPLAY", "127.0.0.1:0", true);
+        ALLOW_DISPLAY;
     }
 
     void SetUp() override
@@ -22,12 +22,12 @@ public:
 
 TEST_F(WindowTextFixture, WindowShouldNoThrow)
 {
-    EXPECT_NO_THROW(GLFW::Window window(10, 10, "Test"));
+    ASSERT_NO_THROW(GLFW::Window window(10, 10, "Test"));
 }
 
 TEST_F(WindowTextFixture, GlewInitShouldSucceedAfterWindowCreation)
 {
     GLFW::Window window(10, 10, "Test");
-    EXPECT_EQ(glewInit(), GLEW_OK);
+    ASSERT_EQ(glewInit(), GLEW_OK);
 }
 
