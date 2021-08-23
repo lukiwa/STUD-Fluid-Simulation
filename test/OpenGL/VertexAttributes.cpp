@@ -22,9 +22,9 @@ public:
 
 TEST_F(VertexAttributesTestFixture, GlTypeSizeIsSameAsPodSizes )
 {
-    EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_FLOAT), sizeof(float));
-    EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_INT), sizeof(int));
-    EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_UNSIGNED_INT), sizeof(unsigned int));
+    ASSERT_EQ(VertexAttributes::GlTypeToSize(GL_FLOAT), sizeof(float));
+    ASSERT_EQ(VertexAttributes::GlTypeToSize(GL_INT), sizeof(int));
+    ASSERT_EQ(VertexAttributes::GlTypeToSize(GL_UNSIGNED_INT), sizeof(unsigned int));
     //not recognized, will invoke warning
     EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_R), 0);
 }
@@ -37,7 +37,7 @@ TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeZero)
 
     attributes.AddAttribute(count, type);
     attributes.Bind();
-    EXPECT_EQ(attributes.GetLastOffset(), 0);
+    ASSERT_EQ(attributes.GetLastOffset(), 0);
 }
 
 TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinusLastAttributeSizeDoubleAttribute)
@@ -54,7 +54,7 @@ TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinus
 
 
     attributes.Bind();
-    EXPECT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
+    ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
 }
 
 TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinusLastAttributeSizeTrippleAtribute)
@@ -71,7 +71,7 @@ TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinus
 
 
     attributes.Bind();
-    EXPECT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
+    ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
 }
 
 
@@ -89,7 +89,7 @@ TEST_F(VertexAttributesTestFixture, StrideIsSizeOfVertex)
 
 
     attributes.Bind();
-    EXPECT_EQ(attributes.GetStride(), count * attributeNumber * VertexAttributes::GlTypeToSize(type));
+    ASSERT_EQ(attributes.GetStride(), count * attributeNumber * VertexAttributes::GlTypeToSize(type));
 }
 
 
