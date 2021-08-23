@@ -13,6 +13,8 @@ public:
     void Bind();
 
     void AddAttribute(uint32_t count, GLenum type);
+    uint32_t GetStride() const;
+    uint32_t GetLastOffset() const;
 
     static uint32_t GlTypeToSize(GLenum type);
 
@@ -26,4 +28,5 @@ private:
     // I do not actually need to store it on the CPU side, but may be useful to debug
     std::vector<VertexAttributeElement> _attributes;
     uint32_t _stride;
+    uint32_t _lastOffset;
 };

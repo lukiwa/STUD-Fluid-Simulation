@@ -2,6 +2,7 @@
 
 VertexAttributes::VertexAttributes()
     : _stride(0)
+    , _lastOffset(0)
 {
 }
 
@@ -11,13 +12,16 @@ VertexAttributes::VertexAttributes()
 void VertexAttributes::Bind()
 {
 
-    uint32_t offset = 0;
+    _lastOffset = 0;
     for (std::size_t i = 0; i < _attributes.size(); ++i) {
         const auto& attribute = _attributes[i];
         GlAssert(glEnableVertexAttribArray(i));
         GlAssert(glVertexAttribPointer(
-            i, attribute.count, attribute.type, attribute.normalized, _stride, reinterpret_cast<const void*>(offset)));
-        offset += attribute.count * GlTypeToSize(attribute.type);
+            i, attribute.count, attribute.type, attribute.normalized, _stride, reinterpret_cast<const void*>(_lastOffset)));
+        //if only only one attribute there is no offset
+        if(i > 0) {
+            _lastOffset += attribute.count * GlTypeToSize(attribute.type);
+        }
     }
 }
 
@@ -51,4 +55,13 @@ uint32_t VertexAttributes::GlTypeToSize(GLenum type)
         LOG_WARNING("RETREVING SIZE OF UNEXPECTED TYPE!");
         return 0;
     }
+}
+
+uint32_t VertexAttributes::GetStride() const
+{
+    return _stride;
+}
+uint32_t VertexAttributes::GetLastOffset() const
+{
+    return _lastOffset;
 }
