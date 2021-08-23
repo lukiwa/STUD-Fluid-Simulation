@@ -69,11 +69,24 @@ void PixelMap::SetPixel(int x, int y, const std::vector<int>& components)
 
 void PixelMap::SetAllPixels(const std::vector<int>& components)
 {
+    Bind();
+
+    auto* pixels = static_cast<GLubyte*>(_pbo.MapBuffer());
+    int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
+
+    assert(static_cast<std::size_t>(pixelDepth) == components.size());
+
     for (int x = 0; x < _width; ++x) {
         for (int y = 0; y < _height; ++y) {
-            SetPixel(x, y, components);
+            for (int i = 0; i < pixelDepth; ++i) {
+                pixels[pixelDepth * (x + y * _width) + i] = components[i];
+            }
         }
     }
+
+    _pbo.UnmapBuffer();
+
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 }
 void PixelMap::Clear() const
 {
