@@ -1,12 +1,12 @@
 #include "ShaderProgram.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 // constructors
 ShaderProgram::ShaderProgram()
-    : _shadersRoot("../src/OpenGL/shaders/")
+    : _shadersRoot("../../src/OpenGL/shaders/")
 {
 }
 

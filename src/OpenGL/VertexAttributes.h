@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Tracing.h"
+#include "Tracing.h"
 #include "GL/glew.h"
 #include <algorithm>
 #include <cstdint>

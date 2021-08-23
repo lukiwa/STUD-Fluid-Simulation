@@ -1,20 +1,16 @@
-#include "Tracing.h"
+#include "Utilities/Tracing.h"
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <random>
-#include <thread>
 
 #include "OpenGL/IndexBuffer.h"
 #include "OpenGL/PixelBufferObject.h"
 #include "OpenGL/PixelMap.h"
 #include "OpenGL/Renderer.h"
-#include "OpenGL/ShaderProgram.h"
-#include "OpenGL/VertexArray.h"
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
-#include "Random.h"
+#include "Utilities/Random.h"
 
 int main(int, char**)
 {

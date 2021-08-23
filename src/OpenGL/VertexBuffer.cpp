@@ -3,7 +3,7 @@
 //
 
 #include "VertexBuffer.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 
 /**
  * Create buffer

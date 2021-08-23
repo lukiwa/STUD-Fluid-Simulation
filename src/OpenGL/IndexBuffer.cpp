@@ -1,9 +1,5 @@
-//
-// Created by shaux on 27.07.2021.
-//
-
 #include "IndexBuffer.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 
 /**
  * Create buffer

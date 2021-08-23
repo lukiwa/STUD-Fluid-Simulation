@@ -1,6 +1,6 @@
 #include "PixelBufferObject.h"
 
-#include "../Tracing.h"
+#include "Tracing.h"
 
 /**
  * Create new pixel buffer object

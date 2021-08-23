@@ -11,7 +11,6 @@
 #endif
 
 #ifndef DEBUG
-#error essa
 #define LOG(fmt, ...)
 #define LOG_ERROR(fmt, ...)
 #define LOG_WARNING(fmt, ...)

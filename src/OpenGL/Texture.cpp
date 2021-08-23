@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 
 /**
  * Constructs new texture
