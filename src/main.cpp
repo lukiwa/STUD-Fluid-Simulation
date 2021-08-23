@@ -43,12 +43,16 @@ int main(int, char**)
     };
     IndexBuffer indexBuffer(indices, 6);
 
-    ShaderProgram program;
-    program.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
-        .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
-        .CompileShaders()
-        .LinkAndValidate()
-        .Use();
+    ShaderProgramBuilder builder;
+    int validationResult = 0;
+    auto program = builder.ShaderFilename(GL_VERTEX_SHADER, "vertex_shader.glsl")
+                       .ShaderFilename(GL_FRAGMENT_SHADER, "fragment_shader.glsl")
+                       .CreateProgram()
+                       .CompileShader(GL_VERTEX_SHADER)
+                       .CompileShader(GL_FRAGMENT_SHADER)
+                       .LinkShaders()
+                       .Validate(validationResult)
+                       .Build();
 
     PixelMap pixelMap(512, 512, GL_RGBA);
     pixelMap.SetAllPixels({ 255, 255, 255, 255 });
@@ -61,9 +65,7 @@ int main(int, char**)
         pixelMap.SetPixel(Random::Int(0, 512), Random::Int(0, 512),
             { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
 
-
-
-        //renderer.Clear();
+        // renderer.Clear();
         renderer.Draw();
 
         window.SwapBuffers();

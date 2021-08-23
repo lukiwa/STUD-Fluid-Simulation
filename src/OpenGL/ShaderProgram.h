@@ -4,24 +4,41 @@
 
 class ShaderProgram {
 public:
-    ShaderProgram();
     ~ShaderProgram();
-
-    ShaderProgram& ShadersRoot(const std::string& root);
-    ShaderProgram& ShaderFilename(GLuint type, const std::string& shaderFilename);
-    ShaderProgram& CompileShaders();
-    const ShaderProgram& LinkAndValidate() const;
     void Use() const;
     void Delete() const;
 
 private:
+    ShaderProgram() = default;
+    GLuint _programId;
+    friend class ShaderProgramBuilder;
+};
+
+class ShaderProgramBuilder {
+public:
+    ShaderProgramBuilder();
+    ~ShaderProgramBuilder() = default;
+
+    ShaderProgramBuilder& ShadersRoot(const std::string& root);
+    ShaderProgramBuilder& ShaderFilename(GLuint type, const std::string& shaderFilename);
+    ShaderProgramBuilder& CreateProgram();
+    ShaderProgramBuilder& CompileShader(GLuint type);
+    ShaderProgramBuilder& LinkShaders();
+    ShaderProgramBuilder& Validate(int& outResult);
+    ShaderProgram Build() const;
+
+    const std::string& GetShaderSource(GLuint type) const;
+    GLuint GetProgramId() const;
+    GLuint GetShaderId(GLuint type) const;
+
+
+private:
     static std::string FileToString(const std::string& filepath);
-    static GLuint CompileShader(GLuint type, const std::string& source);
 
     std::string _shadersRoot;
-    GLuint _programId{};
-    GLuint _vertexShaderId{};
-    GLuint _fragmentShaderId{};
+    GLuint _programId;
+    GLuint _vertexShaderId;
+    GLuint _fragmentShaderId;
     std::string _vertexShaderSource;
     std::string _fragmentShaderSource;
 };
