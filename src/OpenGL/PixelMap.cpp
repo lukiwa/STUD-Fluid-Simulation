@@ -1,6 +1,7 @@
 #include "PixelMap.h"
 #include <chrono>
 #include <iostream>
+#include <regex>
 
 /**
  * Create new pixelmap
@@ -88,6 +89,27 @@ void PixelMap::SetAllPixels(const std::vector<int>& components)
  */
 void PixelMap::Clear()
 {
-    SetAllPixels({255, 255, 255, 255});
+    SetAllPixels({ 255, 255, 255, 255 });
 }
 
+/**
+ * Get pixel components at given position
+ * @param x x coord
+ * @param y y coord
+ * @return vector containing pixel components
+ */
+std::vector<GLubyte> PixelMap::GetPixel(int x, int y) const
+{
+    assert(x <= _width);
+    assert(y <= _height);
+
+    std::vector<GLubyte> result;
+    int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
+    result.reserve(pixelDepth);
+
+    for (int i = 0; i < pixelDepth; ++i) {
+        result.push_back(_pixelBuffer[pixelDepth * (x + y * _width) + i]);
+    }
+
+    return result;
+}

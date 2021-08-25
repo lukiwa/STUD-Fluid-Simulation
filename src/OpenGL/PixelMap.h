@@ -37,6 +37,7 @@ public:
 
     void SetAllPixels(const std::vector<int>& components);
     void SetPixel(int x, int y, const std::vector<int>& components);
+    std::vector<GLubyte> GetPixel(int x, int y) const;
     void SwapBuffer();
 
     void Clear();
