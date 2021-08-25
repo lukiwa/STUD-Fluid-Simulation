@@ -9,19 +9,26 @@ VertexAttributes::VertexAttributes()
 /**
  * Bind vertex attributes
  */
-void VertexAttributes::Bind()
+void VertexAttributes::Bind() const
 {
 
     _lastOffset = 0;
     for (std::size_t i = 0; i < _attributes.size(); ++i) {
         const auto& attribute = _attributes[i];
         GlAssert(glEnableVertexAttribArray(i));
-        GlAssert(glVertexAttribPointer(
-            i, attribute.count, attribute.type, attribute.normalized, _stride, reinterpret_cast<const void*>(_lastOffset)));
-        //if only only one attribute there is no offset
-        if(i > 0) {
+        GlAssert(glVertexAttribPointer(i, attribute.count, attribute.type, attribute.normalized, _stride,
+            reinterpret_cast<const void*>(_lastOffset)));
+        // if only only one attribute there is no offset
+        if (i > 0) {
             _lastOffset += attribute.count * GlTypeToSize(attribute.type);
         }
+    }
+}
+
+void VertexAttributes::Unbind() const
+{
+    for (std::size_t i = 0; i < _attributes.size(); ++i) {
+        glDisableVertexAttribArray(i);
     }
 }
 
