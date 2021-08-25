@@ -54,8 +54,9 @@ int main(int, char**)
                        .Validate(validationResult)
                        .Build();
 
-    PixelMap pixelMap(512, 512, GL_RGBA);
+    PixelMap pixelMap({ 512, 512, 0 }, GL_RGBA, new PixelMapComponentsFactory());
     pixelMap.SetAllPixels({ 255, 255, 255, 255 });
+    pixelMap.SwapBuffer();
 
     Renderer renderer(vao, indexBuffer, program, pixelMap);
 
@@ -63,9 +64,9 @@ int main(int, char**)
         window.ProcessInput();
 
         pixelMap.SetPixel(Random::Int(0, 512), Random::Int(0, 512),
-            { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+              { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
 
-        // renderer.Clear();
+
         renderer.Draw();
 
         window.SwapBuffers();

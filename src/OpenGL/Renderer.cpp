@@ -25,6 +25,8 @@ void Renderer::Draw() const
     _ibo.Bind();
     _program.Use();
     _pixelMap.Bind();
+    _pixelMap.SwapBuffer();
+
 
     GlAssert(glDrawElements(GL_TRIANGLES, _ibo.Count(), GL_UNSIGNED_INT, nullptr));
 }
