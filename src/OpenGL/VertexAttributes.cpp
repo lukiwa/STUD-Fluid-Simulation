@@ -18,10 +18,7 @@ void VertexAttributes::Bind() const
         GlAssert(glEnableVertexAttribArray(i));
         GlAssert(glVertexAttribPointer(i, attribute.count, attribute.type, attribute.normalized, _stride,
             reinterpret_cast<const void*>(_lastOffset)));
-        // if only only one attribute there is no offset
-        if (i > 0) {
-            _lastOffset += attribute.count * GlTypeToSize(attribute.type);
-        }
+        _lastOffset += attribute.count * GlTypeToSize(attribute.type);
     }
 }
 

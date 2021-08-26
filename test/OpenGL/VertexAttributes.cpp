@@ -29,7 +29,7 @@ TEST_F(VertexAttributesTestFixture, GlTypeSizeIsSameAsPodSizes )
     EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_R), 0);
 }
 
-TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeZero)
+TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeTypeSize)
 {
     VertexAttributes attributes;
     const int count = 1;
@@ -37,27 +37,10 @@ TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeZero)
 
     attributes.AddAttribute(count, type);
     attributes.Bind();
-    ASSERT_EQ(attributes.GetLastOffset(), 0);
+    ASSERT_EQ(attributes.GetLastOffset(), VertexAttributes::GlTypeToSize(type));
 }
 
-TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinusLastAttributeSizeDoubleAttribute)
-{
-    VertexAttributes attributes;
-    const int count = 2;
-    const int attributeNumber = 2;
-    const GLenum type = GL_FLOAT;
-
-
-    for (int attribute = 0; attribute < attributeNumber; ++attribute) {
-        attributes.AddAttribute(count, type);
-    }
-
-
-    attributes.Bind();
-    ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
-}
-
-TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinusLastAttributeSizeTrippleAtribute)
+TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeShouldBeNumberOfAttributesTimesAttributesTimesSizeOfType)
 {
     VertexAttributes attributes;
     const int count = 2;
@@ -71,9 +54,8 @@ TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeofPreviousAttributesMinus
 
 
     attributes.Bind();
-    ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type) - count * VertexAttributes::GlTypeToSize(type));
+    ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type));
 }
-
 
 TEST_F(VertexAttributesTestFixture, StrideIsSizeOfVertex)
 {
