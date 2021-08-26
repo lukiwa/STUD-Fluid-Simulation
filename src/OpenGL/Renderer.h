@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Tracing.h"
+#include "Tracing.h"
 #include "IndexBuffer.h"
 #include "PixelMap.h"
 #include "ShaderProgram.h"

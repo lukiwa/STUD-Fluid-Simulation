@@ -1,6 +1,7 @@
 #include "PixelMap.h"
 #include <chrono>
 #include <iostream>
+#include <regex>
 
 /**
  * Create new pixelmap
@@ -8,14 +9,15 @@
  * @param height
  * @param type pixeltype (eg. GL_RGBA)
  */
-PixelMap::PixelMap(int width, int height, int type)
-    : _pixelType(type)
-    , _width(width)
-    , _height(height)
-    , _type(type)
-    , _pbo(width, height, type)
+PixelMap::PixelMap(Dimensions dimensions, int internalPixelFormat, IPixelMapComponentsFactory* factory)
+    : _pixelType(internalPixelFormat)
+    , _width(dimensions.x)
+    , _height(dimensions.y)
 {
-    _texture = Texture::Factory::Create(GL_TEXTURE_2D, width, height, 0, type, GL_UNSIGNED_BYTE, nullptr);
+    auto components = factory->CreateComponents(dimensions, internalPixelFormat, GL_UNSIGNED_BYTE, nullptr);
+    _pbo = std::move(components.first);
+    _texture = std::move(components.second);
+    _pixelBuffer.resize(_width * _height * PixelBufferObject::ConvertFormatToNumber(_pixelType));
 }
 
 /**
@@ -23,7 +25,7 @@ PixelMap::PixelMap(int width, int height, int type)
  */
 void PixelMap::Bind() const
 {
-    _pbo.Bind();
+    _pbo->Bind();
     _texture->Bind();
 }
 /*
@@ -31,39 +33,45 @@ void PixelMap::Bind() const
  */
 void PixelMap::Unbind() const
 {
-    _pbo.Unbind();
+    _pbo->Unbind();
     _texture->Unbind();
+}
+
+void PixelMap::SwapBuffer()
+{
+    Bind();
+    auto* pixels = static_cast<GLubyte*>(_pbo->MapBuffer());
+    std::copy(_pixelBuffer.begin(), _pixelBuffer.end(), pixels);
+    _pbo->UnmapBuffer();
+    _texture->SubImage(nullptr);
 }
 
 /**
  * Set given pixel to components value
  * NOTE: components size is not checked
+ * NOTE: You should use SwapBuffers afterwards
  * @param x x coord
  * @param y y coord
  * @param components pixel components (eg. RGBA values)
  */
 void PixelMap::SetPixel(int x, int y, const std::vector<int>& components)
 {
-    Bind();
     assert(x <= _width);
     assert(y <= _height);
 
-    auto* pixels = static_cast<GLubyte*>(_pbo.MapBuffer());
     int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
 
     assert(static_cast<std::size_t>(pixelDepth) == components.size());
 
     for (int i = 0; i < pixelDepth; ++i) {
-        pixels[pixelDepth * (x + y * _width) + i] = components[i];
+        _pixelBuffer[pixelDepth * (x + y * _width) + i] = components[i];
     }
 
-    _pbo.UnmapBuffer();
-
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 }
 
 /**
  * Set all pixels to component values
+ * NOTE: You should use SwapBuffers afterwards
  * @param components components values
  */
 
@@ -75,13 +83,33 @@ void PixelMap::SetAllPixels(const std::vector<int>& components)
         }
     }
 }
-void PixelMap::Clear() const
+
+/**
+ * Set all pixels to white
+ */
+void PixelMap::Clear()
 {
-    Bind();
+    SetAllPixels({ 255, 255, 255, 255 });
+}
 
-    auto* pixels = static_cast<GLubyte*>(_pbo.MapBuffer());
-    std::fill_n(pixels, _width * _height * PixelBufferObject::ConvertFormatToNumber(_pixelType), 255);
-    _pbo.UnmapBuffer();
+/**
+ * Get pixel components at given position
+ * @param x x coord
+ * @param y y coord
+ * @return vector containing pixel components
+ */
+std::vector<GLubyte> PixelMap::GetPixel(int x, int y) const
+{
+    assert(x <= _width);
+    assert(y <= _height);
 
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+    std::vector<GLubyte> result;
+    int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
+    result.reserve(pixelDepth);
+
+    for (int i = 0; i < pixelDepth; ++i) {
+        result.push_back(_pixelBuffer[pixelDepth * (x + y * _width) + i]);
+    }
+
+    return result;
 }

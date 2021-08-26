@@ -1,27 +1,32 @@
+#pragma once
+#include "Dimensions.h"
+#include "IBoundable.h"
 #include <GL/glew.h>
 #include <memory>
 
-#pragma once
-
-class Texture {
-private:
-    explicit Texture(GLenum target);
-
-    void SetTextureParameters() const;
-
+class ITexture : public IBoundable {
 public:
+    virtual ~ITexture() = default;
+    virtual void SetTextureParameters() const = 0;
+    virtual void SubImage(void* pixels) const = 0;
+};
+
+class Texture : public ITexture {
+public:
+    Texture(GLenum textureType, Dimensions dimensions, GLenum pixelFormat, GLenum dataType, const void* data);
+
     ~Texture();
+    void SetTextureParameters() const override;
+    void SubImage(void* pixels) const override;
 
-    class Factory {
-    public:
-        static std::unique_ptr<Texture> Create(GLenum textureType, int width, int height, int depth, GLenum pixelFormat,
-            GLenum dataType, const void* data);
-    };
-
-    void Bind() const;
-    void Unbind() const;
+    void Bind() const override;
+    void Unbind() const override;
 
 private:
-    GLenum _target;
     GLuint _id;
+
+    GLenum _target;
+    Dimensions _dimensions;
+    GLenum _pixelFormat;
+    GLenum _dataType;
 };

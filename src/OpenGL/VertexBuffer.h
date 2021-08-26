@@ -1,15 +1,15 @@
+#pragma once
+#include "IBoundable.h"
 #include <GL/glew.h>
 
-
-#pragma once
-class VertexBuffer {
+class VertexBuffer : public IBoundable {
 public:
     VertexBuffer(const void* data, uint32_t size);
     ~VertexBuffer();
 
-    void Bind() const;
-    void Unbind() const;
+    void Bind() const override;
+    void Unbind() const override;
+
 private:
     GLuint _id;
 };
-

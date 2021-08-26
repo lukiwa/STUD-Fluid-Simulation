@@ -1,5 +1,5 @@
 #include "VertexArray.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 
 /**
  * Create vertex array

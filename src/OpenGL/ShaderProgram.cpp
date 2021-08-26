@@ -1,27 +1,44 @@
 #include "ShaderProgram.h"
-#include "../Tracing.h"
+#include "Tracing.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
-
-// constructors
-ShaderProgram::ShaderProgram()
-    : _shadersRoot("../src/OpenGL/shaders/")
-{
-}
 
 ShaderProgram::~ShaderProgram()
 {
     Delete();
 }
 
-// public methods
+/**
+ * Use program
+ */
+void ShaderProgram::Use() const
+{
+    GlAssert(glUseProgram(_programId));
+}
+
+/**
+ * Delete program
+ */
+void ShaderProgram::Delete() const
+{
+    GlAssert(glDeleteProgram(_programId));
+}
+
+ShaderProgramBuilder::ShaderProgramBuilder()
+    : _shadersRoot("../../src/OpenGL/shaders/")
+    , _programId(0)
+    , _vertexShaderId(0)
+    , _fragmentShaderId(0)
+{
+}
+
 /**
  * Change default shaders root (default: src/OpenGL/shaders/)
  * @param root new root
  * @return "this" reference
  */
-ShaderProgram& ShaderProgram::ShadersRoot(const std::string& root)
+ShaderProgramBuilder& ShaderProgramBuilder::ShadersRoot(const std::string& root)
 {
     _shadersRoot = root;
     return *this;
@@ -33,7 +50,7 @@ ShaderProgram& ShaderProgram::ShadersRoot(const std::string& root)
  * @param shaderFilename filename of the shader
  * @return "this" reference
  */
-ShaderProgram& ShaderProgram::ShaderFilename(const GLuint type, const std::string& shaderFilename)
+ShaderProgramBuilder& ShaderProgramBuilder::ShaderFilename(GLuint type, const std::string& shaderFilename)
 {
     switch (type) {
     case GL_VERTEX_SHADER:
@@ -49,91 +66,25 @@ ShaderProgram& ShaderProgram::ShaderFilename(const GLuint type, const std::strin
 }
 
 /**
- * Create program and compile shaders. Proper error message will be displayed on error.
- * @return "this" reference
+ * Create shader program
+ * @return this reference
  */
-ShaderProgram& ShaderProgram::CompileShaders()
+ShaderProgramBuilder& ShaderProgramBuilder::CreateProgram()
 {
     _programId = glCreateProgram();
-    if (!_vertexShaderSource.empty() && !_fragmentShaderSource.empty()) {
-        _vertexShaderId = CompileShader(GL_VERTEX_SHADER, _vertexShaderSource);
-        _fragmentShaderId = CompileShader(GL_FRAGMENT_SHADER, _fragmentShaderSource);
-    } else {
-        LOG_ERROR("ONE OF THE SHADER SOURCE IS EMPTY!");
-    }
-
     return *this;
 }
 
-/**
- * Link and validate program. Proper error message will be displayed on error
- * @return const "this" reference
- */
-const ShaderProgram& ShaderProgram::LinkAndValidate() const
-{
-    GlAssert(glAttachShader(_programId, _vertexShaderId));
-    GlAssert(glAttachShader(_programId, _fragmentShaderId));
-    GlAssert(glLinkProgram(_programId));
-    GlAssert(glDeleteShader(_vertexShaderId));
-    GlAssert(glDeleteShader(_fragmentShaderId));
-
-    int result;
-    GlAssert(glGetProgramiv(_programId, GL_LINK_STATUS, &result));
-    if (result == GL_FALSE) {
-        char message[512];
-        GlAssert(glGetProgramInfoLog(_programId, sizeof(message), nullptr, message));
-        LOG_ERROR("FAILED TO LINK SHADERS TO PROGRAM. MESSAGE: \n %s \n", message);
-    }
-
-    GlAssert(glDeleteShader(_vertexShaderId));
-    GlAssert(glDeleteShader(_fragmentShaderId));
-    return *this;
-}
-/**
- * Use created program
- */
-void ShaderProgram::Use() const
-{
-    GlAssert(glUseProgram(_programId));
-}
-
-/**
- * Delete program
- */
-void ShaderProgram::Delete() const
-{
-    GlAssert(glDeleteProgram(_programId));
-}
-
-// private methods
-/**
- * Read content of filepath and store return as string
- * @param filepath path to file
- * @return read content
- */
-std::string ShaderProgram::FileToString(const std::string& filepath)
-{
-    {
-        std::ifstream file(filepath);
-        std::ostringstream oss;
-        if (file.is_open()) {
-            oss << file.rdbuf();
-        } else {
-            LOG_ERROR("ERROR OPENING FILE");
-        }
-        return oss.str();
-    }
-}
 /**
  * Compile single shader
  * @param type type of the shader to be compiled
  * @param source source code of th shader
- * @return shader id
+ * @return this reference
  */
-GLuint ShaderProgram::CompileShader(GLuint type, const std::string& source)
+ShaderProgramBuilder& ShaderProgramBuilder::CompileShader(GLuint type)
 {
     GLuint id = glCreateShader(type);
-    const char* src_c_str = source.c_str();
+    const char* src_c_str = type == GL_VERTEX_SHADER ? _vertexShaderSource.c_str() : _fragmentShaderSource.c_str();
     GlAssert(glShaderSource(id, 1, &src_c_str, nullptr));
     GlAssert(glCompileShader(id));
 
@@ -148,5 +99,108 @@ GLuint ShaderProgram::CompileShader(GLuint type, const std::string& source)
         id = 0;
     }
 
-    return id;
+    if (type == GL_VERTEX_SHADER) {
+        _vertexShaderId = id;
+    } else {
+        _fragmentShaderId = id;
+    }
+    return *this;
+}
+
+/**
+ * Link programs.
+ * @return "this" reference
+ */
+ShaderProgramBuilder& ShaderProgramBuilder::LinkShaders()
+{
+    GlAssert(glAttachShader(_programId, _vertexShaderId));
+    GlAssert(glAttachShader(_programId, _fragmentShaderId));
+    GlAssert(glLinkProgram(_programId));
+    GlAssert(glDeleteShader(_vertexShaderId));
+    GlAssert(glDeleteShader(_fragmentShaderId));
+
+    return *this;
+}
+
+/**
+ * Validate linked program proper error message will be displayed on error/
+ * @return this reference
+ */
+ShaderProgramBuilder& ShaderProgramBuilder::Validate(int& outResult)
+{
+    GlAssert(glGetProgramiv(_programId, GL_LINK_STATUS, &outResult));
+    if (outResult == GL_FALSE) {
+        char message[512];
+        GlAssert(glGetProgramInfoLog(_programId, sizeof(message), nullptr, message));
+        LOG_ERROR("FAILED TO LINK SHADERS TO PROGRAM. MESSAGE: \n %s \n", message);
+    }
+
+    return *this;
+}
+
+/**
+ * Build program
+ * @return builded program
+ */
+ShaderProgram ShaderProgramBuilder::Build() const
+{
+    ShaderProgram program;
+    program._programId = _programId;
+    program.Use();
+
+    return program;
+}
+
+/**
+ * Get shader source of type
+ * @param type type of shader
+ * @return shader source
+ */
+const std::string& ShaderProgramBuilder::GetShaderSource(GLuint type) const
+{
+    switch (type) {
+    case GL_VERTEX_SHADER:
+        return _vertexShaderSource;
+    case GL_FRAGMENT_SHADER:
+        return _fragmentShaderSource;
+    default:
+        LOG_ERROR("SHADER TYPE NOT RECOGNIZED");
+        return _vertexShaderSource;
+    }
+}
+
+/**
+ * Read content of filepath and store return as string
+ * @param filepath path to file
+ * @return read content
+ */
+std::string ShaderProgramBuilder::FileToString(const std::string& filepath)
+{
+    {
+        std::ifstream file(filepath);
+        std::ostringstream oss;
+        if (file.is_open()) {
+            oss << file.rdbuf();
+        } else {
+            LOG_ERROR("ERROR OPENING FILE");
+        }
+        return oss.str();
+    }
+}
+GLuint ShaderProgramBuilder::GetProgramId() const
+{
+    return _programId;
+}
+
+GLuint ShaderProgramBuilder::GetShaderId(GLuint type) const
+{
+    switch (type) {
+    case GL_VERTEX_SHADER:
+        return _vertexShaderId;
+    case GL_FRAGMENT_SHADER:
+        return _fragmentShaderId;
+    default:
+        LOG_ERROR("SHADER TYPE NOT RECOGNIZED");
+        return 0;
+    }
 }
