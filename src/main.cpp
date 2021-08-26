@@ -14,8 +14,10 @@
 
 int main(int, char**)
 {
+    const int width = 512;
+    const int height = 512;
     ALLOW_DISPLAY;
-    GLFW::Window window(512, 512, "Fluid simulation");
+    GLFW::Window window(width, height, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize OpenGL loader!");
@@ -63,8 +65,11 @@ int main(int, char**)
     while (!window.ShouldClose()) {
         window.ProcessInput();
 
-        pixelMap.SetPixel(Random::Int(0, 512), Random::Int(0, 512),
-              { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+        for (int x = 0; x < 128; ++x) {
+            for (int y = 0; y < 128; ++y) {
+                pixelMap.SetPixel(x, y, { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+            }
+        }
 
 
         renderer.Draw();
