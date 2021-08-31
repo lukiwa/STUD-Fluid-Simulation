@@ -10,6 +10,7 @@
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
+#include "Simulation/FluidBuilder.h"
 #include "Utilities/Random.h"
 
 int main(int, char**)
@@ -57,20 +58,25 @@ int main(int, char**)
                        .Build();
 
     PixelMap pixelMap({ 512, 512, 0 }, GL_RGBA, new PixelMapComponentsFactory());
-    pixelMap.SetAllPixels({ 255, 255, 255, 255 });
-    pixelMap.SwapBuffer();
+
+    FluidBuilder fluidBuilder;
+    auto fluid = fluidBuilder.Size({ width, height, 0 })
+                     .DyeMatrix(pixelMap)
+                     .Diffusion(0.1)
+                     .Viscosity(0.1)
+                     .TimeStep(0.5)
+                     .Build();
 
     Renderer renderer(vao, indexBuffer, program, pixelMap);
 
     while (!window.ShouldClose()) {
         window.ProcessInput();
 
-        for (int x = 0; x < 128; ++x) {
-            for (int y = 0; y < 128; ++y) {
+        for (int x = 0; x < 488; ++x) {
+            for (int y = 0; y < 488; ++y) {
                 pixelMap.SetPixel(x, y, { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
             }
         }
-
 
         renderer.Draw();
 
