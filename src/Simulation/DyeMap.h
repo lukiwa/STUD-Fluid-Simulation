@@ -1,6 +1,7 @@
 #pragma once
-#include "PixelMap.h"
+#include "../OpenGL/PixelMap.h"
 
+class PixelMap;
 class IDyeMap {
 public:
     virtual ~IDyeMap() = default;
