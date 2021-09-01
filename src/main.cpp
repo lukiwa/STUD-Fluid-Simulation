@@ -3,22 +3,18 @@
 #include <iostream>
 #include <memory>
 
+#include "ImGuiHandler.h"
 #include "OpenGL/IndexBuffer.h"
-#include "OpenGL/PixelBufferObject.h"
-#include "OpenGL/PixelMap.h"
 #include "OpenGL/Renderer.h"
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
-#include "Simulation/FluidBuilder.h"
 #include "Utilities/Random.h"
 
 int main(int, char**)
 {
-    const int width = 512;
-    const int height = 512;
     ALLOW_DISPLAY;
-    GLFW::Window window(width, height, "Fluid simulation");
+    GLFW::Window window(512, 512, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize OpenGL loader!");
@@ -57,29 +53,42 @@ int main(int, char**)
                        .Validate(validationResult)
                        .Build();
 
-    PixelMap pixelMap({ 512, 512, 0 }, GL_RGBA, new PixelMapComponentsFactory());
+    PixelMap pixelMap({ window.GetWidth(), window.GetHeight(), 0 }, GL_RGBA, new PixelMapComponentsFactory());
 
+    //Fluid
     FluidBuilder fluidBuilder;
-    auto fluid = fluidBuilder.Size({ width, height, 0 })
-                     .DyeMatrix(pixelMap)
-                     .Diffusion(0.1)
-                     .Viscosity(0.1)
-                     .TimeStep(0.5)
-                     .Build();
+    std::unique_ptr<Fluid> fluid;
+    fluidBuilder.Size({ pixelMap.GetWidth(), pixelMap.GetHeight(), 0 }).DyeMatrix(pixelMap);
 
-    Renderer renderer(vao, indexBuffer, program, pixelMap);
+
+    //ImGui
+    ImGui::Handler imguiHandler(window.GetHandle());
+    std::unique_ptr<ImGui::IImGuiWindow> beginWindow
+        = std::make_unique<ImGui::BeginWindow>(window.GetWidth(), fluidBuilder, imguiHandler);
+    std::unique_ptr<ImGui::IImGuiWindow> fpsWindow = std::make_unique<ImGui::FpsWindow>();
+
+
+    Renderer renderer(vao, indexBuffer, program, pixelMap, imguiHandler);
 
     while (!window.ShouldClose()) {
         window.ProcessInput();
+        imguiHandler.NewFrame();
 
-        for (int x = 0; x < 488; ++x) {
-            for (int y = 0; y < 488; ++y) {
-                pixelMap.SetPixel(x, y, { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+        if (!beginWindow->ShouldClose([&]() { fluid = fluidBuilder.Build(); })) {
+            beginWindow->Draw();
+        } else {
+#ifdef DEBUG
+            fpsWindow->Draw();
+#endif
+            for (int x = 0; x < 512; ++x) {
+                for (int y = 0; y < 512; ++y) {
+                    pixelMap.SetPixel(x, y, { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+                }
             }
         }
 
-        renderer.Draw();
 
+        renderer.Draw();
         window.SwapBuffers();
     }
     return 0;

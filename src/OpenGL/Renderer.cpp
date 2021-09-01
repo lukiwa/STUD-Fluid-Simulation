@@ -5,13 +5,16 @@
  * @param vao vertex array object bound with VertexAttrubutes and VertexBuffer
  * @param ibo index buffer bound with vertices
  * @param program compiled and validated shader program
- * @param pixelMap
+ * @param pixelMap map pixels to be displayed
+ * @param imguiHandler imgui handler (to draw imgui related stuff)
  */
-Renderer::Renderer(VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, PixelMap& pixelMap)
+Renderer::Renderer(
+    VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, PixelMap& pixelMap, ImGui::Handler& imguiHandler)
     : _vao(vao)
     , _ibo(ibo)
     , _program(program)
     , _pixelMap(pixelMap)
+    , _imguiHandler(imguiHandler)
 {
     _program.Use();
 }
@@ -21,14 +24,16 @@ Renderer::Renderer(VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, P
  */
 void Renderer::Draw() const
 {
+
     _vao.Bind();
     _ibo.Bind();
     _program.Use();
     _pixelMap.Bind();
     _pixelMap.SwapBuffer();
 
-
     GlAssert(glDrawElements(GL_TRIANGLES, _ibo.Count(), GL_UNSIGNED_INT, nullptr));
+
+    _imguiHandler.Draw();
 }
 
 /**

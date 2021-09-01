@@ -23,8 +23,10 @@ public:
 };
 
 class Fluid {
-public:
+private:
+    friend class FluidBuilder;
     Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization);
+public:
 
 private:
     std::unique_ptr<IFluidSimulation> _simulation;
