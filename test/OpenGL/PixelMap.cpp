@@ -67,23 +67,7 @@ public:
     }
 };
 
-class PixelMapTestFixture : public ::testing::Test {
-public:
-    PixelMapTestFixture()
-    {
-        ALLOW_DISPLAY;
-    }
-
-    void SetUp() override
-    {
-    }
-
-    void TearDown() override
-    {
-    }
-};
-
-TEST_F(PixelMapTestFixture, RealImplementationReturnsNonNullptrMappedBuffer)
+TEST(PixelMapTests, RealImplementationReturnsNonNullptrMappedBuffer)
 {
     ALLOW_DISPLAY;
     const int width = 255;
@@ -99,7 +83,7 @@ TEST_F(PixelMapTestFixture, RealImplementationReturnsNonNullptrMappedBuffer)
     ASSERT_NE(pbo.MapBuffer(), nullptr);
 }
 
-TEST_F(PixelMapTestFixture, MockPixelInternalFormatMatchesRGBA)
+TEST(PixelMapTests, MockPixelInternalFormatMatchesRGBA)
 {
     const int width = 255;
     const int height = 255;
@@ -115,7 +99,7 @@ TEST_F(PixelMapTestFixture, MockPixelInternalFormatMatchesRGBA)
     ASSERT_EQ(pixel.size(), pixelFormatNumber);
 }
 
-TEST_F(PixelMapTestFixture, MockPixelInternalFormatMatchesRGB)
+TEST(PixelMapTests, MockPixelInternalFormatMatchesRGB)
 {
     const int width = 255;
     const int height = 255;
@@ -131,7 +115,7 @@ TEST_F(PixelMapTestFixture, MockPixelInternalFormatMatchesRGB)
     ASSERT_EQ(pixel.size(), pixelFormatNumber);
 }
 
-TEST_F(PixelMapTestFixture, MockPixelComponentsMatches)
+TEST(PixelMapTests, MockPixelComponentsMatches)
 {
     const int width = 255;
     const int height = 255;
@@ -150,7 +134,7 @@ TEST_F(PixelMapTestFixture, MockPixelComponentsMatches)
     }
 }
 
-TEST_F(PixelMapTestFixture, MockPixelsChangeOnlyOnGivenRange)
+TEST(PixelMapTests, MockPixelsChangeOnlyOnGivenRange)
 {
     const int width = 100;
     const int height = 100;
