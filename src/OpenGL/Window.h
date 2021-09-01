@@ -12,8 +12,14 @@ public:
     bool ShouldClose() const;
     void SwapBuffers() const;
     void ProcessInput();
+    GLFWwindow* GetHandle();
+    int GetWidth() const;
+    int GetHeight() const;
+
 
 private:
     GLFWwindow* _windowHandle;
+    int _width;
+    int _height;
 };
 }

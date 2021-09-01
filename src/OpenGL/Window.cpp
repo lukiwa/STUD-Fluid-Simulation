@@ -22,6 +22,10 @@ void ResizeCallback(GLFWwindow*, int width, int height)
  * @param glfwContextMinorVersion OpenGL minor version (default 3)
  */
 Window::Window(int width, int height, const char* title, int glfwContextMajorVersion, int glfwContextMinorVersion)
+    : _windowHandle(nullptr)
+    , _width(width)
+    , _height(height)
+
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwContextMajorVersion);
@@ -69,5 +73,31 @@ void Window::ProcessInput()
     if (glfwGetKey(_windowHandle, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(_windowHandle, true);
     }
+}
+/**
+ * Get window width
+ * @return window width
+ */
+int Window::GetWidth() const
+{
+    return _width;
+}
+
+/**
+ * Get window height
+ * @return
+ */
+int Window::GetHeight() const
+{
+    return _height;
+}
+
+/**
+ * Get GLFW window handle
+ * @return glfw handle pointer
+ */
+GLFWwindow* Window::GetHandle()
+{
+    return _windowHandle;
 }
 }

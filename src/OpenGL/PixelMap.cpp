@@ -66,7 +66,6 @@ void PixelMap::SetPixel(int x, int y, const std::vector<int>& components)
     for (int i = 0; i < pixelDepth; ++i) {
         _pixelBuffer[pixelDepth * (x + y * _width) + i] = components[i];
     }
-
 }
 
 /**
@@ -112,4 +111,21 @@ std::vector<GLubyte> PixelMap::GetPixel(int x, int y) const
     }
 
     return result;
+}
+/**
+ * Get width of pixel map
+ * @return pixel map width
+ */
+int PixelMap::GetWidth() const
+{
+    return _width;
+}
+
+/**
+ * Get height of pixel map
+ * @return pixel map height
+ */
+int PixelMap::GetHeight() const
+{
+    return _height;
 }

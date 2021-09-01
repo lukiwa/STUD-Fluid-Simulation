@@ -23,6 +23,7 @@ public:
         std::unique_ptr<ITexture> texture(new Texture(
             dimensions.z == 0 ? GL_TEXTURE_2D : GL_TEXTURE_3D, dimensions, internalPixelFormat, dataType, data));
         texture->SetTextureParameters();
+        pbo->Unbind();
         return { std::move(pbo), std::move(texture) };
     }
 };
@@ -39,8 +40,9 @@ public:
     void SetPixel(int x, int y, const std::vector<int>& components);
     std::vector<GLubyte> GetPixel(int x, int y) const;
     void SwapBuffer();
-
     void Clear();
+    int GetWidth() const;
+    int GetHeight() const;
 
 private:
     int _pixelType;
