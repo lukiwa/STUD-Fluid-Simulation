@@ -10,8 +10,8 @@ ImGui::Handler::Handler(GLFWwindow* windowHandler)
     ImGui::CreateContext();
 
     ImGui_ImplGlfw_InitForOpenGL(windowHandler, true);
-    const char* glsl_version = "#version 130";
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    std::string version = "#version 130";
+    ImGui_ImplOpenGL3_Init(version.c_str());
 
     ImGui::StyleColorsLight();
 }
