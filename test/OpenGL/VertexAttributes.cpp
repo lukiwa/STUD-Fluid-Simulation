@@ -3,24 +3,9 @@
 #include "Window.h"
 
 
-class VertexAttributesTestFixture : public ::testing::Test {
-public:
-    VertexAttributesTestFixture()
-    {
-    }
-
-    void SetUp() override
-    {
-    }
-
-    void TearDown() override
-    {
-    }
-};
 
 
-
-TEST_F(VertexAttributesTestFixture, GlTypeSizeIsSameAsPodSizes )
+TEST(VertexAttributesTests, GlTypeSizeIsSameAsPodSizes )
 {
     ASSERT_EQ(VertexAttributes::GlTypeToSize(GL_FLOAT), sizeof(float));
     ASSERT_EQ(VertexAttributes::GlTypeToSize(GL_INT), sizeof(int));
@@ -29,7 +14,7 @@ TEST_F(VertexAttributesTestFixture, GlTypeSizeIsSameAsPodSizes )
     EXPECT_EQ(VertexAttributes::GlTypeToSize(GL_R), 0);
 }
 
-TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeTypeSize)
+TEST(VertexAttributesTests, SingleAttributeOffsetShouldBeTypeSize)
 {
     VertexAttributes attributes;
     const int count = 1;
@@ -40,7 +25,7 @@ TEST_F(VertexAttributesTestFixture, SingleAttributeOffsetShouldBeTypeSize)
     ASSERT_EQ(attributes.GetLastOffset(), VertexAttributes::GlTypeToSize(type));
 }
 
-TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeShouldBeNumberOfAttributesTimesAttributesTimesSizeOfType)
+TEST(VertexAttributesTests, AttributeOffsetSizeShouldBeNumberOfAttributesTimesAttributesTimesSizeOfType)
 {
     VertexAttributes attributes;
     const int count = 2;
@@ -57,7 +42,7 @@ TEST_F(VertexAttributesTestFixture, AttributeOffsetSizeShouldBeNumberOfAttribute
     ASSERT_EQ(attributes.GetLastOffset(), count * attributeNumber * VertexAttributes::GlTypeToSize(type));
 }
 
-TEST_F(VertexAttributesTestFixture, StrideIsSizeOfVertex)
+TEST(VertexAttributesTests, StrideIsSizeOfVertex)
 {
     VertexAttributes attributes;
     const int count = 2;

@@ -4,29 +4,16 @@
 #include <gmock/gmock.h>
 #include "Tracing.h"
 
-class WindowTextFixture : public ::testing::Test {
-public:
-    WindowTextFixture()
-    {
-        ALLOW_DISPLAY;
-    }
 
-    void SetUp() override
-    {
-    }
-
-    void TearDown() override
-    {
-    }
-};
-
-TEST_F(WindowTextFixture, WindowShouldNoThrow)
+TEST(WindowTests, WindowShouldNoThrow)
 {
+    ALLOW_DISPLAY;
     ASSERT_NO_THROW(GLFW::Window window(10, 10, "Test"));
 }
 
-TEST_F(WindowTextFixture, GlewInitShouldSucceedAfterWindowCreation)
+TEST(WindowTests, GlewInitShouldSucceedAfterWindowCreation)
 {
+    ALLOW_DISPLAY;
     GLFW::Window window(10, 10, "Test");
     ASSERT_EQ(glewInit(), GLEW_OK);
 }

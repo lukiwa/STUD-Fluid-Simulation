@@ -73,6 +73,11 @@ void Texture::Unbind() const
 {
     GlAssert(glBindTexture(_target, 0));
 }
+
+/**
+ * Update subimage of the texture with data
+ * @param pixels pixels buffer (empty for PBO)
+ */
 void Texture::SubImage(void* pixels) const
 {
     if (_target == GL_TEXTURE_2D) {

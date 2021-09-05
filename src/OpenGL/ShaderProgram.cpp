@@ -187,11 +187,20 @@ std::string ShaderProgramBuilder::FileToString(const std::string& filepath)
         return oss.str();
     }
 }
+/**
+ * Get id of the program (0 on error)
+ * @return program id
+ */
 GLuint ShaderProgramBuilder::GetProgramId() const
 {
     return _programId;
 }
 
+/**
+ * Get id of the shader
+ * @param type shader type
+ * @return shader ID
+ */
 GLuint ShaderProgramBuilder::GetShaderId(GLuint type) const
 {
     switch (type) {
