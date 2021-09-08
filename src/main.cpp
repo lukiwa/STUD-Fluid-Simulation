@@ -11,8 +11,12 @@
 #include "OpenGL/Window.h"
 #include "Utilities/Random.h"
 
+#include "Array2D.h"
+
 int main(int, char**)
 {
+    Array2D<double> array(20);
+
     ALLOW_DISPLAY;
     GLFW::Window window(512, 512, "Fluid simulation");
 
@@ -54,19 +58,18 @@ int main(int, char**)
                        .Build();
 
     PixelMap pixelMap({ window.GetWidth(), window.GetHeight(), 0 }, GL_RGBA, new PixelMapComponentsFactory());
+    pixelMap.Clear();
 
-    //Fluid
+    // Fluid
     FluidBuilder fluidBuilder;
     std::unique_ptr<Fluid> fluid;
     fluidBuilder.Size({ pixelMap.GetWidth(), pixelMap.GetHeight(), 0 }).DyeMatrix(pixelMap);
 
-
-    //ImGui
+    // ImGui
     ImGui::Handler imguiHandler(window.GetHandle());
     std::unique_ptr<ImGui::IImGuiWindow> beginWindow
         = std::make_unique<ImGui::BeginWindow>(window.GetWidth(), fluidBuilder, imguiHandler);
     std::unique_ptr<ImGui::IImGuiWindow> fpsWindow = std::make_unique<ImGui::FpsWindow>();
-
 
     Renderer renderer(vao, indexBuffer, program, pixelMap, imguiHandler);
 
@@ -80,13 +83,17 @@ int main(int, char**)
 #ifdef DEBUG
             fpsWindow->Draw();
 #endif
+            fluid->AddVelocity(10, 10, 10, 10);
+
             for (int x = 0; x < 512; ++x) {
                 for (int y = 0; y < 512; ++y) {
-                    pixelMap.SetPixel(x, y, { Random::Int(0, 255), Random::Int(0, 255), Random::Int(0, 255), 255 });
+                    // pixelMap.SetPixel(x, y, { 0, 0, 0, Random::Int(200, 255) });
+                    fluid->AddDensity(x, y, 1);
                 }
             }
-        }
 
+            fluid->Step();
+        }
 
         renderer.Draw();
         window.SwapBuffers();
