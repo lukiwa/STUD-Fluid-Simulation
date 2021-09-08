@@ -5,7 +5,7 @@ class PixelMap;
 class IDyeMap {
 public:
     virtual ~IDyeMap() = default;
-    virtual void AddDye(int x, int y, uint8_t amount) = 0;
+    virtual void SetDye(int x, int y, double amount) = 0;
 };
 
 class DyeMap : public IDyeMap {
@@ -15,8 +15,9 @@ public:
     DyeMap(const DyeMap&) = delete;
     DyeMap& operator=(const DyeMap&) = delete;
 
-    void AddDye(int x, int y, uint8_t amount) override;
+    void SetDye(int x, int y, double amount) override;
 
 private:
     PixelMap& _pixelMap;
+    uint8_t _singlePixelDyeAmount;
 };
