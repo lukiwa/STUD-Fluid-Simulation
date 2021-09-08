@@ -125,7 +125,12 @@ bool ImGui::BeginWindow::ShouldClose(std::function<void(void)> callback) const
 {
     if (_shouldClose) {
         _builder.Diffusion(_diffusion).Viscosity(_viscosity).TimeStep(_timestep);
-        callback();
+
+        static bool called = false;
+        if(!called) {
+            called = true;
+            callback();
+        }
     }
 
     return _shouldClose;
