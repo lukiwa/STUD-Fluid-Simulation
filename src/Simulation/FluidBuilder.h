@@ -1,6 +1,7 @@
 #pragma once
-#include "Fluid.h"
 #include "Dimensions.h"
+#include "Fluid.h"
+#include "FluidSimulation.h"
 
 class FluidBuilder {
 
