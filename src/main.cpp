@@ -15,10 +15,9 @@
 
 int main(int, char**)
 {
-    Array2D<double> array(20);
-
     ALLOW_DISPLAY;
-    GLFW::Window window(512, 512, "Fluid simulation");
+    Random::Seed();
+    GLFW::Window window(256, 256, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize OpenGL loader!");
@@ -57,7 +56,8 @@ int main(int, char**)
                        .Validate(validationResult)
                        .Build();
 
-    PixelMap pixelMap({ window.GetWidth(), window.GetHeight(), 0 }, GL_RGBA, new PixelMapComponentsFactory());
+    std::unique_ptr<PixelMapComponentsFactory> componentsFactory(new PixelMapComponentsFactory());
+    PixelMap pixelMap({ window.GetWidth(), window.GetHeight(), 0 }, GL_RGBA, componentsFactory.get());
     pixelMap.Clear();
 
     // Fluid
@@ -83,14 +83,13 @@ int main(int, char**)
 #ifdef DEBUG
             fpsWindow->Draw();
 #endif
-            fluid->AddVelocity(10, 10, 10, 10);
-
-            for (int x = 0; x < 512; ++x) {
-                for (int y = 0; y < 512; ++y) {
-                    // pixelMap.SetPixel(x, y, { 0, 0, 0, Random::Int(200, 255) });
-                    fluid->AddDensity(x, y, 1);
+            for (int i = 0; i < 4; ++i) {
+                for (int j = 0; j < 4; ++j) {
+                    fluid->AddDensity(pixelMap.GetWidth() / 2 + i, pixelMap.GetWidth() / 2 + j, Random::Int(150, 200));
                 }
             }
+            fluid->AddVelocity(
+                pixelMap.GetWidth() / 2, pixelMap.GetWidth() / 2, Random::Double(-5, 5), Random::Double(-5, 5));
 
             fluid->Step();
         }
