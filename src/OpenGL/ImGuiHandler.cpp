@@ -83,9 +83,9 @@ ImGui::BeginWindow::BeginWindow(int mainWindowWidth, FluidBuilder& builder, ImGu
 
     : _mainWindowWidth(mainWindowWidth)
     , _shouldClose(false)
-    , _diffusion(0.5f)
-    , _viscosity(0.5f)
-    , _timestep(0.5f)
+    , _diffusion(0.0000001f)
+    , _viscosity(0.00000001f)
+    , _timestep(0.25f)
     , _builder(builder)
     , _handler(handler)
 {
@@ -104,9 +104,9 @@ void ImGui::BeginWindow::Draw()
             ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
         ImGui::Text("Fluid Parameters: ");
-        ImGui::InputFloat("Diffusion", &_diffusion, 0.0000001f, 1.0f, "%.8f");
-        ImGui::InputFloat("Viscosity", &_viscosity, 0.0000001f, 1.0f, "%.8f");
-        ImGui::InputFloat("Timestep", &_timestep, 0.0000001f, 1.0f, "%.8f");
+        ImGui::InputFloat("Diffusion", &_diffusion, 0.0000000001f, 0.000000001f, "%.10f");
+        ImGui::InputFloat("Viscosity", &_viscosity, 0.0000000001f, 0.000000001f, "%.10f");
+        ImGui::InputFloat("Timestep", &_timestep, 0.25f, 0.5f, "%.3f");
 
         if (ImGui::Button("Start simulation", ImVec2(_mainWindowWidth / 2.0f, 0.0f))) {
             _shouldClose = true;
@@ -127,7 +127,7 @@ bool ImGui::BeginWindow::ShouldClose(std::function<void(void)> callback) const
         _builder.Diffusion(_diffusion).Viscosity(_viscosity).TimeStep(_timestep);
 
         static bool called = false;
-        if(!called) {
+        if (!called) {
             called = true;
             callback();
         }
