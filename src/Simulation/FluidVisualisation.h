@@ -1,14 +1,13 @@
 #pragma once
-#include "IFluid.h"
-#include "../Utilities/Array2D.h"
+#include "../Utilities/Matrix.h"
 #include "DyeMap.h"
-
+#include "IFluid.h"
 
 class FluidVisualization : public IFluidVisualization {
 public:
     FluidVisualization(std::unique_ptr<IDyeMap> dyeMap);
 
-    void Update(const Array2D<double>& densityMap) override;
+    void Update(const Matrix& densityMap) override;
 
 private:
     std::unique_ptr<IDyeMap> _dyeMap;

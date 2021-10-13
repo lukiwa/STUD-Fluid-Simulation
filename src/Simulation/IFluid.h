@@ -1,5 +1,5 @@
 #pragma once
-#include "../Utilities/Array2D.h"
+#include "../Utilities/Matrix.h"
 
 class IFluid {
 public:
@@ -23,26 +23,23 @@ public:
             , current(size)
         {
         }
-        Array2D<double> previous;
-        Array2D<double> current;
+        Matrix previous;
+        Matrix current;
     };
 
-    virtual void Diffuse(
-        BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double spreadSpeed) const = 0;
-    virtual void LinearSolve(
-        BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double k, double c) const = 0;
-    virtual void Project(Array2D<double>& velocityX, Array2D<double>& velocityY, Array2D<double>& p,
-        Array2D<double>& divergence) const = 0;
-    virtual void Advect(BoundaryType bound, Array2D<double>& medium, const Array2D<double>& prevMedium,
-        const Array2D<double>& velocityX, const Array2D<double>& velocityY) const = 0;
-    virtual void SetBoundaryConditions(BoundaryType bound, Array2D<double>& medium) const = 0;
+    virtual void Diffuse(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double spreadSpeed) const = 0;
+    virtual void LinearSolve(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double k, double c) const = 0;
+    virtual void Project(Matrix& velocityX, Matrix& velocityY, Matrix& p, Matrix& divergence) const = 0;
+    virtual void Advect(BoundaryType bound, Matrix& medium, const Matrix& prevMedium, const Matrix& velocityX,
+        const Matrix& velocityY) const = 0;
+    virtual void SetBoundaryConditions(BoundaryType bound, Matrix& medium) const = 0;
 
     virtual void VelocityStep(State& velocityX, State& velocityY) const = 0;
-    virtual void DensityStep(State& density, Array2D<double>& velocityX, Array2D<double>& velocityY) const = 0;
+    virtual void DensityStep(State& density, Matrix& velocityX, Matrix& velocityY) const = 0;
 };
 
 class IFluidVisualization {
 public:
     virtual ~IFluidVisualization() = default;
-    virtual void Update(const Array2D<double>& densityMap) = 0;
+    virtual void Update(const Matrix& densityMap) = 0;
 };

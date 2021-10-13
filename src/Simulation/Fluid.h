@@ -1,5 +1,5 @@
 #pragma once
-#include "../Utilities/Array2D.h"
+#include "../Utilities/Matrix.h"
 #include "FluidSimulation.h"
 #include "FluidVisualisation.h"
 

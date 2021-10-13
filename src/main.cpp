@@ -11,7 +11,7 @@
 #include "OpenGL/Window.h"
 #include "Utilities/Random.h"
 
-#include "Array2D.h"
+#include "Matrix.h"
 
 int main(int, char**)
 {
