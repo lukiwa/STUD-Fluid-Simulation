@@ -13,7 +13,7 @@ public:
         std::unique_ptr<IFluidVisualization> Build();
 
     private:
-        std::unique_ptr<IDyeMap> _dyeMap;
+        PixelMap* _pixelMap;
     };
 
     class FluidSimulationBuilder {
