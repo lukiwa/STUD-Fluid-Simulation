@@ -90,9 +90,9 @@ ImGui::BeginWindow::BeginWindow(int mainWindowWidth, int mainWindowHeight, Fluid
     , _viscosity(0.00000001f)
     , _timestep(0.25f)
     , _iterations(4)
+    , _simulationSize(128)
     , _fluidBuilder(fluidBuilder)
     , _pixelMapBuilder(pixelMapBuilder)
-    , _simulationSize(128)
     , _handler(handler)
 {
     _fluidBuilder.Size({ mainWindowWidth, mainWindowHeight, 0 });
