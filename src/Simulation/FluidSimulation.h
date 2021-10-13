@@ -21,7 +21,7 @@ public:
 private:
     double LinearInterpolation(double a, double b, double k) const;
 
-    friend class FluidBuilder;
+    friend class FluidSimulationBuilder;
     FluidSimulation(Dimensions dimensions, double diffusion, double viscosity, double dt, int iterations);
 
     int _size;

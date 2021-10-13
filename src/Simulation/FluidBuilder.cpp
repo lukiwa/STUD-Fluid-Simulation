@@ -5,7 +5,7 @@
 /**
  * Creates new fluid visualization builder
  */
-FluidBuilder::FluidVisualizationBuilder::FluidVisualizationBuilder()
+FluidVisualizationBuilder::FluidVisualizationBuilder()
     : _pixelMap(nullptr)
 {
 }
@@ -14,9 +14,9 @@ FluidBuilder::FluidVisualizationBuilder::FluidVisualizationBuilder()
  * @param pixelMap pixel map
  * @return builder reference
  */
-FluidBuilder::FluidVisualizationBuilder& FluidBuilder::FluidVisualizationBuilder::PixelMatrix(PixelMap& pixelMap)
+FluidVisualizationBuilder& FluidVisualizationBuilder::PixelMatrix(IPixelMap* pixelMap)
 {
-    _pixelMap = &pixelMap;
+    _pixelMap = pixelMap;
     return *this;
 }
 
@@ -24,10 +24,10 @@ FluidBuilder::FluidVisualizationBuilder& FluidBuilder::FluidVisualizationBuilder
  * Builds new fluid visualization component
  * @return builder reference
  */
-std::unique_ptr<IFluidVisualization> FluidBuilder::FluidVisualizationBuilder::Build()
+std::unique_ptr<IFluidVisualization> FluidVisualizationBuilder::Build()
 {
     assert(_pixelMap != nullptr);
-    std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(*_pixelMap));
+    std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(_pixelMap));
     return visualization;
 }
 
@@ -35,7 +35,7 @@ std::unique_ptr<IFluidVisualization> FluidBuilder::FluidVisualizationBuilder::Bu
 /**
  * Creates new simulation builder
  */
-FluidBuilder::FluidSimulationBuilder::FluidSimulationBuilder()
+FluidSimulationBuilder::FluidSimulationBuilder()
     : _dimensions()
     , _dt(0)
     , _diffusion(0)
@@ -49,7 +49,7 @@ FluidBuilder::FluidSimulationBuilder::FluidSimulationBuilder()
  * @param dimensions dimension of the box
  * @return builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Size(Dimensions dimensions)
+FluidSimulationBuilder& FluidSimulationBuilder::Size(Dimensions dimensions)
 {
     _dimensions = dimensions;
     return *this;
@@ -60,7 +60,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Size
  * @param diffusion diffusion parameter
  * @return builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Diffusion(double diffusion)
+FluidSimulationBuilder& FluidSimulationBuilder::Diffusion(double diffusion)
 {
     _diffusion = diffusion;
     return *this;
@@ -70,7 +70,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Diff
  * @param viscosity viscosity parameter
  * @return builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Viscosity(double viscosity)
+FluidSimulationBuilder& FluidSimulationBuilder::Viscosity(double viscosity)
 {
     _viscosity = viscosity;
     return *this;
@@ -80,7 +80,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Visc
  * @param dt timestep parameter
  * @return builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::TimeStep(double dt)
+FluidSimulationBuilder& FluidSimulationBuilder::TimeStep(double dt)
 {
     _dt = dt;
     return *this;
@@ -91,7 +91,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Time
  * @param iterations iterations parameters
  * @return builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Iterations(int iterations)
+FluidSimulationBuilder& FluidSimulationBuilder::Iterations(int iterations)
 {
     _iterations = iterations;
     return *this;
@@ -101,7 +101,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::FluidSimulationBuilder::Iter
  * Constructs fluid simulation component
  * @return fluid ismulation component
  */
-std::unique_ptr<IFluidSimulation> FluidBuilder::FluidSimulationBuilder::Build()
+std::unique_ptr<IFluidSimulation> FluidSimulationBuilder::Build()
 {
     std::unique_ptr<IFluidSimulation> simulation(
         new FluidSimulation(_dimensions, _diffusion, _viscosity, _dt, _iterations));
@@ -135,7 +135,7 @@ FluidBuilder& FluidBuilder::Size(Dimensions dimensions)
  * Get simulation builder
  * @return simulation builder reference
  */
-FluidBuilder::FluidSimulationBuilder& FluidBuilder::Simulation()
+FluidSimulationBuilder& FluidBuilder::Simulation()
 {
     return _simulationBuilder;
 }
@@ -144,7 +144,7 @@ FluidBuilder::FluidSimulationBuilder& FluidBuilder::Simulation()
  * Get visualization builder
  * @return visualization builder reference
  */
-FluidBuilder::FluidVisualizationBuilder& FluidBuilder::Visualization()
+FluidVisualizationBuilder& FluidBuilder::Visualization()
 {
     return _visualizationBuilder;
 }

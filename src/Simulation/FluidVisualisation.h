@@ -6,14 +6,13 @@
 
 class FluidVisualization : public IFluidVisualization {
 public:
-    FluidVisualization(PixelMap& pixelMap);
-
     void Update(const Matrix& densityMap) override;
 
 private:
+    friend class FluidVisualizationBuilder;
+    FluidVisualization(IPixelMap* pixelMap);
 
-//    std::unique_ptr<IDyeMap> _dyeMap;
-    PixelMap& _pixelMap;
+    IPixelMap* _pixelMap;
 
     uint8_t _singlePixelDyeAmount;
 

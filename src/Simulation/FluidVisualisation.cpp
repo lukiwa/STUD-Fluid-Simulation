@@ -5,7 +5,7 @@
  * This class is visualizing fluid as a box where a higher density is symbolized by darker pixel
  * @param dyeMap map of "dye" - the higher density the higher dye amount
  */
-FluidVisualization::FluidVisualization(PixelMap& pixelMap)
+FluidVisualization::FluidVisualization(IPixelMap* pixelMap)
     : _pixelMap(pixelMap)
     , _singlePixelDyeAmount(0)
 {
@@ -20,7 +20,7 @@ void FluidVisualization::Update(const Matrix& densityMap)
     for (int x = 0; x < densityMap.GetSize(); ++x) {
         for (int y = 0; y < densityMap.GetSize(); ++y) {
             _singlePixelDyeAmount = 255 - std::min(static_cast<uint32_t>(densityMap(x, y)), static_cast<uint32_t>(255));
-            _pixelMap.SetPixel(
+            _pixelMap->SetPixel(
                 x, y, { _singlePixelDyeAmount, _singlePixelDyeAmount, _singlePixelDyeAmount, _singlePixelDyeAmount });
         }
     }

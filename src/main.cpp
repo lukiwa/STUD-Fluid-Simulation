@@ -94,7 +94,7 @@ int main(int, char**)
                 pixelMap = pixelMapBuilder.Build();
                 pixelMap->Clear();
 
-                fluidBuilder.Visualization().PixelMatrix(*pixelMap);
+                fluidBuilder.Visualization().PixelMatrix(pixelMap.get());
                 fluid = fluidBuilder.Build();
 
                 renderer.SetPixelMap(pixelMap.get());

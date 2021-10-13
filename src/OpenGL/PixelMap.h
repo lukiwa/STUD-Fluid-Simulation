@@ -28,7 +28,19 @@ public:
     }
 };
 
-class PixelMap : public IBoundable {
+class IPixelMap {
+public:
+    virtual ~IPixelMap() = default;
+    virtual void SetAllPixels(const std::vector<int>& components) = 0;
+    virtual void SetPixel(int x, int y, const std::vector<int>& components) = 0;
+    virtual std::vector<GLubyte> GetPixel(int x, int y) const = 0;
+    virtual void SwapBuffer() = 0;
+    virtual void Clear() = 0;
+    virtual int GetWidth() const = 0;
+    virtual int GetHeight() const = 0;
+};
+
+class PixelMap : public IBoundable, public IPixelMap{
 public:
     void Bind() const override;
     void Unbind() const override;
@@ -36,13 +48,13 @@ public:
     PixelMap(Dimensions dimensions, int internalPixelFormat, IPixelMapComponentsFactory* factory);
     ~PixelMap() = default;
 
-    void SetAllPixels(const std::vector<int>& components);
-    void SetPixel(int x, int y, const std::vector<int>& components);
-    std::vector<GLubyte> GetPixel(int x, int y) const;
-    void SwapBuffer();
-    void Clear();
-    int GetWidth() const;
-    int GetHeight() const;
+    void SetAllPixels(const std::vector<int>& components) override;
+    void SetPixel(int x, int y, const std::vector<int>& components) override;
+    std::vector<GLubyte> GetPixel(int x, int y) const override;
+    void SwapBuffer() override;
+    void Clear() override;
+    int GetWidth() const override;
+    int GetHeight() const override;
 
 private:
     int _pixelType;
