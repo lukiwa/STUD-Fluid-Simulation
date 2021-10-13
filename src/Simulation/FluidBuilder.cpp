@@ -30,7 +30,7 @@ std::unique_ptr<Fluid> FluidBuilder::Build()
 {
     std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(std::move(_dyeMap)));
     std::unique_ptr<IFluidSimulation> simulation(new FluidSimulation(_dimensions, _diffusion, _viscosity, _dt));
-    std::unique_ptr<Fluid> fluid(new Fluid(std::move(simulation), std::move(visualization)));
+    std::unique_ptr<Fluid> fluid(new Fluid(std::move(simulation), std::move(visualization), _dimensions.x, _dt));
     return fluid;
 }
 FluidBuilder::FluidBuilder()

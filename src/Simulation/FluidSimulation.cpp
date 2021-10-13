@@ -9,95 +9,41 @@
  * @param dt timestep
  */
 FluidSimulation::FluidSimulation(Dimensions dimensions, double diffusion, double viscosity, double dt)
-
-    //: _size((dimensions.x + 2) * (dimensions.y + 2))
     : _size((dimensions.x))
     , _diffusion(diffusion)
     , _viscosity(viscosity)
     , _dt(dt)
     , _iterations(4)
-    , _velocityX(_size)
-    , _velocityY(_size)
-    , _density(_size)
 {
-    for (int x = 0; x < _density.current.GetSize(); ++x) {
-        for (int y = 0; y < _density.current.GetSize(); ++y) {
-            _density.current(x, y) = 0;
-        }
-    }
 }
 
-/**
- * Get current density map
- * @return current density map
- */
-const Array2D<double>& FluidSimulation::CurrentDensityMap() const
-{
-    return _density.current;
-}
-
-/**
- * Add velocity on given place
- * (imagine on that pixel there is a fan blowing the particles)
- * @param x x coordinate
- * @param y y coordinate
- * @param amountX x velocity at this point
- * @param amountY y velocity at this point
- */
-void FluidSimulation::AddVelocity(int x, int y, double amountX, double amountY)
-{
-    _velocityX.current(x, y) += amountX;
-    _velocityY.current(x, y) += amountY;
-}
-
-/**
- * Add density on given field. Normalization based on time step
- * (imagine dropping a drop of soy sauce into the water)
- * @param x x coordinate
- * @param y y coordinate
- * @param amount amount of density to be added
- */
-void FluidSimulation::AddDensity(int x, int y, double amount)
-{
-    //normalize
-    _density.current(x, y) = (_density.current(x, y) + _dt * amount) / (1.0f + _dt);
-}
-
-/**
- * Performs calculation to get new fluid state
- */
-void FluidSimulation::Step()
-{
-    VelocityStep();
-    DensityStep();
-}
 /**
  * Evolve velocities due to:
  * - addition of forces (done even before Step method in AddVelocity)
  * - diffusion
  * - advection
  */
-void FluidSimulation::VelocityStep()
+void FluidSimulation::VelocityStep(State& velocityX, State& velocityY) const
 {
-    Diffuse(BoundaryType::VERTICAL, _velocityX.previous, _velocityX.current, _viscosity);
-    Diffuse(BoundaryType::HORIZONTAL, _velocityY.previous, _velocityY.current, _viscosity);
+    Diffuse(BoundaryType::VERTICAL, velocityX.previous, velocityX.current, _viscosity);
+    Diffuse(BoundaryType::HORIZONTAL, velocityY.previous, velocityY.current, _viscosity);
 
-    Project(_velocityX.previous, _velocityY.previous, _velocityX.current, _velocityY.current);
+    Project(velocityX.previous, velocityY.previous, velocityX.current, velocityY.current);
 
-    Advect(BoundaryType::VERTICAL, _velocityX.current, _velocityX.previous, _velocityX.previous, _velocityY.previous);
+    Advect(BoundaryType::VERTICAL, velocityX.current, velocityX.previous, velocityX.previous, velocityY.previous);
 
-    Advect(BoundaryType::HORIZONTAL, _velocityY.current, _velocityY.previous, _velocityX.previous, _velocityY.previous);
+    Advect(BoundaryType::HORIZONTAL, velocityY.current, velocityY.previous, velocityX.previous, velocityY.previous);
 
-    Project(_velocityX.current, _velocityY.current, _velocityX.previous, _velocityY.previous);
+    Project(velocityX.current, velocityY.current, velocityX.previous, velocityY.previous);
 }
 
 /**
  * Evolve density due to: addition of forces, addition of density, moving density along velocities, and diffusion
  */
-void FluidSimulation::DensityStep()
+void FluidSimulation::DensityStep(State& density, Array2D<double>& velocityX, Array2D<double>& velocityY) const
 {
-    Diffuse(BoundaryType::ALL, _density.previous, _density.current, _diffusion);
-    Advect(BoundaryType::ALL, _density.current, _density.previous, _velocityX.current, _velocityY.current);
+    Diffuse(BoundaryType::ALL, density.previous, density.current, _diffusion);
+    Advect(BoundaryType::ALL, density.current, density.previous, velocityX, velocityY);
 }
 
 /**
@@ -111,7 +57,7 @@ void FluidSimulation::DensityStep()
  * @param spreadSpeed viscosity/diffusion
  */
 void FluidSimulation::Diffuse(
-    FluidSimulation::BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double spreadSpeed)
+    FluidSimulation::BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double spreadSpeed) const
 {
     double k = _dt * spreadSpeed * (_size - 2) * (_size - 2);
 
@@ -127,7 +73,7 @@ void FluidSimulation::Diffuse(
  * @param c denominator
  */
 void FluidSimulation::LinearSolve(
-    FluidSimulation::BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double k, double c)
+    FluidSimulation::BoundaryType bound, Array2D<double>& medium, Array2D<double>& prevMedium, double k, double c) const
 {
     for (int i = 0; i < _iterations; ++i) {
         for (int x = 1; x < _size - 1; ++x) {
@@ -152,7 +98,7 @@ void FluidSimulation::LinearSolve(
  * @param divergence divergence part
  */
 void FluidSimulation::Project(
-    Array2D<double>& velocityX, Array2D<double>& velocityY, Array2D<double>& p, Array2D<double>& divergence)
+    Array2D<double>& velocityX, Array2D<double>& velocityY, Array2D<double>& p, Array2D<double>& divergence) const
 {
     for (int x = 1; x < _size - 1; ++x) {
         for (int y = 1; y < _size - 1; ++y) {
@@ -207,7 +153,7 @@ double FluidSimulation::LinearInterpolation(double a, double b, double k) const
  * @param velocityY current Y velocity matrix
  */
 void FluidSimulation::Advect(FluidSimulation::BoundaryType bound, Array2D<double>& medium,
-    const Array2D<double>& prevMedium, const Array2D<double>& velocityX, const Array2D<double>& velocityY)
+    const Array2D<double>& prevMedium, const Array2D<double>& velocityX, const Array2D<double>& velocityY) const
 {
     // velocities for x and y coordinates
     double dtX = _dt * (_size - 2);
@@ -275,7 +221,7 @@ void FluidSimulation::Advect(FluidSimulation::BoundaryType bound, Array2D<double
  * @param bound which type of boundary contidion will be handled
  * @param medium medium on which boundary contidion will be set
  */
-void FluidSimulation::SetBoundaryConditions(FluidSimulation::BoundaryType bound, Array2D<double>& medium)
+void FluidSimulation::SetBoundaryConditions(FluidSimulation::BoundaryType bound, Array2D<double>& medium) const
 {
 
     for (int i = 0; i < _size - 1; ++i) {

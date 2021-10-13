@@ -6,10 +6,21 @@
  * @param simulation
  * @param visualization
  */
-Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization)
+Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization, int size,
+    double dt)
     : _simulation(std::move(simulation))
     , _visualization(std::move(visualization))
+    , _size(size)
+    , _dt(dt)
+    , _velocityX(size)
+    , _velocityY(size)
+    , _density(size)
 {
+    for (int x = 0; x < _density.current.GetSize(); ++x) {
+        for (int y = 0; y < _density.current.GetSize(); ++y) {
+            _density.current(x, y) = 0;
+        }
+    }
 }
 
 /**
@@ -18,12 +29,13 @@ Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFlui
  */
 void Fluid::Step()
 {
-    _simulation->Step();
-    _visualization->Step(_simulation->CurrentDensityMap());
+    _simulation->VelocityStep(_velocityX, _velocityY);
+    _simulation->DensityStep(_density, _velocityX.current, _velocityY.current);
+    _visualization->Update(_density.current);
 }
 
 /**
- * Add density on given field
+ * Add density on given field. Normalization based on time step
  * (imagine dropping a drop of soy sauce into the water)
  * @param x x coordinate
  * @param y y coordinate
@@ -31,7 +43,8 @@ void Fluid::Step()
  */
 void Fluid::AddDensity(int x, int y, double amount)
 {
-    _simulation->AddDensity(x, y, amount);
+    // normalize
+    _density.current(x, y) = (_density.current(x, y) + _dt * amount) / (1.0f + _dt);
 }
 
 /**
@@ -44,5 +57,6 @@ void Fluid::AddDensity(int x, int y, double amount)
  */
 void Fluid::AddVelocity(int x, int y, double amountX, double amountY)
 {
-    _simulation->AddVelocity(x, y, amountX, amountY);
+    _velocityX.current(x, y) += amountX;
+    _velocityY.current(x, y) += amountY;
 }

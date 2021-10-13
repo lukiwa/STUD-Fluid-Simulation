@@ -8,7 +8,7 @@ class FluidVisualization : public IFluidVisualization {
 public:
     FluidVisualization(std::unique_ptr<IDyeMap> dyeMap);
 
-    void Step(const Array2D<double>& densityMap) override;
+    void Update(const Array2D<double>& densityMap) override;
 
 private:
     std::unique_ptr<IDyeMap> _dyeMap;

@@ -14,7 +14,7 @@ FluidVisualization::FluidVisualization(std::unique_ptr<IDyeMap> dyeMap)
  * Perform step - send density map do dye map to perform necessary calculations
  * @param densityMap map of density at whole simulation
  */
-void FluidVisualization::Step(const Array2D<double>& densityMap)
+void FluidVisualization::Update(const Array2D<double>& densityMap)
 {
     for (int x = 0; x < densityMap.GetSize(); ++x) {
         for (int y = 0; y < densityMap.GetSize(); ++y) {
