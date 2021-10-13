@@ -8,13 +8,39 @@
  * @param viscosity viscosity parameter
  * @param dt timestep
  */
-FluidSimulation::FluidSimulation(Dimensions dimensions, double diffusion, double viscosity, double dt)
+FluidSimulation::FluidSimulation(Dimensions dimensions, double diffusion, double viscosity, double dt, int iterations)
     : _size((dimensions.x))
     , _diffusion(diffusion)
     , _viscosity(viscosity)
     , _dt(dt)
-    , _iterations(4)
+    , _iterations(iterations)
 {
+}
+
+/**
+ * Add density on given field. Normalization based on time step
+ * (imagine dropping a drop of soy sauce into the water)
+ * @param x x coordinate
+ * @param y y coordinate
+ * @param amount amount of density to be added
+ * @param outDensity resulted density (normalized)
+ */
+void FluidSimulation::AddDensity(int x, int y, double amount, Matrix& outDensity) const
+{
+    outDensity(x, y) = (outDensity(x, y) + _dt * amount) / (1.0f + _dt);
+}
+
+/**
+ * Add velocity on given place
+ * (imagine on that pixel there is a fan blowing the particles)
+ * @param x x coordinate
+ * @param y y coordinate
+ * @param amount amount of velocity to be added
+ * @param velocity resulting velocity
+ */
+void FluidSimulation::AddVelocity(int x, int y, double amount, Matrix& outVelocity) const
+{
+    outVelocity(x, y) += amount;
 }
 
 /**
@@ -97,8 +123,7 @@ void FluidSimulation::LinearSolve(
  * @param p curl free part
  * @param divergence divergence part
  */
-void FluidSimulation::Project(
-    Matrix& velocityX, Matrix& velocityY, Matrix& p, Matrix& divergence) const
+void FluidSimulation::Project(Matrix& velocityX, Matrix& velocityY, Matrix& p, Matrix& divergence) const
 {
     for (int x = 1; x < _size - 1; ++x) {
         for (int y = 1; y < _size - 1; ++y) {
@@ -152,8 +177,8 @@ double FluidSimulation::LinearInterpolation(double a, double b, double k) const
  * @param velocityX current X velocity matrix
  * @param velocityY current Y velocity matrix
  */
-void FluidSimulation::Advect(FluidSimulation::BoundaryType bound, Matrix& medium,
-    const Matrix& prevMedium, const Matrix& velocityX, const Matrix& velocityY) const
+void FluidSimulation::Advect(FluidSimulation::BoundaryType bound, Matrix& medium, const Matrix& prevMedium,
+    const Matrix& velocityX, const Matrix& velocityY) const
 {
     // velocities for x and y coordinates
     double dtX = _dt * (_size - 2);

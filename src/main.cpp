@@ -4,20 +4,32 @@
 #include <memory>
 
 #include "ImGuiHandler.h"
+#include "Matrix.h"
 #include "OpenGL/IndexBuffer.h"
+#include "OpenGL/PixelMapBuilder.h"
 #include "OpenGL/Renderer.h"
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
 #include "Utilities/Random.h"
 
-#include "Matrix.h"
+void SimulationTest(IFluid* fluid, int width, int height)
+{
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            fluid->AddDensity(width / 2 + i, height / 2 + j, Random::Int(150, 200));
+        }
+    }
+    fluid->AddVelocity(width / 2, height / 2, Random::Double(-5, 5), Random::Double(-5, 5));
+
+    fluid->Step();
+}
 
 int main(int, char**)
 {
     ALLOW_DISPLAY;
     Random::Seed();
-    GLFW::Window window(256, 256, "Fluid simulation");
+    GLFW::Window window(512, 512, "Fluid simulation");
 
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize OpenGL loader!");
@@ -56,42 +68,45 @@ int main(int, char**)
                        .Validate(validationResult)
                        .Build();
 
+    // PixelMap
+    std::unique_ptr<PixelMap> pixelMap;
     std::unique_ptr<PixelMapComponentsFactory> componentsFactory(new PixelMapComponentsFactory());
-    PixelMap pixelMap({ window.GetWidth(), window.GetHeight(), 0 }, GL_RGBA, componentsFactory.get());
-    pixelMap.Clear();
+    PixelMapBuilder pixelMapBuilder;
+    pixelMapBuilder.Factory(componentsFactory.get()).PixelFormat(GL_RGBA);
 
     // Fluid
+    std::unique_ptr<IFluid> fluid;
     FluidBuilder fluidBuilder;
-    std::unique_ptr<Fluid> fluid;
-    fluidBuilder.Size({ pixelMap.GetWidth(), pixelMap.GetHeight(), 0 }).DyeMatrix(pixelMap);
 
     // ImGui
     ImGui::Handler imguiHandler(window.GetHandle());
-    std::unique_ptr<ImGui::IImGuiWindow> beginWindow
-        = std::make_unique<ImGui::BeginWindow>(window.GetWidth(), fluidBuilder, imguiHandler);
+    std::unique_ptr<ImGui::IImGuiWindow> beginWindow = std::make_unique<ImGui::BeginWindow>(
+        window.GetWidth(), window.GetHeight(), fluidBuilder, pixelMapBuilder, imguiHandler);
     std::unique_ptr<ImGui::IImGuiWindow> fpsWindow = std::make_unique<ImGui::FpsWindow>();
 
-    Renderer renderer(vao, indexBuffer, program, pixelMap, imguiHandler);
+    Renderer renderer(vao, indexBuffer, program, pixelMap.get(), imguiHandler);
 
     while (!window.ShouldClose()) {
         window.ProcessInput();
         imguiHandler.NewFrame();
 
-        if (!beginWindow->ShouldClose([&]() { fluid = fluidBuilder.Build(); })) {
+        if (!beginWindow->ShouldClose([&]() {
+                pixelMap = pixelMapBuilder.Build();
+                pixelMap->Clear();
+
+                fluidBuilder.Visualization().PixelMatrix(*pixelMap);
+                fluid = fluidBuilder.Build();
+
+                renderer.SetPixelMap(pixelMap.get());
+            })) {
             beginWindow->Draw();
+            renderer.Clear();
+
         } else {
 #ifdef DEBUG
             fpsWindow->Draw();
 #endif
-            for (int i = 0; i < 4; ++i) {
-                for (int j = 0; j < 4; ++j) {
-                    fluid->AddDensity(pixelMap.GetWidth() / 2 + i, pixelMap.GetWidth() / 2 + j, Random::Int(150, 200));
-                }
-            }
-            fluid->AddVelocity(
-                pixelMap.GetWidth() / 2, pixelMap.GetWidth() / 2, Random::Double(-5, 5), Random::Double(-5, 5));
-
-            fluid->Step();
+            SimulationTest(fluid.get(), pixelMap->GetWidth(), pixelMap->GetHeight());
         }
 
         renderer.Draw();

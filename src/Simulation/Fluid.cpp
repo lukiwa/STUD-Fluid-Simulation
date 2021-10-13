@@ -6,12 +6,10 @@
  * @param simulation
  * @param visualization
  */
-Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization, int size,
-    double dt)
+Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization, int size)
     : _simulation(std::move(simulation))
     , _visualization(std::move(visualization))
     , _size(size)
-    , _dt(dt)
     , _velocityX(size)
     , _velocityY(size)
     , _density(size)
@@ -43,8 +41,7 @@ void Fluid::Step()
  */
 void Fluid::AddDensity(int x, int y, double amount)
 {
-    // normalize
-    _density.current(x, y) = (_density.current(x, y) + _dt * amount) / (1.0f + _dt);
+    _simulation->AddDensity(x, y, amount, _density.current);
 }
 
 /**
@@ -57,6 +54,6 @@ void Fluid::AddDensity(int x, int y, double amount)
  */
 void Fluid::AddVelocity(int x, int y, double amountX, double amountY)
 {
-    _velocityX.current(x, y) += amountX;
-    _velocityY.current(x, y) += amountY;
+    _simulation->AddVelocity(x, y, amountX, _velocityX.current);
+    _simulation->AddVelocity(x, y, amountY, _velocityY.current);
 }

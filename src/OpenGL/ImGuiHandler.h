@@ -1,4 +1,5 @@
 #pragma once
+#include "../OpenGL/PixelMapBuilder.h"
 #include "../Simulation/FluidBuilder.h"
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
@@ -44,20 +45,24 @@ public:
     bool ShouldClose() const override;
 };
 
-
 class BeginWindow : public IImGuiWindow {
 public:
-    BeginWindow(int mainWindowWidth, FluidBuilder& builder, ImGui::Handler& handler);
+    BeginWindow(int mainWindowWidth, int mainWindowHeight, FluidBuilder& fluidBuilder, PixelMapBuilder& pixelMapBuilder,
+        ImGui::Handler& handler);
     void Draw() override;
     bool ShouldClose(std::function<void(void)> callback) const override;
 
 private:
     int _mainWindowWidth;
+    int _mainWindowHeight;
     bool _shouldClose;
     float _diffusion;
     float _viscosity;
     float _timestep;
-    FluidBuilder& _builder;
+    int _iterations;
+    int _simulationSize;
+    FluidBuilder& _fluidBuilder;
+    PixelMapBuilder& _pixelMapBuilder;
     ImGui::Handler& _handler;
 };
 }

@@ -74,23 +74,29 @@ bool ImGui::FpsWindow::ShouldClose() const
 }
 
 /**
- * Create new beggining screen window (selection of parameters)
+ * Create new begining screen window (selection of parameters)
  * @param mainWindowWidth width of the root window
- * @param builder fluid builder - to set params selected at this window
+ * @param mainWindowHeight height of the root window
+ * @param fluidBuilder builder for the fluid
+ * @param pixelMapBuilder builder for the pixel map
  * @param handler ImGui handler
  */
-ImGui::BeginWindow::BeginWindow(int mainWindowWidth, FluidBuilder& builder, ImGui::Handler& handler)
-
+ImGui::BeginWindow::BeginWindow(int mainWindowWidth, int mainWindowHeight, FluidBuilder& fluidBuilder,
+    PixelMapBuilder& pixelMapBuilder, ImGui::Handler& handler)
     : _mainWindowWidth(mainWindowWidth)
+    , _mainWindowHeight(mainWindowHeight)
     , _shouldClose(false)
     , _diffusion(0.0000001f)
     , _viscosity(0.00000001f)
     , _timestep(0.25f)
-    , _builder(builder)
+    , _iterations(4)
+    , _fluidBuilder(fluidBuilder)
+    , _pixelMapBuilder(pixelMapBuilder)
+    , _simulationSize(128)
     , _handler(handler)
 {
+    _fluidBuilder.Size({ mainWindowWidth, mainWindowHeight, 0 });
 }
-
 /**
  * Draw begin window onthe screen
  */
@@ -104,6 +110,8 @@ void ImGui::BeginWindow::Draw()
             ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
         ImGui::Text("Fluid Parameters: ");
+        ImGui::SliderInt("Size", &_simulationSize, 16, _mainWindowWidth, "%d");
+        ImGui::SliderInt("Gauss-Seidel iterations", &_iterations, 1, 10, "%d");
         ImGui::InputFloat("Diffusion", &_diffusion, 0.0000000001f, 0.000000001f, "%.10f");
         ImGui::InputFloat("Viscosity", &_viscosity, 0.0000000001f, 0.000000001f, "%.10f");
         ImGui::InputFloat("Timestep", &_timestep, 0.25f, 0.5f, "%.3f");
@@ -124,7 +132,13 @@ void ImGui::BeginWindow::Draw()
 bool ImGui::BeginWindow::ShouldClose(std::function<void(void)> callback) const
 {
     if (_shouldClose) {
-        _builder.Diffusion(_diffusion).Viscosity(_viscosity).TimeStep(_timestep);
+        _fluidBuilder.Simulation()
+            .Diffusion(_diffusion)
+            .Viscosity(_viscosity)
+            .TimeStep(_timestep)
+            .Iterations(_iterations);
+        _pixelMapBuilder.Size({ _simulationSize, _simulationSize, 0 });
+        _fluidBuilder.Size({ _simulationSize, _simulationSize, 0 });
 
         static bool called = false;
         if (!called) {

@@ -27,6 +27,8 @@ public:
         Matrix current;
     };
 
+    virtual void AddVelocity(int x, int y, double amount, Matrix& velocity) const = 0;
+    virtual void AddDensity(int x, int y, double amount, Matrix& density) const = 0;
     virtual void Diffuse(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double spreadSpeed) const = 0;
     virtual void LinearSolve(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double k, double c) const = 0;
     virtual void Project(Matrix& velocityX, Matrix& velocityY, Matrix& p, Matrix& divergence) const = 0;
