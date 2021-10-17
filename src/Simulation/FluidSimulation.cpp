@@ -12,7 +12,7 @@ FluidSimulation::FluidSimulation(Dimensions dimensions, double diffusion, double
     : _size((dimensions.x))
     , _diffusion(diffusion)
     , _viscosity(viscosity)
-    , _dt(dt)
+    , _timeStep(dt)
     , _iterations(iterations)
 {
 }
@@ -27,7 +27,7 @@ FluidSimulation::FluidSimulation(Dimensions dimensions, double diffusion, double
  */
 void FluidSimulation::AddDensity(int x, int y, double amount, Matrix& outDensity) const
 {
-    outDensity(x, y) = (outDensity(x, y) + _dt * amount) / (1.0f + _dt);
+    outDensity(x, y) = (outDensity(x, y) + _timeStep * amount) / (1.0f + _timeStep);
 }
 
 /**
@@ -49,16 +49,16 @@ void FluidSimulation::AddVelocity(int x, int y, double amount, Matrix& outVeloci
  * - diffusion
  * - advection
  */
-void FluidSimulation::VelocityStep(State& velocityX, State& velocityY) const
+void FluidSimulation::VelocityStep(State& velocityX, State& velocityY, double deltaTime) const
 {
-    Diffuse(BoundaryType::VERTICAL, velocityX.previous, velocityX.current, _viscosity);
-    Diffuse(BoundaryType::HORIZONTAL, velocityY.previous, velocityY.current, _viscosity);
+    Diffuse(BoundaryType::VERTICAL, velocityX.previous, velocityX.current, _viscosity, deltaTime);
+    Diffuse(BoundaryType::HORIZONTAL, velocityY.previous, velocityY.current, _viscosity, deltaTime);
 
     Project(velocityX.previous, velocityY.previous, velocityX.current, velocityY.current);
 
-    Advect(BoundaryType::VERTICAL, velocityX.current, velocityX.previous, velocityX.previous, velocityY.previous);
+    Advect(BoundaryType::VERTICAL, velocityX.current, velocityX.previous, velocityX.previous, velocityY.previous, deltaTime);
 
-    Advect(BoundaryType::HORIZONTAL, velocityY.current, velocityY.previous, velocityX.previous, velocityY.previous);
+    Advect(BoundaryType::HORIZONTAL, velocityY.current, velocityY.previous, velocityX.previous, velocityY.previous, deltaTime);
 
     Project(velocityX.current, velocityY.current, velocityX.previous, velocityY.previous);
 }
@@ -66,10 +66,10 @@ void FluidSimulation::VelocityStep(State& velocityX, State& velocityY) const
 /**
  * Evolve density due to: addition of forces, addition of density, moving density along velocities, and diffusion
  */
-void FluidSimulation::DensityStep(State& density, Matrix& velocityX, Matrix& velocityY) const
+void FluidSimulation::DensityStep(State& density, Matrix& velocityX, Matrix& velocityY, double deltaTime) const
 {
-    Diffuse(BoundaryType::ALL, density.previous, density.current, _diffusion);
-    Advect(BoundaryType::ALL, density.current, density.previous, velocityX, velocityY);
+    Diffuse(BoundaryType::ALL, density.previous, density.current, _diffusion, deltaTime);
+    Advect(BoundaryType::ALL, density.current, density.previous, velocityX, velocityY, deltaTime);
 }
 
 /**
@@ -83,9 +83,9 @@ void FluidSimulation::DensityStep(State& density, Matrix& velocityX, Matrix& vel
  * @param spreadSpeed viscosity/diffusion
  */
 void FluidSimulation::Diffuse(
-    FluidSimulation::BoundaryType bound, Matrix& medium, Matrix& prevMedium, double spreadSpeed) const
+    FluidSimulation::BoundaryType bound, Matrix& medium, Matrix& prevMedium, double spreadSpeed, double deltaTime) const
 {
-    double k = _dt * spreadSpeed * (_size - 2) * (_size - 2);
+    double k = _timeStep * spreadSpeed * (_size - 2) * (_size - 2) * deltaTime;
 
     LinearSolve(bound, medium, prevMedium, k, 1 + 4 * k);
 }
@@ -178,11 +178,11 @@ double FluidSimulation::LinearInterpolation(double a, double b, double k) const
  * @param velocityY current Y velocity matrix
  */
 void FluidSimulation::Advect(FluidSimulation::BoundaryType bound, Matrix& medium, const Matrix& prevMedium,
-    const Matrix& velocityX, const Matrix& velocityY) const
+    const Matrix& velocityX, const Matrix& velocityY, double deltaTime) const
 {
     // velocities for x and y coordinates
-    double dtX = _dt * (_size - 2);
-    double dtY = _dt * (_size - 2);
+    double dtX = _timeStep * (_size - 2) * deltaTime;
+    double dtY = _timeStep * (_size - 2) * deltaTime;
 
     // coordinates of point that was back traced
     double fx, fy;

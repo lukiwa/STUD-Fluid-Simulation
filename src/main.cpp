@@ -13,16 +13,20 @@
 #include "OpenGL/Window.h"
 #include "Utilities/Random.h"
 
-void SimulationTest(IFluid* fluid, int width, int height)
+void SimulationTest(IFluid* fluid, int width, int height, double deltaTime)
 {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             fluid->AddDensity(width / 2 + i, height / 2 + j, Random::Int(150, 200));
         }
     }
-    fluid->AddVelocity(width / 2, height / 2, Random::Double(-5, 5), Random::Double(-5, 5));
+    fluid->AddVelocity(width / 2, height / 2, Random::Double(-50, 50), Random::Double(-50, 50));
+    fluid->Step(deltaTime);
+}
 
-    fluid->Step();
+int map(int x, int in_min, int in_max, int out_min, int out_max)
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 int main(int, char**)
@@ -85,8 +89,13 @@ int main(int, char**)
     std::unique_ptr<ImGui::IImGuiWindow> fpsWindow = std::make_unique<ImGui::FpsWindow>();
 
     Renderer renderer(vao, indexBuffer, program, pixelMap.get(), imguiHandler);
+    double currentFrame = 0, deltaTime = 0, lastFrame = 0;
 
     while (!window.ShouldClose()) {
+        currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         window.ProcessInput();
         imguiHandler.NewFrame();
 
@@ -106,7 +115,7 @@ int main(int, char**)
 #ifdef DEBUG
             fpsWindow->Draw();
 #endif
-            SimulationTest(fluid.get(), pixelMap->GetWidth(), pixelMap->GetHeight());
+            SimulationTest(fluid.get(), pixelMap->GetWidth(), pixelMap->GetHeight(), deltaTime);
         }
 
         renderer.Draw();

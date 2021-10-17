@@ -25,10 +25,10 @@ Fluid::Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFlui
  * Do a time step on fluid.
  * Send density map to visualization to perform rendering
  */
-void Fluid::Step()
+void Fluid::Step(double deltaTime)
 {
-    _simulation->VelocityStep(_velocityX, _velocityY);
-    _simulation->DensityStep(_density, _velocityX.current, _velocityY.current);
+    _simulation->VelocityStep(_velocityX, _velocityY, deltaTime);
+    _simulation->DensityStep(_density, _velocityX.current, _velocityY.current, deltaTime);
     _visualization->Update(_density.current);
 }
 

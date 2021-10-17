@@ -7,7 +7,7 @@ class Fluid : IFluid {
 public:
     void AddVelocity(int x, int y, double amountX, double amountY) override;
     void AddDensity(int x, int y, double amount) override;
-    void Step() override;
+    void Step(double deltaTime) override;
 
 private:
     friend class FluidBuilder;
