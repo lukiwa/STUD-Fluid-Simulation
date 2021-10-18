@@ -7,6 +7,7 @@
  */
 FluidVisualizationBuilder::FluidVisualizationBuilder()
     : _pixelMap(nullptr)
+    , _automatic(false)
 {
 }
 /**
@@ -29,6 +30,27 @@ std::unique_ptr<IFluidVisualization> FluidVisualizationBuilder::Build()
     assert(_pixelMap != nullptr);
     std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(_pixelMap));
     return visualization;
+}
+
+/**
+ * Should the simulation be automatic or based on user input
+ * @param automatic automatic or manual
+ * @return builder reference
+ */
+FluidVisualizationBuilder& FluidVisualizationBuilder::IsAutomaticSimulation(bool automatic)
+{
+
+    _automatic = automatic;
+    return *this;
+}
+
+/**
+ * Get information about visualization  type
+ * @return true is automatic simulation false otherwise
+ */
+bool FluidVisualizationBuilder::IsAutomaticSimulation()
+{
+    return _automatic;
 }
 
 // SIMULATION BUILDER

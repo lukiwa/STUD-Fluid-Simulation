@@ -3,6 +3,7 @@
 //
 
 #include "Window.h"
+#include <functional>
 #include <stdexcept>
 
 namespace GLFW {
@@ -39,6 +40,7 @@ Window::Window(int width, int height, const char* title, int glfwContextMajorVer
     }
     glfwMakeContextCurrent(_windowHandle);
     glfwSetFramebufferSizeCallback(_windowHandle, ResizeCallback);
+    glfwSetInputMode(_windowHandle, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 }
 
 Window::~Window()

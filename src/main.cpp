@@ -11,22 +11,55 @@
 #include "OpenGL/VertexAttributes.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/Window.h"
+#include "Utilities/MouseInput.h"
 #include "Utilities/Random.h"
-
-void SimulationTest(IFluid* fluid, int width, int height, double deltaTime)
-{
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            fluid->AddDensity(width / 2 + i, height / 2 + j, Random::Int(150, 200));
-        }
-    }
-    fluid->AddVelocity(width / 2, height / 2, Random::Double(-50, 50), Random::Double(-50, 50));
-    fluid->Step(deltaTime);
-}
 
 int map(int x, int in_min, int in_max, int out_min, int out_max)
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void SimulationAutomatic(IFluid* fluid, const Dimensions& simulationSize, double deltaTime)
+{
+    fluid->AddDensity(simulationSize.x / 2, simulationSize.y / 2, Random::Int(150, 200), 10);
+    fluid->AddVelocity(simulationSize.x / 2, simulationSize.y / 2, Random::Double(-50, 50), Random::Double(-50, 50), 4);
+    fluid->Step(deltaTime);
+}
+
+void SimulationManual(IFluid* fluid, MouseInput* mouseInput, double deltaTime)
+{
+    static int prevX = 0;
+    static int prevY = 0;
+    static double deltaX = 0;
+    static double deltaY = 0;
+    static int radius = 10;
+    mouseInput->WheelCallback([&](bool moveUp) {
+        if (moveUp) {
+            radius = std::min(radius + 1, 20);
+        } else {
+            radius = std::max(radius - 1, 4);
+        }
+    });
+
+    if (mouseInput->CheckMouseButton(GLFW_MOUSE_BUTTON_LEFT, GLFW_PRESS)) {
+        auto [x, y] = mouseInput->MappedMousePosition();
+        fluid->AddDensity(x, y, 500, radius);
+    }
+
+    if (mouseInput->CheckMouseButton(GLFW_MOUSE_BUTTON_RIGHT, GLFW_PRESS)) {
+        auto [x, y] = mouseInput->MappedMousePosition();
+
+        deltaX = std::min(x - prevX, 50);
+        deltaY = std::min(y - prevY, 50);
+
+        fluid->AddVelocity(x, y, deltaX, deltaY, radius);
+
+        auto result = mouseInput->MappedMousePosition();
+        prevX = result.first;
+        prevY = result.second;
+    }
+
+    fluid->Step(deltaTime);
 }
 
 int main(int, char**)
@@ -42,12 +75,12 @@ int main(int, char**)
     VertexArray vao;
 
     // clang-format off
-        GLfloat positions[] = {
-            1.0, 1.0f,     1.0f, 1.0f, // top right
-            1.0f, -1.0f,    1.0f, 0.0f, // bottom right
-            -1.0f, -1.0f,   0.0f, 0.0f, // bottom left
-            -1.0f, 1.0f,    0.0f, 1.0f // top left
-        };
+    GLfloat positions[] = {
+        1.0, 1.0f,     1.0f, 1.0f, // top right
+        1.0f, -1.0f,    1.0f, 0.0f, // bottom right
+        -1.0f, -1.0f,   0.0f, 0.0f, // bottom left
+        -1.0f, 1.0f,    0.0f, 1.0f // top left
+    };
     // clang-format on
     VertexBuffer vertexBuffer(positions, sizeof(positions));
     VertexAttributes attributes;
@@ -91,6 +124,10 @@ int main(int, char**)
     Renderer renderer(vao, indexBuffer, program, pixelMap.get(), imguiHandler);
     double currentFrame = 0, deltaTime = 0, lastFrame = 0;
 
+    bool automaticSimulation = false;
+
+    std::unique_ptr<MouseInput> mouseInput;
+
     while (!window.ShouldClose()) {
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -107,6 +144,12 @@ int main(int, char**)
                 fluid = fluidBuilder.Build();
 
                 renderer.SetPixelMap(pixelMap.get());
+
+                automaticSimulation = fluidBuilder.Visualization().IsAutomaticSimulation();
+                if (!automaticSimulation) {
+                    mouseInput = std::make_unique<MouseInput>(pixelMap->GetWidth(), pixelMap->GetHeight(),
+                        window.GetWidth(), window.GetHeight(), window.GetHandle());
+                }
             })) {
             beginWindow->Draw();
             renderer.Clear();
@@ -115,7 +158,12 @@ int main(int, char**)
 #ifdef DEBUG
             fpsWindow->Draw();
 #endif
-            SimulationTest(fluid.get(), pixelMap->GetWidth(), pixelMap->GetHeight(), deltaTime);
+
+            if (automaticSimulation) {
+                SimulationAutomatic(fluid.get(), { pixelMap->GetWidth(), pixelMap->GetHeight(), 0 }, deltaTime);
+            } else {
+                SimulationManual(fluid.get(), mouseInput.get(), deltaTime);
+            }
         }
 
         renderer.Draw();

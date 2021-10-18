@@ -61,6 +61,7 @@ private:
     float _timestep;
     int _iterations;
     int _simulationSize;
+    bool _automaticSimulation;
     FluidBuilder& _fluidBuilder;
     PixelMapBuilder& _pixelMapBuilder;
     ImGui::Handler& _handler;

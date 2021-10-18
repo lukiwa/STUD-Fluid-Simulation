@@ -38,10 +38,31 @@ void Fluid::Step(double deltaTime)
  * @param x x coordinate
  * @param y y coordinate
  * @param amount amount of density to be added
+ * @param radius of density
  */
-void Fluid::AddDensity(int x, int y, double amount)
+void Fluid::AddDensity(int startingXCoordinate, int startingYCoordinate, double amount, int radius)
 {
-    _simulation->AddDensity(x, y, amount, _density.current);
+
+    if (radius < 4) {
+        radius = 4;
+    }
+
+    for (int x = 0; x < radius / 4; ++x) {
+        for (int y = 0; y < radius / 4; ++y) {
+            if (startingXCoordinate - x > 0 && startingYCoordinate - y > 0) {
+                _simulation->AddDensity(startingXCoordinate - x, startingYCoordinate - y, amount, _density.current);
+            }
+            if (startingXCoordinate + x < _size && startingYCoordinate - y > 0) {
+                _simulation->AddDensity(startingXCoordinate + x, startingYCoordinate - y, amount, _density.current);
+            }
+            if (startingXCoordinate + x < _size && startingYCoordinate + y < _size) {
+                _simulation->AddDensity(startingXCoordinate + x, startingYCoordinate + y, amount, _density.current);
+            }
+            if (startingXCoordinate - x > 0 && startingYCoordinate + y < _size) {
+                _simulation->AddDensity(startingXCoordinate - x, startingYCoordinate + y, amount, _density.current);
+            }
+        }
+    }
 }
 
 /**
@@ -51,9 +72,32 @@ void Fluid::AddDensity(int x, int y, double amount)
  * @param y y coordinate
  * @param amountX x velocity at this point
  * @param amountY y velocity at this point
+ * @param radius radius of added velocity
  */
-void Fluid::AddVelocity(int x, int y, double amountX, double amountY)
+void Fluid::AddVelocity(int startingXCoordinate, int startingYCoordinate, double amountX, double amountY, int radius)
 {
-    _simulation->AddVelocity(x, y, amountX, _velocityX.current);
-    _simulation->AddVelocity(x, y, amountY, _velocityY.current);
+    if (radius < 4) {
+        radius = 4;
+    }
+
+    for (int x = 0; x < radius / 4; ++x) {
+        for (int y = 0; y < radius / 4; ++y) {
+            if (startingXCoordinate - x > 0 && startingYCoordinate - y > 0) {
+                _simulation->AddVelocity(startingXCoordinate - x, startingYCoordinate - y, amountX, _velocityX.current);
+                _simulation->AddVelocity(startingXCoordinate - x, startingYCoordinate - y, amountY, _velocityY.current);
+            }
+            if (startingXCoordinate + x < _size && startingYCoordinate - y > 0) {
+                _simulation->AddVelocity(startingXCoordinate + x, startingYCoordinate - y, amountX, _velocityX.current);
+                _simulation->AddVelocity(startingXCoordinate + x, startingYCoordinate - y, amountY, _velocityY.current);
+            }
+            if (startingXCoordinate + x < _size && startingYCoordinate + y < _size) {
+                _simulation->AddVelocity(startingXCoordinate + x, startingYCoordinate + y, amountX, _velocityX.current);
+                _simulation->AddVelocity(startingXCoordinate + x, startingYCoordinate + y, amountY, _velocityY.current);
+            }
+            if (startingXCoordinate - x > 0 && startingYCoordinate + y < _size) {
+                _simulation->AddVelocity(startingXCoordinate - x, startingYCoordinate + y, amountX, _velocityX.current);
+                _simulation->AddVelocity(startingXCoordinate - x, startingYCoordinate + y, amountY, _velocityY.current);
+            }
+        }
+    }
 }

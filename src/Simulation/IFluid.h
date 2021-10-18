@@ -4,8 +4,8 @@
 class IFluid {
 public:
     virtual ~IFluid() = default;
-    virtual void AddVelocity(int x, int y, double amountX, double amountY) = 0;
-    virtual void AddDensity(int x, int y, double amount) = 0;
+    virtual void AddVelocity(int x, int y, double amountX, double amountY, int radius) = 0;
+    virtual void AddDensity(int x, int y, double amount, int radius) = 0;
     virtual void Step(double deltaTime) = 0;
 };
 

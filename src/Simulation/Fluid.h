@@ -5,8 +5,8 @@
 
 class Fluid : IFluid {
 public:
-    void AddVelocity(int x, int y, double amountX, double amountY) override;
-    void AddDensity(int x, int y, double amount) override;
+    void AddVelocity(int x, int y, double amountX, double amountY, int radius) override;
+    void AddDensity(int x, int y, double amount, int radius) override;
     void Step(double deltaTime) override;
 
 private:

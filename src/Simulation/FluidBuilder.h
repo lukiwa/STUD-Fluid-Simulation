@@ -8,10 +8,15 @@ public:
     FluidVisualizationBuilder();
     ~FluidVisualizationBuilder() = default;
     FluidVisualizationBuilder& PixelMatrix(IPixelMap* pixelMap);
+    FluidVisualizationBuilder& IsAutomaticSimulation(bool automatic);
+
+    bool IsAutomaticSimulation();
+
     std::unique_ptr<IFluidVisualization> Build();
 
 private:
     IPixelMap* _pixelMap;
+    bool _automatic;
 };
 
 class FluidSimulationBuilder {
