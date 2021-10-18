@@ -4,12 +4,18 @@
 
 class ShaderProgram {
 public:
+    ShaderProgram() = default;
+    ShaderProgram(const ShaderProgram& other);
+    ShaderProgram& operator=(const ShaderProgram& other);
+    ShaderProgram(ShaderProgram&& other) noexcept;
+    ShaderProgram& operator=(ShaderProgram&& other) noexcept;
+
     ~ShaderProgram();
     void Use() const;
+
     void Delete() const;
 
 private:
-    ShaderProgram() = default;
     GLuint _programId;
     friend class ShaderProgramBuilder;
 };
@@ -30,7 +36,6 @@ public:
     const std::string& GetShaderSource(GLuint type) const;
     GLuint GetProgramId() const;
     GLuint GetShaderId(GLuint type) const;
-
 
 private:
     static std::string FileToString(const std::string& filepath);

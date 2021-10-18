@@ -48,6 +48,5 @@ PixelMapBuilder& PixelMapBuilder::Factory(IPixelMapComponentsFactory* factory)
  */
 std::unique_ptr<PixelMap> PixelMapBuilder::Build()
 {
-    std::unique_ptr<PixelMap> pixelMap(new PixelMap(_dimensions, _internalPixelFormat, _factory));
-    return pixelMap;
+    return std::make_unique<PixelMap>(_dimensions, _internalPixelFormat, _factory);
 }

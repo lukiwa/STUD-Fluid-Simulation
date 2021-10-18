@@ -1,4 +1,4 @@
-set(SIMULATION_SOURCES FluidBuilder.cpp Fluid.cpp Fluid.cpp FluidSimulation.cpp FluidVisualisation.cpp)
+set(SIMULATION_SOURCES FluidBuilder.cpp Fluid.cpp Fluid.cpp FluidSimulation.cpp FluidVisualisation.cpp Presentation.cpp)
 
 add_library(${PROJECT_NAME}_Simulation STATIC ${SIMULATION_SOURCES})
 target_include_directories(${PROJECT_NAME}_Simulation PUBLIC ../Utilities ../OpenGL)

@@ -4,6 +4,39 @@
 #include <iostream>
 #include <sstream>
 
+/**
+ * Constructors
+ *
+ */
+ShaderProgram::ShaderProgram(const ShaderProgram& other)
+{
+    _programId = other._programId;
+}
+ShaderProgram& ShaderProgram::operator=(const ShaderProgram& other)
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    _programId = other._programId;
+    return *this;
+}
+ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept
+{
+    _programId = other._programId;
+    other._programId = 0;
+}
+
+ShaderProgram& ShaderProgram::operator=(ShaderProgram&& other) noexcept
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    _programId = other._programId;
+    other._programId = 0;
+    return *this;
+}
 ShaderProgram::~ShaderProgram()
 {
     Delete();
