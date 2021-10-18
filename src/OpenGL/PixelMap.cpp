@@ -39,7 +39,6 @@ void PixelMap::Unbind() const
 
 void PixelMap::SwapBuffer()
 {
-    Bind();
     auto* pixels = static_cast<GLubyte*>(_pbo->MapBuffer());
     std::copy(_pixelBuffer.begin(), _pixelBuffer.end(), pixels);
     _pbo->UnmapBuffer();

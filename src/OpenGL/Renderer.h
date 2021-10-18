@@ -10,10 +10,12 @@
 
 class Renderer {
 public:
-    Renderer(VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, PixelMap& pixelMap, ImGui::Handler& imguiHandler);
+    Renderer(VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, PixelMap* pixelMap, ImGui::Handler& imguiHandler);
     ~Renderer() = default;
 
     void Draw() const;
+
+    void SetPixelMap(PixelMap* pixelMap);
 
     void ClearColor(const std::vector<int>& components) const;
 
@@ -23,6 +25,6 @@ private:
     VertexArray& _vao;
     IndexBuffer& _ibo;
     ShaderProgram& _program;
-    PixelMap& _pixelMap;
+    PixelMap* _pixelMap;
     ImGui::Handler& _imguiHandler;
 };

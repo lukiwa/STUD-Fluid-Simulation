@@ -3,29 +3,53 @@
 #include "Fluid.h"
 #include "FluidSimulation.h"
 
-class FluidBuilder {
-
+class FluidVisualizationBuilder {
 public:
-    FluidBuilder();
+    FluidVisualizationBuilder();
+    ~FluidVisualizationBuilder() = default;
+    FluidVisualizationBuilder& PixelMatrix(IPixelMap* pixelMap);
+    FluidVisualizationBuilder& IsAutomaticSimulation(bool automatic);
 
-    ~FluidBuilder() = default;
+    bool IsAutomaticSimulation();
 
-    FluidBuilder& Size(Dimensions dimensions);
+    std::unique_ptr<IFluidVisualization> Build();
 
-    FluidBuilder& DyeMatrix(PixelMap& pixelMap);
+private:
+    IPixelMap* _pixelMap;
+    bool _automatic;
+};
 
-    FluidBuilder& TimeStep(double dt);
+class FluidSimulationBuilder {
+public:
+    FluidSimulationBuilder();
+    ~FluidSimulationBuilder() = default;
 
-    FluidBuilder& Diffusion(double diffusion);
-
-    FluidBuilder& Viscosity(double viscosity);
-
-    std::unique_ptr<Fluid> Build();
+    FluidSimulationBuilder& Size(Dimensions dimensions);
+    FluidSimulationBuilder& Diffusion(double diffusion);
+    FluidSimulationBuilder& Viscosity(double viscosity);
+    FluidSimulationBuilder& TimeStep(double dt);
+    FluidSimulationBuilder& Iterations(int iterations);
+    std::unique_ptr<IFluidSimulation> Build();
 
 private:
     Dimensions _dimensions;
-    std::unique_ptr<IDyeMap> _dyeMap;
     double _dt;
     double _diffusion;
     double _viscosity;
+    int _iterations;
+};
+
+class FluidBuilder {
+public:
+    FluidBuilder();
+    ~FluidBuilder() = default;
+    FluidBuilder& Size(Dimensions dimensions);
+    FluidSimulationBuilder& Simulation();
+    FluidVisualizationBuilder& Visualization();
+    std::unique_ptr<IFluid> Build();
+
+private:
+    Dimensions _dimensions;
+    FluidSimulationBuilder _simulationBuilder;
+    FluidVisualizationBuilder _visualizationBuilder;
 };

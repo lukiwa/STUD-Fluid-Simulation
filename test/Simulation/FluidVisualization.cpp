@@ -11,90 +11,103 @@
 #include "FluidBuilder.h"
 #include "PixelMap.h"
 
-class MockPixelBufferObject : public IPixelBufferObject {
+class MockPixelMap : public IPixelMap {
 public:
-    MockPixelBufferObject(int width, int height, int internalFormat)
+    MockPixelMap(Dimensions dimensions, int internalPixelFormat)
+        : _pixelType(internalPixelFormat)
+        , _width(dimensions.x)
+        , _height(dimensions.y)
     {
-        _buffer.resize(width * height * internalFormat);
+        _pixelBuffer.resize(_width * _height * PixelBufferObject::ConvertFormatToNumber(_pixelType));
     }
-    void Bind() const override
+
+    void SetAllPixels(const std::vector<int>& components) override
+    {
+        for (int x = 0; x < _width; ++x) {
+            for (int y = 0; y < _height; ++y) {
+                SetPixel(x, y, components);
+            }
+        }
+    }
+    void SetPixel(int x, int y, const std::vector<int>& components) override
+    {
+        assert(x <= _width);
+        assert(y <= _height);
+
+        int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
+
+        assert(static_cast<std::size_t>(pixelDepth) == components.size());
+
+        for (int i = 0; i < pixelDepth; ++i) {
+            _pixelBuffer[pixelDepth * (x + y * _width) + i] = components[i];
+        }
+    }
+    std::vector<GLubyte> GetPixel(int x, int y) const override
+    {
+        assert(x <= _width);
+        assert(y <= _height);
+
+        std::vector<GLubyte> result;
+        int pixelDepth = PixelBufferObject::ConvertFormatToNumber(_pixelType);
+        result.reserve(pixelDepth);
+
+        for (int i = 0; i < pixelDepth; ++i) {
+            result.push_back(_pixelBuffer[pixelDepth * (x + y * _width) + i]);
+        }
+
+        return result;
+    }
+    void SwapBuffer() override
     {
         // UNUSED
     }
-    void Unbind() const override
+    void Clear() override
     {
-        // UNUSED
+        SetAllPixels({ 255, 255, 255, 255 });
     }
-    void* MapBuffer() const override
+    int GetWidth() const override
     {
-        return (void*)(_buffer.data());
+        return _width;
     }
-    void UnmapBuffer() const override
+    int GetHeight() const override
     {
-        _buffer.clear();
+        return _height;
     }
 
 private:
-    mutable std::vector<GLubyte> _buffer;
-};
-
-class MockTexture : public ITexture {
-public:
-    void Bind() const override
-    {
-        // UNUSED
-    }
-    void Unbind() const override
-    {
-        // UNUSED
-    }
-    void SetTextureParameters() const override
-    {
-        // UNUSED
-    }
-    void SubImage(void*) const override
-    {
-        // UNUSED
-    }
-};
-
-class MockComponentFactory : public IPixelMapComponentsFactory {
-public:
-    Components CreateComponents(Dimensions dimensions, int internalPixelFormat, GLenum, const void*) const override
-    {
-        std::unique_ptr<IPixelBufferObject> pbo(
-            new MockPixelBufferObject(dimensions.x, dimensions.y, internalPixelFormat));
-        std::unique_ptr<ITexture> texture(new MockTexture());
-        texture->SetTextureParameters();
-        return { std::move(pbo), std::move(texture) };
-    }
+    int _pixelType;
+    int _width;
+    int _height;
+    std::vector<GLubyte> _pixelBuffer;
 };
 
 class FluidVisualizationTestFixture : public ::testing::Test {
 public:
     FluidVisualizationTestFixture()
+        : _size(50)
+        , _pixelMap(nullptr)
+        , _visualization(nullptr)
     {
     }
 
     void SetUp() override
     {
-        _size = 50;
-        _pixelMap.reset(new PixelMap({ 50, 50, 0 }, GL_RGBA, new MockComponentFactory()));
+        _pixelMap.reset(new MockPixelMap({ 50, 50, 0 }, GL_RGBA));
         _pixelMap->Clear();
 
-        _fluidBuilder.reset(new FluidBuilder());
-        _fluidBuilder->Size({ _pixelMap->GetWidth(), _pixelMap->GetHeight(), 0 }).DyeMatrix(*_pixelMap);
-        _fluid = _fluidBuilder->Build();
+        FluidVisualizationBuilder builder;
+        builder.PixelMatrix(_pixelMap.get());
+        _visualization = builder.Build();
     }
 
     void TearDown() override
     {
+        _visualization.reset(nullptr);
     }
 
     int _size;
-    std::unique_ptr<PixelMap> _pixelMap;
-    std::unique_ptr<FluidBuilder> _fluidBuilder;
-    std::unique_ptr<Fluid> _fluid;
+    std::unique_ptr<IPixelMap> _pixelMap;
+    std::unique_ptr<IFluidVisualization> _visualization;
 };
 
 TEST_F(FluidVisualizationTestFixture, TheMoreDensityTheDarkerPixel)
@@ -103,8 +116,10 @@ TEST_F(FluidVisualizationTestFixture, TheMoreDensityTheDarkerPixel)
     const int yChanged = 10;
     const int amount = 250;
 
-    _fluid->AddDensity(xChanged, yChanged, amount);
-    _fluid->Step();
+    Matrix densityMap(_size);
+    densityMap(xChanged, yChanged) = amount;
+
+    _visualization->Update(densityMap);
 
     for (int x = 0; x < _pixelMap->GetWidth(); ++x) {
         for (int y = 0; y < _pixelMap->GetHeight(); ++y) {
@@ -129,8 +144,10 @@ TEST_F(FluidVisualizationTestFixture, PixelBrightnessNotLessThanZeroIfLotsOfDens
     const int yChanged = 10;
     const int amount = 512;
 
-    _fluid->AddDensity(xChanged, yChanged, amount);
-    _fluid->Step();
+    Matrix densityMap(_size);
+    densityMap(xChanged, yChanged) = amount;
+    _visualization->Update(densityMap);
+
     auto pixel = _pixelMap->GetPixel(xChanged, yChanged);
     for (const auto& component : pixel) {
         ASSERT_GE(component, 0);
@@ -143,8 +160,10 @@ TEST_F(FluidVisualizationTestFixture, PixelBrightnessNotMoreThan255IfSmallDensit
     const int yChanged = 10;
     const int amount = 0;
 
-    _fluid->AddDensity(xChanged, yChanged, amount);
-    _fluid->Step();
+    Matrix densityMap(_size);
+    densityMap(xChanged, yChanged) = amount;
+    _visualization->Update(densityMap);
+
     auto pixel = _pixelMap->GetPixel(xChanged, yChanged);
     for (const auto& component : pixel) {
         ASSERT_LE(component, 255);

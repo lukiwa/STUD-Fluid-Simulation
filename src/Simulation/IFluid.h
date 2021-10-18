@@ -1,17 +1,47 @@
 #pragma once
-#include "../Utilities/Array2D.h"
+#include "../Utilities/Matrix.h"
+
+class IFluid {
+public:
+    virtual ~IFluid() = default;
+    virtual void AddVelocity(int x, int y, double amountX, double amountY, int radius) = 0;
+    virtual void AddDensity(int x, int y, double amount, int radius) = 0;
+    virtual void Step(double deltaTime) = 0;
+};
 
 class IFluidSimulation {
 public:
     virtual ~IFluidSimulation() = default;
-    virtual void Step() = 0;
-    virtual const Array2D<double>& CurrentDensityMap() const = 0;
-    virtual void AddVelocity(int x, int y, double amountX, double amountY) = 0;
-    virtual void AddDensity(int x, int y, double amount) = 0;
+    enum class BoundaryType { VERTICAL, HORIZONTAL, ALL };
+    struct State {
+        /**
+         * Contains information about previous and current state of simulation
+         * @param size size of the simulation
+         */
+        explicit State(int size)
+            : previous(size)
+            , current(size)
+        {
+        }
+        Matrix previous;
+        Matrix current;
+    };
+
+    virtual void AddVelocity(int x, int y, double amount, Matrix& velocity) const = 0;
+    virtual void AddDensity(int x, int y, double amount, Matrix& density) const = 0;
+    virtual void Diffuse(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double spreadSpeed, double deltaTime) const = 0;
+    virtual void LinearSolve(BoundaryType bound, Matrix& medium, Matrix& prevMedium, double k, double c) const = 0;
+    virtual void Project(Matrix& velocityX, Matrix& velocityY, Matrix& p, Matrix& divergence) const = 0;
+    virtual void Advect(BoundaryType bound, Matrix& medium, const Matrix& prevMedium, const Matrix& velocityX,
+        const Matrix& velocityY, double deltaTime) const = 0;
+    virtual void SetBoundaryConditions(BoundaryType bound, Matrix& medium) const = 0;
+
+    virtual void VelocityStep(State& velocityX, State& velocityY, double deltaTime) const = 0;
+    virtual void DensityStep(State& density, Matrix& velocityX, Matrix& velocityY, double deltaTime) const = 0;
 };
 
 class IFluidVisualization {
 public:
     virtual ~IFluidVisualization() = default;
-    virtual void Step(const Array2D<double>& densityMap) = 0;
+    virtual void Update(const Matrix& densityMap) = 0;
 };

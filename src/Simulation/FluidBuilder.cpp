@@ -1,43 +1,184 @@
 #include "FluidBuilder.h"
-
 #include <memory>
-FluidBuilder& FluidBuilder::Size(Dimensions dimensions)
+
+// VISUALIZATION BUILDER
+/**
+ * Creates new fluid visualization builder
+ */
+FluidVisualizationBuilder::FluidVisualizationBuilder()
+    : _pixelMap(nullptr)
+    , _automatic(false)
+{
+}
+/**
+ * Selects pixel map to use for visualization
+ * @param pixelMap pixel map
+ * @return builder reference
+ */
+FluidVisualizationBuilder& FluidVisualizationBuilder::PixelMatrix(IPixelMap* pixelMap)
+{
+    _pixelMap = pixelMap;
+    return *this;
+}
+
+/**
+ * Builds new fluid visualization component
+ * @return builder reference
+ */
+std::unique_ptr<IFluidVisualization> FluidVisualizationBuilder::Build()
+{
+    assert(_pixelMap != nullptr);
+    std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(_pixelMap));
+    return visualization;
+}
+
+/**
+ * Should the simulation be automatic or based on user input
+ * @param automatic automatic or manual
+ * @return builder reference
+ */
+FluidVisualizationBuilder& FluidVisualizationBuilder::IsAutomaticSimulation(bool automatic)
+{
+
+    _automatic = automatic;
+    return *this;
+}
+
+/**
+ * Get information about visualization  type
+ * @return true is automatic simulation false otherwise
+ */
+bool FluidVisualizationBuilder::IsAutomaticSimulation()
+{
+    return _automatic;
+}
+
+// SIMULATION BUILDER
+/**
+ * Creates new simulation builder
+ */
+FluidSimulationBuilder::FluidSimulationBuilder()
+    : _dimensions()
+    , _dt(0)
+    , _diffusion(0)
+    , _viscosity(0)
+    , _iterations(4)
+{
+}
+
+/**
+ * Set simulation size
+ * @param dimensions dimension of the box
+ * @return builder reference
+ */
+FluidSimulationBuilder& FluidSimulationBuilder::Size(Dimensions dimensions)
 {
     _dimensions = dimensions;
     return *this;
 }
-FluidBuilder& FluidBuilder::DyeMatrix(PixelMap& pixelMap)
-{
-    _dyeMap = std::make_unique<DyeMap>(pixelMap);
-    return *this;
-}
-FluidBuilder& FluidBuilder::TimeStep(double dt)
-{
-    _dt = dt;
-    return *this;
-}
-FluidBuilder& FluidBuilder::Diffusion(double diffusion)
+
+/**
+ * Set diffusion
+ * @param diffusion diffusion parameter
+ * @return builder reference
+ */
+FluidSimulationBuilder& FluidSimulationBuilder::Diffusion(double diffusion)
 {
     _diffusion = diffusion;
     return *this;
 }
-FluidBuilder& FluidBuilder::Viscosity(double viscosity)
+/**
+ * Set viscosity
+ * @param viscosity viscosity parameter
+ * @return builder reference
+ */
+FluidSimulationBuilder& FluidSimulationBuilder::Viscosity(double viscosity)
 {
     _viscosity = viscosity;
     return *this;
 }
-std::unique_ptr<Fluid> FluidBuilder::Build()
+/**
+ * Set timestep
+ * @param dt timestep parameter
+ * @return builder reference
+ */
+FluidSimulationBuilder& FluidSimulationBuilder::TimeStep(double dt)
 {
-    std::unique_ptr<IFluidVisualization> visualization(new FluidVisualization(std::move(_dyeMap)));
-    std::unique_ptr<IFluidSimulation> simulation(new FluidSimulation(_dimensions, _diffusion, _viscosity, _dt));
-    std::unique_ptr<Fluid> fluid(new Fluid(std::move(simulation), std::move(visualization)));
-    return fluid;
+    _dt = dt;
+    return *this;
 }
+
+/**
+ * Set iterations for Gauss-Seidel method
+ * @param iterations iterations parameters
+ * @return builder reference
+ */
+FluidSimulationBuilder& FluidSimulationBuilder::Iterations(int iterations)
+{
+    _iterations = iterations;
+    return *this;
+}
+
+/**
+ * Constructs fluid simulation component
+ * @return fluid ismulation component
+ */
+std::unique_ptr<IFluidSimulation> FluidSimulationBuilder::Build()
+{
+    std::unique_ptr<IFluidSimulation> simulation(
+        new FluidSimulation(_dimensions, _diffusion, _viscosity, _dt, _iterations));
+
+    return simulation;
+}
+
+// FLUID BUILDER
+/**
+ * Constructs new fluid builder
+ */
 FluidBuilder::FluidBuilder()
     : _dimensions()
-    , _dyeMap(nullptr)
-    , _dt(0)
-    , _diffusion(0)
-    , _viscosity(0)
+    , _simulationBuilder()
+    , _visualizationBuilder()
 {
+}
+
+/**
+ * Dimension of the simulation
+ * @param dimensions dimension parameter
+ * @return builder reference
+ */
+FluidBuilder& FluidBuilder::Size(Dimensions dimensions)
+{
+    _dimensions = dimensions;
+    _simulationBuilder.Size(dimensions);
+    return *this;
+}
+/**
+ * Get simulation builder
+ * @return simulation builder reference
+ */
+FluidSimulationBuilder& FluidBuilder::Simulation()
+{
+    return _simulationBuilder;
+}
+
+/**
+ * Get visualization builder
+ * @return visualization builder reference
+ */
+FluidVisualizationBuilder& FluidBuilder::Visualization()
+{
+    return _visualizationBuilder;
+}
+
+/**
+ * Constructs new fluid abstraction
+ * @return fluid abstraction
+ */
+std::unique_ptr<IFluid> FluidBuilder::Build()
+{
+    auto simulation = _simulationBuilder.Build();
+    auto visualization = _visualizationBuilder.Build();
+    std::unique_ptr<IFluid> fluid(new Fluid(std::move(simulation), std::move(visualization), _dimensions.x));
+    return fluid;
 }

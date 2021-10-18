@@ -1,4 +1,4 @@
-set(OPENGL_SOURCES ShaderProgram.cpp VertexBuffer.cpp IndexBuffer.cpp VertexAttributes.cpp VertexArray.cpp Texture.cpp Window.cpp PixelBufferObject.cpp PixelBufferObject.cpp PixelMap.cpp Renderer.cpp ImGuiHandler.cpp)
+set(OPENGL_SOURCES ShaderProgram.cpp VertexBuffer.cpp IndexBuffer.cpp VertexAttributes.cpp VertexArray.cpp Texture.cpp Window.cpp PixelBufferObject.cpp PixelBufferObject.cpp PixelMap.cpp Renderer.cpp ImGuiHandler.cpp PixelMapBuilder.cpp)
 
 add_library(${PROJECT_NAME}_OpenGL STATIC ${OPENGL_SOURCES})
 target_include_directories(${PROJECT_NAME}_OpenGL PUBLIC ../Utilities)

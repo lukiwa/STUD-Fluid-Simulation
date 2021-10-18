@@ -74,25 +74,32 @@ bool ImGui::FpsWindow::ShouldClose() const
 }
 
 /**
- * Create new beggining screen window (selection of parameters)
+ * Create new begining screen window (selection of parameters)
  * @param mainWindowWidth width of the root window
- * @param builder fluid builder - to set params selected at this window
+ * @param mainWindowHeight height of the root window
+ * @param fluidBuilder builder for the fluid
+ * @param pixelMapBuilder builder for the pixel map
  * @param handler ImGui handler
  */
-ImGui::BeginWindow::BeginWindow(int mainWindowWidth, FluidBuilder& builder, ImGui::Handler& handler)
-
+ImGui::BeginWindow::BeginWindow(int mainWindowWidth, int mainWindowHeight, FluidBuilder& fluidBuilder,
+    PixelMapBuilder& pixelMapBuilder, ImGui::Handler& handler)
     : _mainWindowWidth(mainWindowWidth)
+    , _mainWindowHeight(mainWindowHeight)
     , _shouldClose(false)
-    , _diffusion(0.5f)
-    , _viscosity(0.5f)
-    , _timestep(0.5f)
-    , _builder(builder)
+    , _diffusion(0.0000001f)
+    , _viscosity(0.00000001f)
+    , _timestep(0.15f)
+    , _iterations(10)
+    , _simulationSize(128)
+    , _automaticSimulation(false)
+    , _fluidBuilder(fluidBuilder)
+    , _pixelMapBuilder(pixelMapBuilder)
     , _handler(handler)
 {
+    _fluidBuilder.Size({ mainWindowWidth, mainWindowHeight, 0 });
 }
-
 /**
- * Draw begin window onthe screen
+ * Draw begin window on the screen
  */
 void ImGui::BeginWindow::Draw()
 {
@@ -104,9 +111,12 @@ void ImGui::BeginWindow::Draw()
             ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
         ImGui::Text("Fluid Parameters: ");
-        ImGui::InputFloat("Diffusion", &_diffusion, 0.0000001f, 1.0f, "%.8f");
-        ImGui::InputFloat("Viscosity", &_viscosity, 0.0000001f, 1.0f, "%.8f");
-        ImGui::InputFloat("Timestep", &_timestep, 0.0000001f, 1.0f, "%.8f");
+        ImGui::SliderInt("Size", &_simulationSize, 16, _mainWindowWidth, "%d");
+        ImGui::SliderInt("Gauss-Seidel iterations", &_iterations, 1, 20, "%d");
+        ImGui::InputFloat("Diffusion", &_diffusion, 0.0000000001f, 0.000000001f, "%.10f");
+        ImGui::InputFloat("Viscosity", &_viscosity, 0.0000000001f, 0.000000001f, "%.10f");
+        ImGui::InputFloat("Timestep", &_timestep, 0.05f, 0.25f, "%.3f");
+        ImGui::Checkbox("Automatic simulation", &_automaticSimulation);
 
         if (ImGui::Button("Start simulation", ImVec2(_mainWindowWidth / 2.0f, 0.0f))) {
             _shouldClose = true;
@@ -124,10 +134,17 @@ void ImGui::BeginWindow::Draw()
 bool ImGui::BeginWindow::ShouldClose(std::function<void(void)> callback) const
 {
     if (_shouldClose) {
-        _builder.Diffusion(_diffusion).Viscosity(_viscosity).TimeStep(_timestep);
+        _fluidBuilder.Simulation()
+            .Diffusion(_diffusion)
+            .Viscosity(_viscosity)
+            .TimeStep(_timestep)
+            .Iterations(_iterations);
+        _pixelMapBuilder.Size({ _simulationSize, _simulationSize, 0 });
+        _fluidBuilder.Size({ _simulationSize, _simulationSize, 0 });
+        _fluidBuilder.Visualization().IsAutomaticSimulation(_automaticSimulation);
 
         static bool called = false;
-        if(!called) {
+        if (!called) {
             called = true;
             callback();
         }

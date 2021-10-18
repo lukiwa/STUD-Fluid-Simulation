@@ -1,15 +1,19 @@
 #pragma once
+#include "../Utilities/Matrix.h"
+#include "../OpenGL/PixelMap.h"
 #include "IFluid.h"
-#include "../Utilities/Array2D.h"
-#include "DyeMap.h"
 
 
 class FluidVisualization : public IFluidVisualization {
 public:
-    FluidVisualization(std::unique_ptr<IDyeMap> dyeMap);
-
-    void Step(const Array2D<double>& densityMap) override;
+    void Update(const Matrix& densityMap) override;
 
 private:
-    std::unique_ptr<IDyeMap> _dyeMap;
+    friend class FluidVisualizationBuilder;
+    FluidVisualization(IPixelMap* pixelMap);
+
+    IPixelMap* _pixelMap;
+
+    uint8_t _singlePixelDyeAmount;
+
 };
