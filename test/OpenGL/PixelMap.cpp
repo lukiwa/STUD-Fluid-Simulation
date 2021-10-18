@@ -82,8 +82,9 @@ public:
         ASSERT_NO_THROW(_window.reset(new GLFW::Window(10, 10, "Test")));
         ASSERT_EQ(glewInit(), GLEW_OK);
 
-        _componentsFactory.reset(new PixelMapComponentsFactory());
-        _pixelMap.reset(new PixelMap({ _width, _height, 0 }, _pixelFormat, _componentsFactory.get()));
+        _componentsFactory = std::make_unique<PixelMapComponentsFactory>();
+        _pixelMap
+            = std::make_unique<PixelMap>(Dimensions{ _width, _height, 0 }, _pixelFormat, _componentsFactory.get());
         _pixelMap->Clear();
     }
 

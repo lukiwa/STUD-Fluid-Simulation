@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <gmock/gmock.h>
 
+#include <memory>
+
 #include "PixelBufferObject.h"
 #include "PixelMap.h"
 #include "Texture.h"
@@ -92,7 +94,7 @@ public:
 
     void SetUp() override
     {
-        _pixelMap.reset(new MockPixelMap({ 50, 50, 0 }, GL_RGBA));
+        _pixelMap = std::make_unique<MockPixelMap>(Dimensions{ 50, 50, 0 }, GL_RGBA);
         _pixelMap->Clear();
 
         FluidVisualizationBuilder builder;
