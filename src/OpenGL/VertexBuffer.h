@@ -5,7 +5,7 @@
 class VertexBuffer : public IBoundable {
 public:
     VertexBuffer(const void* data, uint32_t size);
-    ~VertexBuffer();
+    ~VertexBuffer() override;
 
     void Bind() const override;
     void Unbind() const override;

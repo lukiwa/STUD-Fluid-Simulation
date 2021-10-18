@@ -8,13 +8,12 @@
  * @param pixelMap map pixels to be displayed
  * @param imguiHandler imgui handler (to draw imgui related stuff)
  */
-Renderer::Renderer(
-    VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program, PixelMap* pixelMap, ImGui::Handler& imguiHandler)
+Renderer::Renderer(VertexArray& vao, IndexBuffer& ibo, ShaderProgram& program)
     : _vao(vao)
     , _ibo(ibo)
     , _program(program)
-    , _pixelMap(pixelMap)
-    , _imguiHandler(imguiHandler)
+    , _pixelMap(nullptr)
+    , _imguiHandler(nullptr)
 {
     _program.Use();
 }
@@ -24,7 +23,6 @@ Renderer::Renderer(
  */
 void Renderer::Draw() const
 {
-
     _vao.Bind();
     _ibo.Bind();
     _program.Use();
@@ -35,13 +33,26 @@ void Renderer::Draw() const
     }
     GlAssert(glDrawElements(GL_TRIANGLES, _ibo.Count(), GL_UNSIGNED_INT, nullptr));
 
-
-    _imguiHandler.Draw();
+    assert(_imguiHandler != nullptr);
+    _imguiHandler->Draw();
 }
 
+/**
+ * Set pixel map for renderer
+ * @param pixelMap pixel map to be displayed
+ */
 void Renderer::SetPixelMap(PixelMap* pixelMap)
 {
     _pixelMap = pixelMap;
+}
+
+/**
+ * Set handler to display ImGui elements
+ * @param imguiHandler handler for imgui
+ */
+void Renderer::SetImGuiHandler(ImGui::Handler* imguiHandler)
+{
+    _imguiHandler = imguiHandler;
 }
 
 /**

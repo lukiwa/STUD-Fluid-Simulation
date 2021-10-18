@@ -32,6 +32,7 @@ Window::Window(int width, int height, const char* title, int glfwContextMajorVer
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwContextMajorVersion);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwContextMinorVersion);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     _windowHandle = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (_windowHandle == nullptr) {
