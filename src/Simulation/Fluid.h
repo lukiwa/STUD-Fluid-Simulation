@@ -10,6 +10,7 @@ public:
     void Step(double deltaTime) override;
 
 private:
+    void FixBoundsAndRadius(int& outX, int& outY, int& outRadius) const;
     friend class FluidBuilder;
     Fluid(std::unique_ptr<IFluidSimulation> simulation, std::unique_ptr<IFluidVisualization> visualization, int size);
     std::unique_ptr<IFluidSimulation> _simulation;

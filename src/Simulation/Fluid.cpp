@@ -42,10 +42,7 @@ void Fluid::Step(double deltaTime)
  */
 void Fluid::AddDensity(int startingXCoordinate, int startingYCoordinate, double amount, int radius)
 {
-
-    if (radius < 4) {
-        radius = 4;
-    }
+    FixBoundsAndRadius(startingXCoordinate, startingYCoordinate, radius);
 
     for (int x = 0; x < radius / 4; ++x) {
         for (int y = 0; y < radius / 4; ++y) {
@@ -76,9 +73,7 @@ void Fluid::AddDensity(int startingXCoordinate, int startingYCoordinate, double 
  */
 void Fluid::AddVelocity(int startingXCoordinate, int startingYCoordinate, double amountX, double amountY, int radius)
 {
-    if (radius < 4) {
-        radius = 4;
-    }
+    FixBoundsAndRadius(startingXCoordinate, startingYCoordinate, radius);
 
     for (int x = 0; x < radius / 4; ++x) {
         for (int y = 0; y < radius / 4; ++y) {
@@ -99,5 +94,22 @@ void Fluid::AddVelocity(int startingXCoordinate, int startingYCoordinate, double
                 _simulation->AddVelocity(startingXCoordinate - x, startingYCoordinate + y, amountY, _velocityY.current);
             }
         }
+    }
+}
+
+/**
+ * Set x and y to be in range of fluid size. Sets radius to be no smaller than 4
+ * @param outX x coordinate
+ * @param outY y coordinate
+ * @param outRadius radius
+ */
+void Fluid::FixBoundsAndRadius(int& outX, int& outY, int& outRadius) const
+{
+    outX = std::min(outX, _size - 1);
+    outY = std::min(outY, _size - 1);
+    outX = std::max(outX, 0);
+    outY = std::max(outY, 0);
+    if (outRadius < 4) {
+        outRadius = 4;
     }
 }

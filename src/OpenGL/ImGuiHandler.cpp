@@ -117,6 +117,15 @@ void ImGui::BeginWindow::Draw()
         ImGui::InputFloat("Viscosity", &_viscosity, 0.0000000001f, 0.000000001f, "%.10f");
         ImGui::InputFloat("Timestep", &_timestep, 0.05f, 0.25f, "%.3f");
         ImGui::Checkbox("Automatic simulation", &_automaticSimulation);
+        if (_diffusion < 0) {
+            _diffusion = 0.0000000001f;
+        }
+        if (_viscosity < 0) {
+            _viscosity = 0.0000000001f;
+        }
+        if (_timestep < 0) {
+            _timestep = 0.05f;
+        }
 
         if (ImGui::Button("Start simulation", ImVec2(_mainWindowWidth / 2.0f, 0.0f))) {
             _shouldClose = true;
