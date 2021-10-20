@@ -8,6 +8,7 @@ OR
 - WSL1, with XClient installed (eg. XLaunch with disabled "native opengl" and enabled "Disable access control"). 
 
 ## Prerequisites:
+- sudo apt-get update
 - CMake - sudo apt install cmake
 - Build essentials - sudo apt-get install build-essential
 - GoogleTest - sudo apt-get install libgtest-dev
