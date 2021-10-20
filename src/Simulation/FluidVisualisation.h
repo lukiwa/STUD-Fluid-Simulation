@@ -1,8 +1,8 @@
 #pragma once
-#include "../Utilities/Matrix.h"
-#include "../OpenGL/PixelMap.h"
 #include "IFluid.h"
 
+#include "PixelMap.h"
+#include "Matrix.h"
 
 class FluidVisualization : public IFluidVisualization {
 public:

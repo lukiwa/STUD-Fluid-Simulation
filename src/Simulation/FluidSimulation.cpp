@@ -1,5 +1,5 @@
 #include "FluidSimulation.h"
-#include "../Utilities/Tracing.h"
+#include "Tracing.h"
 
 /**
  * Constructs new fluid simulation abstraction

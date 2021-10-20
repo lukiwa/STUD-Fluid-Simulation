@@ -1,10 +1,10 @@
 set(OPENGL_SOURCES ShaderProgram.cpp VertexBuffer.cpp IndexBuffer.cpp VertexAttributes.cpp VertexArray.cpp Texture.cpp Window.cpp PixelBufferObject.cpp PixelBufferObject.cpp PixelMap.cpp Renderer.cpp ImGuiHandler.cpp PixelMapBuilder.cpp Engine.cpp)
-
 add_library(${PROJECT_NAME}_OpenGL STATIC ${OPENGL_SOURCES})
-target_include_directories(${PROJECT_NAME}_OpenGL PUBLIC ../Utilities)
-target_include_directories(${PROJECT_NAME}_OpenGL PUBLIC ../../lib/)
+target_include_directories(${PROJECT_NAME}_OpenGL PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(${PROJECT_NAME}_OpenGL ${GLEW_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_OpenGL ${OPENGL_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_OpenGL glfw)
-target_link_libraries(${PROJECT_NAME}_OpenGL ImGui)
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE ImGui)
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE ${PROJECT_NAME}_Utilities)
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE ${PROJECT_NAME}_Simulation)
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE ${GLEW_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE ${OPENGL_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_OpenGL PRIVATE glfw)

@@ -1,5 +1,5 @@
 #pragma once
-#include "../OpenGL/Window.h"
+#include "Window.h"
 #include <functional>
 
 class MouseInput {

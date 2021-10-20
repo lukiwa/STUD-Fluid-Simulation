@@ -2,7 +2,6 @@
 #include "Window.h"
 #include "gtest/gtest.h"
 #include <GL/glew.h>
-#include <gmock/gmock.h>
 
 #include <memory>
 

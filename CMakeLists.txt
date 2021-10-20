@@ -31,9 +31,9 @@ add_subdirectory(lib)
 add_subdirectory(src)
 
 #Tests
-add_subdirectory(test)
-enable_testing()
-
+if (BUILD_TESTS)
+    add_subdirectory(test)
+endif ()
 
 
 
