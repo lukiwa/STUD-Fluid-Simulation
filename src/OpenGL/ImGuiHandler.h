@@ -1,10 +1,10 @@
 #pragma once
-#include "../OpenGL/PixelMapBuilder.h"
-#include "../Simulation/FluidBuilder.h"
+#include "PixelMapBuilder.h"
+#include "FluidBuilder.h"
 #include "GLFW/glfw3.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 #include <functional>
 
 namespace ImGui {

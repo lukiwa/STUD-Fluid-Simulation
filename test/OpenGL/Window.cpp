@@ -1,7 +1,6 @@
 #include <GL/glew.h>
 #include "Window.h"
 #include "gtest/gtest.h"
-#include <gmock/gmock.h>
 #include "Tracing.h"
 
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "../Utilities/Dimensions.h"
-#include "../Utilities/Matrix.h"
+#include "Dimensions.h"
+#include "Matrix.h"
 #include "IFluid.h"
 #include <chrono>
 #include <cmath>

@@ -1,8 +1,13 @@
 project(Tests)
 
+enable_testing()
+find_package(GTest REQUIRED)
+
 add_executable(${PROJECT_NAME})
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-target_link_libraries(${PROJECT_NAME} gtest gmock gtest_main)
+target_include_directories(${PROJECT_NAME} PUBLIC ${GTEST_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(${PROJECT_NAME} fluid_simulation_Utilities)
+
 
 add_subdirectory(OpenGL)
 add_subdirectory(Simulation)

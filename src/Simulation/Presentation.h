@@ -1,8 +1,8 @@
 #pragma once
-#include "../Utilities/Dimensions.h"
-#include "../Utilities/MouseInput.h"
+#include "Dimensions.h"
+#include "MouseInput.h"
 #include "IFluid.h"
-#include "../Utilities/Random.h"
+#include "Random.h"
 
 void SimulationAutomatic(IFluid* fluid, const Dimensions& simulationSize, double deltaTime);
 
