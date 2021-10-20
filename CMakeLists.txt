@@ -32,6 +32,7 @@ add_subdirectory(src)
 
 #Tests
 if (BUILD_TESTS)
+    message(">Building tests")
     add_subdirectory(test)
 endif ()
 
