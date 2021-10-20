@@ -40,3 +40,12 @@ For release mode:
 ## Running Tests (if enabled):
 - cd test
 - ./Tests
+
+
+## For opening in Clion on Windows (with WSL1):
+- Clion must be installed and configured to work with WSL1 - https://www.jetbrains.com/help/clion/how-to-use-wsl-development-environment-in-product.html
+- Clone this repository
+- Open project in Clion
+- Click "Trust this project"
+- Accept shared configurations - click "OK"
+- Appplication and tests can now be built and run from the Clion
