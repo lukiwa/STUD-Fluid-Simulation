@@ -13,7 +13,7 @@ ImGui::Handler::Handler(GLFWwindow* windowHandler)
     std::string version = "#version 130";
     ImGui_ImplOpenGL3_Init(version.c_str());
 
-    ImGui::StyleColorsLight();
+    ImGui::StyleColorsDark();
 }
 
 /**
