@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <list>
+#include <vector>
 
 class VertexAttributes : public IBoundable {
 public:
