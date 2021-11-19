@@ -1,0 +1,116 @@
+\hypertarget{classGLFW_1_1Window}{}\doxysection{G\+L\+FW\+::Window Class Reference}
+\label{classGLFW_1_1Window}\index{GLFW::Window@{GLFW::Window}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGLFW_1_1Window_ac2a7a1df5be0ce7d09ad93dec6ff076f}{Window}} (int width, int height, const char $\ast$title, int glfw\+Context\+Major\+Version=3, int glfw\+Context\+Minor\+Version=3)
+\item 
+\mbox{\Hypertarget{classGLFW_1_1Window_a923e5b1ed8b9a1b6457afd6a472567dd}\label{classGLFW_1_1Window_a923e5b1ed8b9a1b6457afd6a472567dd}} 
+{\bfseries Window} (const \mbox{\hyperlink{classGLFW_1_1Window}{Window}} \&)=delete
+\item 
+\mbox{\Hypertarget{classGLFW_1_1Window_a4bcb6cdc172b9e255a27d8d7ed527447}\label{classGLFW_1_1Window_a4bcb6cdc172b9e255a27d8d7ed527447}} 
+\mbox{\hyperlink{classGLFW_1_1Window}{Window}} \& {\bfseries operator=} (const \mbox{\hyperlink{classGLFW_1_1Window}{Window}} \&)=delete
+\item 
+bool \mbox{\hyperlink{classGLFW_1_1Window_ac552611606989e83221175787f67d732}{Should\+Close}} () const
+\item 
+void \mbox{\hyperlink{classGLFW_1_1Window_ae3d8da6c5a5ff3e3ca3e0cc85a98b0ac}{Swap\+Buffers}} () const
+\item 
+void \mbox{\hyperlink{classGLFW_1_1Window_a2c65fbeea9eae0050383654d211fe924}{Process\+Input}} ()
+\item 
+G\+L\+F\+Wwindow $\ast$ \mbox{\hyperlink{classGLFW_1_1Window_a67c5578498e32724023e8f065abdb9cc}{Get\+Handle}} ()
+\item 
+int \mbox{\hyperlink{classGLFW_1_1Window_a607d7cd261605a4c92a237e4a134aa9a}{Get\+Width}} () const
+\item 
+int \mbox{\hyperlink{classGLFW_1_1Window_a85ca0d2de614b47a80eec9a5aa1107b8}{Get\+Height}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGLFW_1_1Window_acf144e1ebf0901a2e2179ea70bdd34f6}\label{classGLFW_1_1Window_acf144e1ebf0901a2e2179ea70bdd34f6}} 
+G\+L\+F\+Wwindow $\ast$ {\bfseries \+\_\+window\+Handle}
+\item 
+\mbox{\Hypertarget{classGLFW_1_1Window_ada3bb1822587ed0df699d63db0dde775}\label{classGLFW_1_1Window_ada3bb1822587ed0df699d63db0dde775}} 
+int {\bfseries \+\_\+width}
+\item 
+\mbox{\Hypertarget{classGLFW_1_1Window_a7c30c2ec92e623e1bac3ae077f9c98a2}\label{classGLFW_1_1Window_a7c30c2ec92e623e1bac3ae077f9c98a2}} 
+int {\bfseries \+\_\+height}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGLFW_1_1Window_ac2a7a1df5be0ce7d09ad93dec6ff076f}\label{classGLFW_1_1Window_ac2a7a1df5be0ce7d09ad93dec6ff076f}} 
+\index{GLFW::Window@{GLFW::Window}!Window@{Window}}
+\index{Window@{Window}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{Window()}{Window()}}
+{\footnotesize\ttfamily G\+L\+F\+W\+::\+Window\+::\+Window (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height,  }\item[{const char $\ast$}]{title,  }\item[{int}]{glfw\+Context\+Major\+Version = {\ttfamily 3},  }\item[{int}]{glfw\+Context\+Minor\+Version = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Constructs a new glfw windows and context 
+\begin{DoxyParams}{Parameters}
+{\em width} & window width \\
+\hline
+{\em height} & window height \\
+\hline
+{\em title} & window title \\
+\hline
+{\em glfw\+Context\+Major\+Version} & Open\+GL major version (default 3) \\
+\hline
+{\em glfw\+Context\+Minor\+Version} & Open\+GL minor version (default 3) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGLFW_1_1Window_a67c5578498e32724023e8f065abdb9cc}\label{classGLFW_1_1Window_a67c5578498e32724023e8f065abdb9cc}} 
+\index{GLFW::Window@{GLFW::Window}!GetHandle@{GetHandle}}
+\index{GetHandle@{GetHandle}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{GetHandle()}{GetHandle()}}
+{\footnotesize\ttfamily G\+L\+F\+Wwindow $\ast$ G\+L\+F\+W\+::\+Window\+::\+Get\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get G\+L\+FW window handle \begin{DoxyReturn}{Returns}
+glfw handle pointer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGLFW_1_1Window_a85ca0d2de614b47a80eec9a5aa1107b8}\label{classGLFW_1_1Window_a85ca0d2de614b47a80eec9a5aa1107b8}} 
+\index{GLFW::Window@{GLFW::Window}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int G\+L\+F\+W\+::\+Window\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get window height \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGLFW_1_1Window_a607d7cd261605a4c92a237e4a134aa9a}\label{classGLFW_1_1Window_a607d7cd261605a4c92a237e4a134aa9a}} 
+\index{GLFW::Window@{GLFW::Window}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int G\+L\+F\+W\+::\+Window\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get window width \begin{DoxyReturn}{Returns}
+window width 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGLFW_1_1Window_a2c65fbeea9eae0050383654d211fe924}\label{classGLFW_1_1Window_a2c65fbeea9eae0050383654d211fe924}} 
+\index{GLFW::Window@{GLFW::Window}!ProcessInput@{ProcessInput}}
+\index{ProcessInput@{ProcessInput}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{ProcessInput()}{ProcessInput()}}
+{\footnotesize\ttfamily void G\+L\+F\+W\+::\+Window\+::\+Process\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Handle inputs to a program \mbox{\Hypertarget{classGLFW_1_1Window_ac552611606989e83221175787f67d732}\label{classGLFW_1_1Window_ac552611606989e83221175787f67d732}} 
+\index{GLFW::Window@{GLFW::Window}!ShouldClose@{ShouldClose}}
+\index{ShouldClose@{ShouldClose}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{ShouldClose()}{ShouldClose()}}
+{\footnotesize\ttfamily bool G\+L\+F\+W\+::\+Window\+::\+Should\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Should window close \begin{DoxyReturn}{Returns}
+true if should close false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGLFW_1_1Window_ae3d8da6c5a5ff3e3ca3e0cc85a98b0ac}\label{classGLFW_1_1Window_ae3d8da6c5a5ff3e3ca3e0cc85a98b0ac}} 
+\index{GLFW::Window@{GLFW::Window}!SwapBuffers@{SwapBuffers}}
+\index{SwapBuffers@{SwapBuffers}!GLFW::Window@{GLFW::Window}}
+\doxysubsubsection{\texorpdfstring{SwapBuffers()}{SwapBuffers()}}
+{\footnotesize\ttfamily void G\+L\+F\+W\+::\+Window\+::\+Swap\+Buffers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Swap buffers 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Window.\+h\item 
+Window.\+cpp\end{DoxyCompactItemize}

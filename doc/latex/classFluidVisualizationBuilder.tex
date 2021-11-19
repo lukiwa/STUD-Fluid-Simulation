@@ -1,0 +1,98 @@
+\hypertarget{classFluidVisualizationBuilder}{}\doxysection{Fluid\+Visualization\+Builder Class Reference}
+\label{classFluidVisualizationBuilder}\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+
+
+Collaboration diagram for Fluid\+Visualization\+Builder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{classFluidVisualizationBuilder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFluidVisualizationBuilder_abc1cabbc00af59a6d6b11a35a079a468}{Fluid\+Visualization\+Builder}} ()
+\item 
+\mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& \mbox{\hyperlink{classFluidVisualizationBuilder_a62d916b64b8b81941b84d30aaed1518f}{Pixel\+Matrix}} (\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$pixel\+Map)
+\item 
+\mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& \mbox{\hyperlink{classFluidVisualizationBuilder_a6aad911cc1a2ecee797014b1e0a810f8}{Is\+Automatic\+Simulation}} (bool automatic)
+\item 
+bool \mbox{\hyperlink{classFluidVisualizationBuilder_ae398962831e28a15e5d93cf281e3fad2}{Is\+Automatic\+Simulation}} ()
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}} $>$ \mbox{\hyperlink{classFluidVisualizationBuilder_a41753e018e548f5bf6227be897a92b59}{Build}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidVisualizationBuilder_aee3f258e123d2a4673b46a3002807d41}\label{classFluidVisualizationBuilder_aee3f258e123d2a4673b46a3002807d41}} 
+\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$ {\bfseries \+\_\+pixel\+Map}
+\item 
+\mbox{\Hypertarget{classFluidVisualizationBuilder_ab3cf4a614b0369c9b9d12b699df96a1a}\label{classFluidVisualizationBuilder_ab3cf4a614b0369c9b9d12b699df96a1a}} 
+bool {\bfseries \+\_\+automatic}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluidVisualizationBuilder_abc1cabbc00af59a6d6b11a35a079a468}\label{classFluidVisualizationBuilder_abc1cabbc00af59a6d6b11a35a079a468}} 
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\doxysubsubsection{\texorpdfstring{FluidVisualizationBuilder()}{FluidVisualizationBuilder()}}
+{\footnotesize\ttfamily Fluid\+Visualization\+Builder\+::\+Fluid\+Visualization\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates new fluid visualization builder 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluidVisualizationBuilder_a41753e018e548f5bf6227be897a92b59}\label{classFluidVisualizationBuilder_a41753e018e548f5bf6227be897a92b59}} 
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!Build@{Build}}
+\index{Build@{Build}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}} $>$ Fluid\+Visualization\+Builder\+::\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Builds new fluid visualization component \begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidVisualizationBuilder_ae398962831e28a15e5d93cf281e3fad2}\label{classFluidVisualizationBuilder_ae398962831e28a15e5d93cf281e3fad2}} 
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!IsAutomaticSimulation@{IsAutomaticSimulation}}
+\index{IsAutomaticSimulation@{IsAutomaticSimulation}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\doxysubsubsection{\texorpdfstring{IsAutomaticSimulation()}{IsAutomaticSimulation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Fluid\+Visualization\+Builder\+::\+Is\+Automatic\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get information about visualization type \begin{DoxyReturn}{Returns}
+true is automatic simulation false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidVisualizationBuilder_a6aad911cc1a2ecee797014b1e0a810f8}\label{classFluidVisualizationBuilder_a6aad911cc1a2ecee797014b1e0a810f8}} 
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!IsAutomaticSimulation@{IsAutomaticSimulation}}
+\index{IsAutomaticSimulation@{IsAutomaticSimulation}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\doxysubsubsection{\texorpdfstring{IsAutomaticSimulation()}{IsAutomaticSimulation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& Fluid\+Visualization\+Builder\+::\+Is\+Automatic\+Simulation (\begin{DoxyParamCaption}\item[{bool}]{automatic }\end{DoxyParamCaption})}
+
+Should the simulation be automatic or based on user input 
+\begin{DoxyParams}{Parameters}
+{\em automatic} & automatic or manual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidVisualizationBuilder_a62d916b64b8b81941b84d30aaed1518f}\label{classFluidVisualizationBuilder_a62d916b64b8b81941b84d30aaed1518f}} 
+\index{FluidVisualizationBuilder@{FluidVisualizationBuilder}!PixelMatrix@{PixelMatrix}}
+\index{PixelMatrix@{PixelMatrix}!FluidVisualizationBuilder@{FluidVisualizationBuilder}}
+\doxysubsubsection{\texorpdfstring{PixelMatrix()}{PixelMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& Fluid\+Visualization\+Builder\+::\+Pixel\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$}]{pixel\+Map }\end{DoxyParamCaption})}
+
+Selects pixel map to use for visualization 
+\begin{DoxyParams}{Parameters}
+{\em pixel\+Map} & pixel map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid\+Builder.\+h\item 
+Fluid\+Builder.\+cpp\end{DoxyCompactItemize}

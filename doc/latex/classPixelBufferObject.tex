@@ -1,0 +1,130 @@
+\hypertarget{classPixelBufferObject}{}\doxysection{Pixel\+Buffer\+Object Class Reference}
+\label{classPixelBufferObject}\index{PixelBufferObject@{PixelBufferObject}}
+
+
+Inheritance diagram for Pixel\+Buffer\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classPixelBufferObject__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pixel\+Buffer\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classPixelBufferObject__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPixelBufferObject_ac399909e2b7b1eb63803e6821999dd4f}{Pixel\+Buffer\+Object}} (int width, int height, int internal\+Format)
+\item 
+void \mbox{\hyperlink{classPixelBufferObject_afbf6cb4e9864fbb9f767fcaa902b4c5a}{Bind}} () const override
+\item 
+void \mbox{\hyperlink{classPixelBufferObject_aef5559bdfae35204ddd36c12397b65a2}{Unbind}} () const override
+\item 
+void $\ast$ \mbox{\hyperlink{classPixelBufferObject_a9d2ffe8c694954a186af76eb9acd7a54}{Map\+Buffer}} () const override
+\item 
+void \mbox{\hyperlink{classPixelBufferObject_aa122ad0cce1ff9d629f4d5aab84119e8}{Unmap\+Buffer}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classPixelBufferObject_aa243f320692e441e0917460cb538e738}{Convert\+Format\+To\+Number}} (int internal\+Format)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPixelBufferObject_a03468d0d68a417d1f05ae4c9e85c9a68}\label{classPixelBufferObject_a03468d0d68a417d1f05ae4c9e85c9a68}} 
+G\+Luint {\bfseries \+\_\+id}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPixelBufferObject_ac399909e2b7b1eb63803e6821999dd4f}\label{classPixelBufferObject_ac399909e2b7b1eb63803e6821999dd4f}} 
+\index{PixelBufferObject@{PixelBufferObject}!PixelBufferObject@{PixelBufferObject}}
+\index{PixelBufferObject@{PixelBufferObject}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{PixelBufferObject()}{PixelBufferObject()}}
+{\footnotesize\ttfamily Pixel\+Buffer\+Object\+::\+Pixel\+Buffer\+Object (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{internal\+Format }\end{DoxyParamCaption})}
+
+Create new pixel buffer object 
+\begin{DoxyParams}{Parameters}
+{\em width} & how many pixel columns \\
+\hline
+{\em height} & how many pixel row \\
+\hline
+{\em internal\+Format} & format of pixels (eg. G\+L\+\_\+\+R\+G\+BA) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPixelBufferObject_afbf6cb4e9864fbb9f767fcaa902b4c5a}\label{classPixelBufferObject_afbf6cb4e9864fbb9f767fcaa902b4c5a}} 
+\index{PixelBufferObject@{PixelBufferObject}!Bind@{Bind}}
+\index{Bind@{Bind}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Pixel\+Buffer\+Object\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Bind P\+BO 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classPixelBufferObject_aa243f320692e441e0917460cb538e738}\label{classPixelBufferObject_aa243f320692e441e0917460cb538e738}} 
+\index{PixelBufferObject@{PixelBufferObject}!ConvertFormatToNumber@{ConvertFormatToNumber}}
+\index{ConvertFormatToNumber@{ConvertFormatToNumber}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{ConvertFormatToNumber()}{ConvertFormatToNumber()}}
+{\footnotesize\ttfamily int Pixel\+Buffer\+Object\+::\+Convert\+Format\+To\+Number (\begin{DoxyParamCaption}\item[{int}]{internal\+Format }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert internal pixel format to number of pixel components (eg. G\+L\+\_\+\+R\+G\+BA -\/$>$ 4) 
+\begin{DoxyParams}{Parameters}
+{\em internal\+Format} & pixel format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of components 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPixelBufferObject_a9d2ffe8c694954a186af76eb9acd7a54}\label{classPixelBufferObject_a9d2ffe8c694954a186af76eb9acd7a54}} 
+\index{PixelBufferObject@{PixelBufferObject}!MapBuffer@{MapBuffer}}
+\index{MapBuffer@{MapBuffer}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{MapBuffer()}{MapBuffer()}}
+{\footnotesize\ttfamily void $\ast$ Pixel\+Buffer\+Object\+::\+Map\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Map buffer \begin{DoxyReturn}{Returns}
+mapped buffer ready to be written to 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIPixelBufferObject}{I\+Pixel\+Buffer\+Object}}.
+
+\mbox{\Hypertarget{classPixelBufferObject_aef5559bdfae35204ddd36c12397b65a2}\label{classPixelBufferObject_aef5559bdfae35204ddd36c12397b65a2}} 
+\index{PixelBufferObject@{PixelBufferObject}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Pixel\+Buffer\+Object\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Unbind P\+BO 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classPixelBufferObject_aa122ad0cce1ff9d629f4d5aab84119e8}\label{classPixelBufferObject_aa122ad0cce1ff9d629f4d5aab84119e8}} 
+\index{PixelBufferObject@{PixelBufferObject}!UnmapBuffer@{UnmapBuffer}}
+\index{UnmapBuffer@{UnmapBuffer}!PixelBufferObject@{PixelBufferObject}}
+\doxysubsubsection{\texorpdfstring{UnmapBuffer()}{UnmapBuffer()}}
+{\footnotesize\ttfamily void Pixel\+Buffer\+Object\+::\+Unmap\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Unmap buffer 
+
+Implements \mbox{\hyperlink{classIPixelBufferObject}{I\+Pixel\+Buffer\+Object}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Pixel\+Buffer\+Object.\+h\item 
+Pixel\+Buffer\+Object.\+cpp\end{DoxyCompactItemize}

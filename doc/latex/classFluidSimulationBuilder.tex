@@ -1,0 +1,144 @@
+\hypertarget{classFluidSimulationBuilder}{}\doxysection{Fluid\+Simulation\+Builder Class Reference}
+\label{classFluidSimulationBuilder}\index{FluidSimulationBuilder@{FluidSimulationBuilder}}
+
+
+Collaboration diagram for Fluid\+Simulation\+Builder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{classFluidSimulationBuilder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder_a122122650551ac55993d08c36de62312}{Fluid\+Simulation\+Builder}} ()
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidSimulationBuilder_ab16aca4c2805c767523fdc1a6e57063f}{Size}} (\mbox{\hyperlink{structDimensions}{Dimensions}} dimensions)
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidSimulationBuilder_a21093f36460a5656a073d1e7f0ea5204}{Diffusion}} (double diffusion)
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidSimulationBuilder_a15cb1fd6c5f08afeccec4789bb9bbeb4}{Viscosity}} (double viscosity)
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidSimulationBuilder_a8d65997f8828e540a1ba39d65e64a11f}{Time\+Step}} (double dt)
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidSimulationBuilder_afbf1f91fc2958e0ccd44fd62c2a9af9d}{Iterations}} (int iterations)
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}} $>$ \mbox{\hyperlink{classFluidSimulationBuilder_a038b8d1393b22b8df3fb68a82f305c32}{Build}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidSimulationBuilder_a036ef9fd4ddc9e4ba2e60591a27dd818}\label{classFluidSimulationBuilder_a036ef9fd4ddc9e4ba2e60591a27dd818}} 
+\mbox{\hyperlink{structDimensions}{Dimensions}} {\bfseries \+\_\+dimensions}
+\item 
+\mbox{\Hypertarget{classFluidSimulationBuilder_a27d9e34c6e29b4e944646c310029b877}\label{classFluidSimulationBuilder_a27d9e34c6e29b4e944646c310029b877}} 
+double {\bfseries \+\_\+dt}
+\item 
+\mbox{\Hypertarget{classFluidSimulationBuilder_a7203683eb76f6aa165cd95e12c0ee776}\label{classFluidSimulationBuilder_a7203683eb76f6aa165cd95e12c0ee776}} 
+double {\bfseries \+\_\+diffusion}
+\item 
+\mbox{\Hypertarget{classFluidSimulationBuilder_afeb264f70d1dadc47cc81bbb45b403b5}\label{classFluidSimulationBuilder_afeb264f70d1dadc47cc81bbb45b403b5}} 
+double {\bfseries \+\_\+viscosity}
+\item 
+\mbox{\Hypertarget{classFluidSimulationBuilder_a4337dd573fb1af6af5bcc80391acf75d}\label{classFluidSimulationBuilder_a4337dd573fb1af6af5bcc80391acf75d}} 
+int {\bfseries \+\_\+iterations}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluidSimulationBuilder_a122122650551ac55993d08c36de62312}\label{classFluidSimulationBuilder_a122122650551ac55993d08c36de62312}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{FluidSimulationBuilder()}{FluidSimulationBuilder()}}
+{\footnotesize\ttfamily Fluid\+Simulation\+Builder\+::\+Fluid\+Simulation\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates new simulation builder 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluidSimulationBuilder_a038b8d1393b22b8df3fb68a82f305c32}\label{classFluidSimulationBuilder_a038b8d1393b22b8df3fb68a82f305c32}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!Build@{Build}}
+\index{Build@{Build}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}} $>$ Fluid\+Simulation\+Builder\+::\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs fluid simulation component \begin{DoxyReturn}{Returns}
+fluid ismulation component 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulationBuilder_a21093f36460a5656a073d1e7f0ea5204}\label{classFluidSimulationBuilder_a21093f36460a5656a073d1e7f0ea5204}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!Diffusion@{Diffusion}}
+\index{Diffusion@{Diffusion}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{Diffusion()}{Diffusion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Simulation\+Builder\+::\+Diffusion (\begin{DoxyParamCaption}\item[{double}]{diffusion }\end{DoxyParamCaption})}
+
+Set diffusion 
+\begin{DoxyParams}{Parameters}
+{\em diffusion} & diffusion parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulationBuilder_afbf1f91fc2958e0ccd44fd62c2a9af9d}\label{classFluidSimulationBuilder_afbf1f91fc2958e0ccd44fd62c2a9af9d}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!Iterations@{Iterations}}
+\index{Iterations@{Iterations}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{Iterations()}{Iterations()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Simulation\+Builder\+::\+Iterations (\begin{DoxyParamCaption}\item[{int}]{iterations }\end{DoxyParamCaption})}
+
+Set iterations for Gauss-\/\+Seidel method 
+\begin{DoxyParams}{Parameters}
+{\em iterations} & iterations parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulationBuilder_ab16aca4c2805c767523fdc1a6e57063f}\label{classFluidSimulationBuilder_ab16aca4c2805c767523fdc1a6e57063f}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!Size@{Size}}
+\index{Size@{Size}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{Size()}{Size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Simulation\+Builder\+::\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions }\end{DoxyParamCaption})}
+
+Set simulation size 
+\begin{DoxyParams}{Parameters}
+{\em dimensions} & dimension of the box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulationBuilder_a8d65997f8828e540a1ba39d65e64a11f}\label{classFluidSimulationBuilder_a8d65997f8828e540a1ba39d65e64a11f}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!TimeStep@{TimeStep}}
+\index{TimeStep@{TimeStep}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{TimeStep()}{TimeStep()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Simulation\+Builder\+::\+Time\+Step (\begin{DoxyParamCaption}\item[{double}]{dt }\end{DoxyParamCaption})}
+
+Set timestep 
+\begin{DoxyParams}{Parameters}
+{\em dt} & timestep parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulationBuilder_a15cb1fd6c5f08afeccec4789bb9bbeb4}\label{classFluidSimulationBuilder_a15cb1fd6c5f08afeccec4789bb9bbeb4}} 
+\index{FluidSimulationBuilder@{FluidSimulationBuilder}!Viscosity@{Viscosity}}
+\index{Viscosity@{Viscosity}!FluidSimulationBuilder@{FluidSimulationBuilder}}
+\doxysubsubsection{\texorpdfstring{Viscosity()}{Viscosity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Simulation\+Builder\+::\+Viscosity (\begin{DoxyParamCaption}\item[{double}]{viscosity }\end{DoxyParamCaption})}
+
+Set viscosity 
+\begin{DoxyParams}{Parameters}
+{\em viscosity} & viscosity parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid\+Builder.\+h\item 
+Fluid\+Builder.\+cpp\end{DoxyCompactItemize}

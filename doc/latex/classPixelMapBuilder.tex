@@ -1,0 +1,106 @@
+\hypertarget{classPixelMapBuilder}{}\doxysection{Pixel\+Map\+Builder Class Reference}
+\label{classPixelMapBuilder}\index{PixelMapBuilder@{PixelMapBuilder}}
+
+
+Collaboration diagram for Pixel\+Map\+Builder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{classPixelMapBuilder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPixelMapBuilder_a1241ee0f1cd8a4d9af84ee9e80899f3c}{Pixel\+Map\+Builder}} ()
+\item 
+\mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& \mbox{\hyperlink{classPixelMapBuilder_a91aa32326dec39d22485e61de4e7c0ab}{Size}} (\mbox{\hyperlink{structDimensions}{Dimensions}} dimensions)
+\item 
+\mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& \mbox{\hyperlink{classPixelMapBuilder_a8216e9e539019770368df79ead816b1e}{Pixel\+Format}} (int pixel\+Format)
+\item 
+\mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& \mbox{\hyperlink{classPixelMapBuilder_a9d1c6e40927c76690a86921ef170dcc9}{Factory}} (\mbox{\hyperlink{classIPixelMapComponentsFactory}{I\+Pixel\+Map\+Components\+Factory}} $\ast$factory)
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classPixelMap}{Pixel\+Map}} $>$ \mbox{\hyperlink{classPixelMapBuilder_a7bbf88d4fe8cd3b486add4170d6efb6c}{Build}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPixelMapBuilder_a7370df79061a5af942b5fb4575566992}\label{classPixelMapBuilder_a7370df79061a5af942b5fb4575566992}} 
+\mbox{\hyperlink{structDimensions}{Dimensions}} {\bfseries \+\_\+dimensions}
+\item 
+\mbox{\Hypertarget{classPixelMapBuilder_a62e55f3110ca22612ec3842febc5cb04}\label{classPixelMapBuilder_a62e55f3110ca22612ec3842febc5cb04}} 
+int {\bfseries \+\_\+internal\+Pixel\+Format}
+\item 
+\mbox{\Hypertarget{classPixelMapBuilder_a54e6172c5eda421adfd46583d270185c}\label{classPixelMapBuilder_a54e6172c5eda421adfd46583d270185c}} 
+\mbox{\hyperlink{classIPixelMapComponentsFactory}{I\+Pixel\+Map\+Components\+Factory}} $\ast$ {\bfseries \+\_\+factory}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPixelMapBuilder_a1241ee0f1cd8a4d9af84ee9e80899f3c}\label{classPixelMapBuilder_a1241ee0f1cd8a4d9af84ee9e80899f3c}} 
+\index{PixelMapBuilder@{PixelMapBuilder}!PixelMapBuilder@{PixelMapBuilder}}
+\index{PixelMapBuilder@{PixelMapBuilder}!PixelMapBuilder@{PixelMapBuilder}}
+\doxysubsubsection{\texorpdfstring{PixelMapBuilder()}{PixelMapBuilder()}}
+{\footnotesize\ttfamily Pixel\+Map\+Builder\+::\+Pixel\+Map\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs new builder 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPixelMapBuilder_a7bbf88d4fe8cd3b486add4170d6efb6c}\label{classPixelMapBuilder_a7bbf88d4fe8cd3b486add4170d6efb6c}} 
+\index{PixelMapBuilder@{PixelMapBuilder}!Build@{Build}}
+\index{Build@{Build}!PixelMapBuilder@{PixelMapBuilder}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classPixelMap}{Pixel\+Map}} $>$ Pixel\+Map\+Builder\+::\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs new \mbox{\hyperlink{classPixelMap}{Pixel\+Map}} \begin{DoxyReturn}{Returns}
+pixel map unique\+\_\+ptr 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPixelMapBuilder_a9d1c6e40927c76690a86921ef170dcc9}\label{classPixelMapBuilder_a9d1c6e40927c76690a86921ef170dcc9}} 
+\index{PixelMapBuilder@{PixelMapBuilder}!Factory@{Factory}}
+\index{Factory@{Factory}!PixelMapBuilder@{PixelMapBuilder}}
+\doxysubsubsection{\texorpdfstring{Factory()}{Factory()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& Pixel\+Map\+Builder\+::\+Factory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIPixelMapComponentsFactory}{I\+Pixel\+Map\+Components\+Factory}} $\ast$}]{factory }\end{DoxyParamCaption})}
+
+Selects factory for the internal components of the \mbox{\hyperlink{classPixelMap}{Pixel\+Map}} 
+\begin{DoxyParams}{Parameters}
+{\em factory} & pixel map factory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder refernce 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPixelMapBuilder_a8216e9e539019770368df79ead816b1e}\label{classPixelMapBuilder_a8216e9e539019770368df79ead816b1e}} 
+\index{PixelMapBuilder@{PixelMapBuilder}!PixelFormat@{PixelFormat}}
+\index{PixelFormat@{PixelFormat}!PixelMapBuilder@{PixelMapBuilder}}
+\doxysubsubsection{\texorpdfstring{PixelFormat()}{PixelFormat()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& Pixel\+Map\+Builder\+::\+Pixel\+Format (\begin{DoxyParamCaption}\item[{int}]{pixel\+Format }\end{DoxyParamCaption})}
+
+Selects pixel format 
+\begin{DoxyParams}{Parameters}
+{\em pixel\+Format} & pixel format of the map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPixelMapBuilder_a91aa32326dec39d22485e61de4e7c0ab}\label{classPixelMapBuilder_a91aa32326dec39d22485e61de4e7c0ab}} 
+\index{PixelMapBuilder@{PixelMapBuilder}!Size@{Size}}
+\index{Size@{Size}!PixelMapBuilder@{PixelMapBuilder}}
+\doxysubsubsection{\texorpdfstring{Size()}{Size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPixelMapBuilder}{Pixel\+Map\+Builder}} \& Pixel\+Map\+Builder\+::\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions }\end{DoxyParamCaption})}
+
+Set dimension of pixel map 
+\begin{DoxyParams}{Parameters}
+{\em dimensions} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Pixel\+Map\+Builder.\+h\item 
+Pixel\+Map\+Builder.\+cpp\end{DoxyCompactItemize}

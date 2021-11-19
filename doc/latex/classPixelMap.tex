@@ -1,0 +1,195 @@
+\hypertarget{classPixelMap}{}\doxysection{Pixel\+Map Class Reference}
+\label{classPixelMap}\index{PixelMap@{PixelMap}}
+
+
+Inheritance diagram for Pixel\+Map\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classPixelMap__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pixel\+Map\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classPixelMap__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPixelMap_a81f575970a94d5be357224734e5636c1}{Bind}} () const override
+\item 
+\mbox{\Hypertarget{classPixelMap_a62f48d2076d3b6df9d20d6afec98c030}\label{classPixelMap_a62f48d2076d3b6df9d20d6afec98c030}} 
+void {\bfseries Unbind} () const override
+\item 
+\mbox{\hyperlink{classPixelMap_a03b204e77be4f930e508a7cc53bc138f}{Pixel\+Map}} (\mbox{\hyperlink{structDimensions}{Dimensions}} dimensions, int internal\+Pixel\+Format, \mbox{\hyperlink{classIPixelMapComponentsFactory}{I\+Pixel\+Map\+Components\+Factory}} $\ast$factory)
+\item 
+void \mbox{\hyperlink{classPixelMap_a8b2f8fb1b609e278ee25a54d8bb12415}{Set\+All\+Pixels}} (const std\+::vector$<$ int $>$ \&components) override
+\item 
+void \mbox{\hyperlink{classPixelMap_a808f24420afe2d6479766d23ab474519}{Set\+Pixel}} (int x, int y, const std\+::vector$<$ int $>$ \&components) override
+\item 
+std\+::vector$<$ G\+Lubyte $>$ \mbox{\hyperlink{classPixelMap_a00aa600d659174200ea7c8fef9e9cb4b}{Get\+Pixel}} (int x, int y) const override
+\item 
+\mbox{\Hypertarget{classPixelMap_a2775290e1fa3ebb8dbc35f0fa598e0c3}\label{classPixelMap_a2775290e1fa3ebb8dbc35f0fa598e0c3}} 
+void {\bfseries Swap\+Buffer} () override
+\item 
+void \mbox{\hyperlink{classPixelMap_a45247d8623ee67f928fd7344c2d8f663}{Clear}} () override
+\item 
+int \mbox{\hyperlink{classPixelMap_a70f81f7256b671cc2a8899ed186b1c16}{Get\+Width}} () const override
+\item 
+int \mbox{\hyperlink{classPixelMap_ac9ed9db76a527fd9989f00133baa50f7}{Get\+Height}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPixelMap_ae5d1b9d41f7e184df85ebb9d7e2eff0b}\label{classPixelMap_ae5d1b9d41f7e184df85ebb9d7e2eff0b}} 
+int {\bfseries \+\_\+pixel\+Type}
+\item 
+\mbox{\Hypertarget{classPixelMap_a6db21986e28e1ec70cf4ceebd825bc71}\label{classPixelMap_a6db21986e28e1ec70cf4ceebd825bc71}} 
+int {\bfseries \+\_\+width}
+\item 
+\mbox{\Hypertarget{classPixelMap_ae3eee3a0fae6d1364d52dac0e6c1903b}\label{classPixelMap_ae3eee3a0fae6d1364d52dac0e6c1903b}} 
+int {\bfseries \+\_\+height}
+\item 
+\mbox{\Hypertarget{classPixelMap_a756e62a38ad03610a2f8443d59540c18}\label{classPixelMap_a756e62a38ad03610a2f8443d59540c18}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIPixelBufferObject}{I\+Pixel\+Buffer\+Object}} $>$ {\bfseries \+\_\+pbo}
+\item 
+\mbox{\Hypertarget{classPixelMap_aeba661cd3c5918124da3d501c5116b4e}\label{classPixelMap_aeba661cd3c5918124da3d501c5116b4e}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classITexture}{I\+Texture}} $>$ {\bfseries \+\_\+texture}
+\item 
+\mbox{\Hypertarget{classPixelMap_a74487a6025b3e594dac650c1433aaf36}\label{classPixelMap_a74487a6025b3e594dac650c1433aaf36}} 
+std\+::vector$<$ G\+Lubyte $>$ {\bfseries \+\_\+pixel\+Buffer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPixelMap_a03b204e77be4f930e508a7cc53bc138f}\label{classPixelMap_a03b204e77be4f930e508a7cc53bc138f}} 
+\index{PixelMap@{PixelMap}!PixelMap@{PixelMap}}
+\index{PixelMap@{PixelMap}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{PixelMap()}{PixelMap()}}
+{\footnotesize\ttfamily Pixel\+Map\+::\+Pixel\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions,  }\item[{int}]{internal\+Pixel\+Format,  }\item[{\mbox{\hyperlink{classIPixelMapComponentsFactory}{I\+Pixel\+Map\+Components\+Factory}} $\ast$}]{factory }\end{DoxyParamCaption})}
+
+Create new pixelmap 
+\begin{DoxyParams}{Parameters}
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+{\em type} & pixeltype (eg. G\+L\+\_\+\+R\+G\+BA) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPixelMap_a81f575970a94d5be357224734e5636c1}\label{classPixelMap_a81f575970a94d5be357224734e5636c1}} 
+\index{PixelMap@{PixelMap}!Bind@{Bind}}
+\index{Bind@{Bind}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Pixel\+Map\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Bind pixelmap 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classPixelMap_a45247d8623ee67f928fd7344c2d8f663}\label{classPixelMap_a45247d8623ee67f928fd7344c2d8f663}} 
+\index{PixelMap@{PixelMap}!Clear@{Clear}}
+\index{Clear@{Clear}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily void Pixel\+Map\+::\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Set all pixels to white 
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+\mbox{\Hypertarget{classPixelMap_ac9ed9db76a527fd9989f00133baa50f7}\label{classPixelMap_ac9ed9db76a527fd9989f00133baa50f7}} 
+\index{PixelMap@{PixelMap}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int Pixel\+Map\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get height of pixel map \begin{DoxyReturn}{Returns}
+pixel map height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+\mbox{\Hypertarget{classPixelMap_a00aa600d659174200ea7c8fef9e9cb4b}\label{classPixelMap_a00aa600d659174200ea7c8fef9e9cb4b}} 
+\index{PixelMap@{PixelMap}!GetPixel@{GetPixel}}
+\index{GetPixel@{GetPixel}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{GetPixel()}{GetPixel()}}
+{\footnotesize\ttfamily std\+::vector$<$ G\+Lubyte $>$ Pixel\+Map\+::\+Get\+Pixel (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get pixel components at given position 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coord \\
+\hline
+{\em y} & y coord \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector containing pixel components 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+\mbox{\Hypertarget{classPixelMap_a70f81f7256b671cc2a8899ed186b1c16}\label{classPixelMap_a70f81f7256b671cc2a8899ed186b1c16}} 
+\index{PixelMap@{PixelMap}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int Pixel\+Map\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get width of pixel map \begin{DoxyReturn}{Returns}
+pixel map width 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+\mbox{\Hypertarget{classPixelMap_a8b2f8fb1b609e278ee25a54d8bb12415}\label{classPixelMap_a8b2f8fb1b609e278ee25a54d8bb12415}} 
+\index{PixelMap@{PixelMap}!SetAllPixels@{SetAllPixels}}
+\index{SetAllPixels@{SetAllPixels}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{SetAllPixels()}{SetAllPixels()}}
+{\footnotesize\ttfamily void Pixel\+Map\+::\+Set\+All\+Pixels (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{components }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Set all pixels to component values N\+O\+TE\+: You should use Swap\+Buffers afterwards 
+\begin{DoxyParams}{Parameters}
+{\em components} & components values \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+\mbox{\Hypertarget{classPixelMap_a808f24420afe2d6479766d23ab474519}\label{classPixelMap_a808f24420afe2d6479766d23ab474519}} 
+\index{PixelMap@{PixelMap}!SetPixel@{SetPixel}}
+\index{SetPixel@{SetPixel}!PixelMap@{PixelMap}}
+\doxysubsubsection{\texorpdfstring{SetPixel()}{SetPixel()}}
+{\footnotesize\ttfamily void Pixel\+Map\+::\+Set\+Pixel (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{const std\+::vector$<$ int $>$ \&}]{components }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Set given pixel to components value N\+O\+TE\+: components size is not checked N\+O\+TE\+: You should use Swap\+Buffers afterwards 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coord \\
+\hline
+{\em y} & y coord \\
+\hline
+{\em components} & pixel components (eg. R\+G\+BA values) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Pixel\+Map.\+h\item 
+Pixel\+Map.\+cpp\end{DoxyCompactItemize}

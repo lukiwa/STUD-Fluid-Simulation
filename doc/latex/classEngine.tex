@@ -1,0 +1,101 @@
+\hypertarget{classEngine}{}\doxysection{Engine Class Reference}
+\label{classEngine}\index{Engine@{Engine}}
+
+
+Collaboration diagram for Engine\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEngine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}{Engine}} ()
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classRenderer}{Renderer}} $>$ \mbox{\hyperlink{classEngine_aea9e262aeb094debcc7413c4389c2336}{Init}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+G\+Lfloat {\bfseries \+\_\+positions} \mbox{[}16\mbox{]}
+\item 
+G\+Luint {\bfseries \+\_\+indices} \mbox{[}6\mbox{]}
+\item 
+\mbox{\Hypertarget{classEngine_abe40a2d437c3795d949144153e85f514}\label{classEngine_abe40a2d437c3795d949144153e85f514}} 
+\mbox{\hyperlink{classVertexArray}{Vertex\+Array}} {\bfseries \+\_\+vao}
+\item 
+\mbox{\Hypertarget{classEngine_adca6e08ea444a5c8140a2d194ef6d871}\label{classEngine_adca6e08ea444a5c8140a2d194ef6d871}} 
+\mbox{\hyperlink{classVertexBuffer}{Vertex\+Buffer}} {\bfseries \+\_\+vertex\+Buffer}
+\item 
+\mbox{\Hypertarget{classEngine_a250096720a1285ec50b99df5c82dae01}\label{classEngine_a250096720a1285ec50b99df5c82dae01}} 
+\mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} {\bfseries \+\_\+index\+Buffer}
+\item 
+\mbox{\Hypertarget{classEngine_aaf223b030cc755c04302cca15b289fea}\label{classEngine_aaf223b030cc755c04302cca15b289fea}} 
+\mbox{\hyperlink{classVertexAttributes}{Vertex\+Attributes}} {\bfseries \+\_\+attributes}
+\item 
+\mbox{\Hypertarget{classEngine_a14dbeca449b09ba33cb2e928bdce14ff}\label{classEngine_a14dbeca449b09ba33cb2e928bdce14ff}} 
+\mbox{\hyperlink{classShaderProgram}{Shader\+Program}} {\bfseries \+\_\+program}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEngine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}\label{classEngine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}} 
+\index{Engine@{Engine}!Engine@{Engine}}
+\index{Engine@{Engine}!Engine@{Engine}}
+\doxysubsubsection{\texorpdfstring{Engine()}{Engine()}}
+{\footnotesize\ttfamily Engine\+::\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs new engine and initialize Open\+GL elements 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEngine_aea9e262aeb094debcc7413c4389c2336}\label{classEngine_aea9e262aeb094debcc7413c4389c2336}} 
+\index{Engine@{Engine}!Init@{Init}}
+\index{Init@{Init}!Engine@{Engine}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classRenderer}{Renderer}} $>$ Engine\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initialize engine \begin{DoxyReturn}{Returns}
+created renderer 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classEngine_ac3057e33404dcf5e82a7a8fef2452b4a}\label{classEngine_ac3057e33404dcf5e82a7a8fef2452b4a}} 
+\index{Engine@{Engine}!\_indices@{\_indices}}
+\index{\_indices@{\_indices}!Engine@{Engine}}
+\doxysubsubsection{\texorpdfstring{\_indices}{\_indices}}
+{\footnotesize\ttfamily G\+Luint Engine\+::\+\_\+indices\mbox{[}6\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{        0, 1, 3, }
+\DoxyCodeLine{        1, 2, 3 }
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classEngine_a1329f1089c029d414a217497cf6c57d8}\label{classEngine_a1329f1089c029d414a217497cf6c57d8}} 
+\index{Engine@{Engine}!\_positions@{\_positions}}
+\index{\_positions@{\_positions}!Engine@{Engine}}
+\doxysubsubsection{\texorpdfstring{\_positions}{\_positions}}
+{\footnotesize\ttfamily G\+Lfloat Engine\+::\+\_\+positions\mbox{[}16\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{        1.0, 1.0f, 1.0f, 1.0f, }
+\DoxyCodeLine{        1.0f, -\/1.0f, 1.0f, 0.0f, }
+\DoxyCodeLine{        -\/1.0f, -\/1.0f, 0.0f, 0.0f, }
+\DoxyCodeLine{        -\/1.0f, 1.0f, 0.0f, 1.0f }
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Engine.\+h\item 
+Engine.\+cpp\end{DoxyCompactItemize}

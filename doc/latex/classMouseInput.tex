@@ -1,0 +1,172 @@
+\hypertarget{classMouseInput}{}\doxysection{Mouse\+Input Class Reference}
+\label{classMouseInput}\index{MouseInput@{MouseInput}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMouseInput_aa1baa81a627781da5f7dbfe3b5a400b6}{Mouse\+Input}} (G\+L\+F\+Wwindow $\ast$handle)
+\item 
+\mbox{\hyperlink{classMouseInput_aa0c8bb9dc87ee655c620aaa1410fe051}{Mouse\+Input}} (int texture\+Width, int texture\+Height, int window\+Width, int window\+Height, G\+L\+F\+Wwindow $\ast$handle)
+\item 
+bool \mbox{\hyperlink{classMouseInput_a47e33bf3a6c7812ae90f9e92b22b1726}{Check\+Mouse\+Button}} (int button, int result)
+\item 
+std\+::pair$<$ int, int $>$ \mbox{\hyperlink{classMouseInput_ade8fc731b30759052bbfc7087ae1ab36}{Mapped\+Mouse\+Position}} (bool y\+Axis\+Reverse=true)
+\item 
+std\+::pair$<$ double, double $>$ \mbox{\hyperlink{classMouseInput_a3733e2f5facb36c76a51c5f56d8a9068}{Mouse\+Position}} ()
+\item 
+void \mbox{\hyperlink{classMouseInput_a3ef2fec98918621ff5d302372c944c37}{Wheel\+Callback}} (std\+::function$<$ void(bool)$>$ wheel\+Callback)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classMouseInput_a915dd665428c1dbb6afb83c6bfe5a2b6}{Map}} (int x, int in\+Min, int in\+Max, int out\+Min, int out\+Max)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMouseInput_a239a4e94499300657497a89683723592}\label{classMouseInput_a239a4e94499300657497a89683723592}} 
+double {\bfseries \+\_\+x}
+\item 
+\mbox{\Hypertarget{classMouseInput_ac2231701a2a5f130647940405d0712f4}\label{classMouseInput_ac2231701a2a5f130647940405d0712f4}} 
+double {\bfseries \+\_\+y}
+\item 
+\mbox{\Hypertarget{classMouseInput_a2a2681c636643cd3045303e25273ff47}\label{classMouseInput_a2a2681c636643cd3045303e25273ff47}} 
+int {\bfseries \+\_\+x\+Mapped}
+\item 
+\mbox{\Hypertarget{classMouseInput_a14467531629e7793cbbc3818ffe57923}\label{classMouseInput_a14467531629e7793cbbc3818ffe57923}} 
+int {\bfseries \+\_\+y\+Mapped}
+\item 
+\mbox{\Hypertarget{classMouseInput_a1730373b1f15477463deb7e3953cea32}\label{classMouseInput_a1730373b1f15477463deb7e3953cea32}} 
+int {\bfseries \+\_\+window\+Width}
+\item 
+\mbox{\Hypertarget{classMouseInput_ac2ec7084a3cfeaa224e9b0a6d8a020c2}\label{classMouseInput_ac2ec7084a3cfeaa224e9b0a6d8a020c2}} 
+int {\bfseries \+\_\+window\+Height}
+\item 
+\mbox{\Hypertarget{classMouseInput_a8195d06196bd00bbfa88f35d9cc8af61}\label{classMouseInput_a8195d06196bd00bbfa88f35d9cc8af61}} 
+int {\bfseries \+\_\+texture\+Width}
+\item 
+\mbox{\Hypertarget{classMouseInput_aab4862bd3f1accde6b6bcb6acbe4befe}\label{classMouseInput_aab4862bd3f1accde6b6bcb6acbe4befe}} 
+int {\bfseries \+\_\+texture\+Height}
+\item 
+\mbox{\Hypertarget{classMouseInput_a9e8ca5b7074685f50ed2850fffb1f638}\label{classMouseInput_a9e8ca5b7074685f50ed2850fffb1f638}} 
+bool {\bfseries \+\_\+allow\+Mapped}
+\item 
+\mbox{\Hypertarget{classMouseInput_ac0f56150ce746f39ef5ec8b5577580a8}\label{classMouseInput_ac0f56150ce746f39ef5ec8b5577580a8}} 
+G\+L\+F\+Wwindow $\ast$ {\bfseries \+\_\+handle}
+\item 
+\mbox{\Hypertarget{classMouseInput_a626dfcee57e7539490861afbdfd7e2d8}\label{classMouseInput_a626dfcee57e7539490861afbdfd7e2d8}} 
+std\+::function$<$ void(bool)$>$ {\bfseries \+\_\+wheel\+Callback}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMouseInput_aa1baa81a627781da5f7dbfe3b5a400b6}\label{classMouseInput_aa1baa81a627781da5f7dbfe3b5a400b6}} 
+\index{MouseInput@{MouseInput}!MouseInput@{MouseInput}}
+\index{MouseInput@{MouseInput}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{MouseInput()}{MouseInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Mouse\+Input\+::\+Mouse\+Input (\begin{DoxyParamCaption}\item[{G\+L\+F\+Wwindow $\ast$}]{handle }\end{DoxyParamCaption})}
+
+Construct new mouse input handler but does not allow mapping values to texture inside window 
+\begin{DoxyParams}{Parameters}
+{\em handle} & window handle \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMouseInput_aa0c8bb9dc87ee655c620aaa1410fe051}\label{classMouseInput_aa0c8bb9dc87ee655c620aaa1410fe051}} 
+\index{MouseInput@{MouseInput}!MouseInput@{MouseInput}}
+\index{MouseInput@{MouseInput}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{MouseInput()}{MouseInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Mouse\+Input\+::\+Mouse\+Input (\begin{DoxyParamCaption}\item[{int}]{texture\+Width,  }\item[{int}]{texture\+Height,  }\item[{int}]{window\+Width,  }\item[{int}]{window\+Height,  }\item[{G\+L\+F\+Wwindow $\ast$}]{handle }\end{DoxyParamCaption})}
+
+Creates new mouse input and allow mapping values 
+\begin{DoxyParams}{Parameters}
+{\em texture\+Width} & \\
+\hline
+{\em texture\+Height} & \\
+\hline
+{\em window\+Width} & \\
+\hline
+{\em window\+Height} & \\
+\hline
+{\em handle} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMouseInput_a47e33bf3a6c7812ae90f9e92b22b1726}\label{classMouseInput_a47e33bf3a6c7812ae90f9e92b22b1726}} 
+\index{MouseInput@{MouseInput}!CheckMouseButton@{CheckMouseButton}}
+\index{CheckMouseButton@{CheckMouseButton}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{CheckMouseButton()}{CheckMouseButton()}}
+{\footnotesize\ttfamily bool Mouse\+Input\+::\+Check\+Mouse\+Button (\begin{DoxyParamCaption}\item[{int}]{button,  }\item[{int}]{result }\end{DoxyParamCaption})}
+
+Check for button state 
+\begin{DoxyParams}{Parameters}
+{\em button} & mouse button \\
+\hline
+{\em result} & button state \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if real state equals result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMouseInput_a915dd665428c1dbb6afb83c6bfe5a2b6}\label{classMouseInput_a915dd665428c1dbb6afb83c6bfe5a2b6}} 
+\index{MouseInput@{MouseInput}!Map@{Map}}
+\index{Map@{Map}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{Map()}{Map()}}
+{\footnotesize\ttfamily int Mouse\+Input\+::\+Map (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{in\+Min,  }\item[{int}]{in\+Max,  }\item[{int}]{out\+Min,  }\item[{int}]{out\+Max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Map values 
+\begin{DoxyParams}{Parameters}
+{\em x} & value to be mapped \\
+\hline
+{\em in\+Min} & \\
+\hline
+{\em in\+Max} & \\
+\hline
+{\em out\+Min} & \\
+\hline
+{\em out\+Max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mapped value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMouseInput_ade8fc731b30759052bbfc7087ae1ab36}\label{classMouseInput_ade8fc731b30759052bbfc7087ae1ab36}} 
+\index{MouseInput@{MouseInput}!MappedMousePosition@{MappedMousePosition}}
+\index{MappedMousePosition@{MappedMousePosition}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{MappedMousePosition()}{MappedMousePosition()}}
+{\footnotesize\ttfamily std\+::pair$<$ int, int $>$ Mouse\+Input\+::\+Mapped\+Mouse\+Position (\begin{DoxyParamCaption}\item[{bool}]{y\+Axis\+Reverse = {\ttfamily true} }\end{DoxyParamCaption})}
+
+Get Mouse position and map it 
+\begin{DoxyParams}{Parameters}
+{\em y\+Axis\+Reverse} & should y\+Axis be reversed (for example when using pixel\+Map as texture) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mapped mouse position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMouseInput_a3733e2f5facb36c76a51c5f56d8a9068}\label{classMouseInput_a3733e2f5facb36c76a51c5f56d8a9068}} 
+\index{MouseInput@{MouseInput}!MousePosition@{MousePosition}}
+\index{MousePosition@{MousePosition}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{MousePosition()}{MousePosition()}}
+{\footnotesize\ttfamily std\+::pair$<$ double, double $>$ Mouse\+Input\+::\+Mouse\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get mouse position \begin{DoxyReturn}{Returns}
+mouse position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMouseInput_a3ef2fec98918621ff5d302372c944c37}\label{classMouseInput_a3ef2fec98918621ff5d302372c944c37}} 
+\index{MouseInput@{MouseInput}!WheelCallback@{WheelCallback}}
+\index{WheelCallback@{WheelCallback}!MouseInput@{MouseInput}}
+\doxysubsubsection{\texorpdfstring{WheelCallback()}{WheelCallback()}}
+{\footnotesize\ttfamily void Mouse\+Input\+::\+Wheel\+Callback (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(bool)$>$}]{wheel\+Callback }\end{DoxyParamCaption})}
+
+Set callback to be called on mouse wheel input 
+\begin{DoxyParams}{Parameters}
+{\em wheel\+Callback} & function to be called on mouse input \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Mouse\+Input.\+h\item 
+Mouse\+Input.\+cpp\end{DoxyCompactItemize}

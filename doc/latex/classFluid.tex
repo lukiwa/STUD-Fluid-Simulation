@@ -1,0 +1,159 @@
+\hypertarget{classFluid}{}\doxysection{Fluid Class Reference}
+\label{classFluid}\index{Fluid@{Fluid}}
+
+
+Inheritance diagram for Fluid\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{classFluid__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Fluid\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{classFluid__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFluid_ae580a6e46bb771f1ab255e566d6ca232}{Add\+Velocity}} (int x, int y, double amountX, double amountY, int radius) override
+\item 
+void \mbox{\hyperlink{classFluid_a3e2bd9e7507e894ee65ecb86cc5ad0ae}{Add\+Density}} (int x, int y, double amount, int radius) override
+\item 
+void \mbox{\hyperlink{classFluid_a69471358a7fe37a6e29a449421742de5}{Step}} (double delta\+Time) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFluid_a138eea869bab9d7a54f31104ed2ef038}{Fix\+Bounds\+And\+Radius}} (int \&outX, int \&outY, int \&out\+Radius) const
+\item 
+\mbox{\hyperlink{classFluid_ab8277e5de1191fdc2737c4d248bc5b12}{Fluid}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}} $>$ simulation, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}} $>$ visualization, int size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluid_ab35e5b9ab4e9b32a3b48b0f966af404b}\label{classFluid_ab35e5b9ab4e9b32a3b48b0f966af404b}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}} $>$ {\bfseries \+\_\+simulation}
+\item 
+\mbox{\Hypertarget{classFluid_abf4087589cab12c9eebdfce63f21c3a6}\label{classFluid_abf4087589cab12c9eebdfce63f21c3a6}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}} $>$ {\bfseries \+\_\+visualization}
+\item 
+\mbox{\Hypertarget{classFluid_a6752cf2d78c58177ebbca3f50e4ddebd}\label{classFluid_a6752cf2d78c58177ebbca3f50e4ddebd}} 
+int {\bfseries \+\_\+size}
+\item 
+\mbox{\Hypertarget{classFluid_a49f65725e82d684da2cc9dc0c2ab2b78}\label{classFluid_a49f65725e82d684da2cc9dc0c2ab2b78}} 
+\mbox{\hyperlink{structIFluidSimulation_1_1State}{I\+Fluid\+Simulation\+::\+State}} {\bfseries \+\_\+velocityX}
+\item 
+\mbox{\Hypertarget{classFluid_abc5ca3b150f4adf8db22a2abeb32f07f}\label{classFluid_abc5ca3b150f4adf8db22a2abeb32f07f}} 
+\mbox{\hyperlink{structIFluidSimulation_1_1State}{I\+Fluid\+Simulation\+::\+State}} {\bfseries \+\_\+velocityY}
+\item 
+\mbox{\Hypertarget{classFluid_a47e2e4d00861a11395ac68aa53d38803}\label{classFluid_a47e2e4d00861a11395ac68aa53d38803}} 
+\mbox{\hyperlink{structIFluidSimulation_1_1State}{I\+Fluid\+Simulation\+::\+State}} {\bfseries \+\_\+density}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluid_afcc69a32d33a21610b32ae909de2f7dd}\label{classFluid_afcc69a32d33a21610b32ae909de2f7dd}} 
+class {\bfseries Fluid\+Builder}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluid_ab8277e5de1191fdc2737c4d248bc5b12}\label{classFluid_ab8277e5de1191fdc2737c4d248bc5b12}} 
+\index{Fluid@{Fluid}!Fluid@{Fluid}}
+\index{Fluid@{Fluid}!Fluid@{Fluid}}
+\doxysubsubsection{\texorpdfstring{Fluid()}{Fluid()}}
+{\footnotesize\ttfamily Fluid\+::\+Fluid (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}} $>$}]{simulation,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}} $>$}]{visualization,  }\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Constructs new fluid abstraction based on visualization and simulation component 
+\begin{DoxyParams}{Parameters}
+{\em simulation} & \\
+\hline
+{\em visualization} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluid_a3e2bd9e7507e894ee65ecb86cc5ad0ae}\label{classFluid_a3e2bd9e7507e894ee65ecb86cc5ad0ae}} 
+\index{Fluid@{Fluid}!AddDensity@{AddDensity}}
+\index{AddDensity@{AddDensity}!Fluid@{Fluid}}
+\doxysubsubsection{\texorpdfstring{AddDensity()}{AddDensity()}}
+{\footnotesize\ttfamily void Fluid\+::\+Add\+Density (\begin{DoxyParamCaption}\item[{int}]{starting\+X\+Coordinate,  }\item[{int}]{starting\+Y\+Coordinate,  }\item[{double}]{amount,  }\item[{int}]{radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Add density on given field. Normalization based on time step (imagine dropping a drop of soy sauce into the water) 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coordinate \\
+\hline
+{\em y} & y coordinate \\
+\hline
+{\em amount} & amount of density to be added \\
+\hline
+{\em radius} & of density \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluid}{I\+Fluid}}.
+
+\mbox{\Hypertarget{classFluid_ae580a6e46bb771f1ab255e566d6ca232}\label{classFluid_ae580a6e46bb771f1ab255e566d6ca232}} 
+\index{Fluid@{Fluid}!AddVelocity@{AddVelocity}}
+\index{AddVelocity@{AddVelocity}!Fluid@{Fluid}}
+\doxysubsubsection{\texorpdfstring{AddVelocity()}{AddVelocity()}}
+{\footnotesize\ttfamily void Fluid\+::\+Add\+Velocity (\begin{DoxyParamCaption}\item[{int}]{starting\+X\+Coordinate,  }\item[{int}]{starting\+Y\+Coordinate,  }\item[{double}]{amountX,  }\item[{double}]{amountY,  }\item[{int}]{radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Add velocity on given place (imagine on that pixel there is a fan blowing the particles) 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coordinate \\
+\hline
+{\em y} & y coordinate \\
+\hline
+{\em amountX} & x velocity at this point \\
+\hline
+{\em amountY} & y velocity at this point \\
+\hline
+{\em radius} & radius of added velocity \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluid}{I\+Fluid}}.
+
+\mbox{\Hypertarget{classFluid_a138eea869bab9d7a54f31104ed2ef038}\label{classFluid_a138eea869bab9d7a54f31104ed2ef038}} 
+\index{Fluid@{Fluid}!FixBoundsAndRadius@{FixBoundsAndRadius}}
+\index{FixBoundsAndRadius@{FixBoundsAndRadius}!Fluid@{Fluid}}
+\doxysubsubsection{\texorpdfstring{FixBoundsAndRadius()}{FixBoundsAndRadius()}}
+{\footnotesize\ttfamily void Fluid\+::\+Fix\+Bounds\+And\+Radius (\begin{DoxyParamCaption}\item[{int \&}]{outX,  }\item[{int \&}]{outY,  }\item[{int \&}]{out\+Radius }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+Set x and y to be in range of fluid size. Sets radius to be no smaller than 4 
+\begin{DoxyParams}{Parameters}
+{\em outX} & x coordinate \\
+\hline
+{\em outY} & y coordinate \\
+\hline
+{\em out\+Radius} & radius \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classFluid_a69471358a7fe37a6e29a449421742de5}\label{classFluid_a69471358a7fe37a6e29a449421742de5}} 
+\index{Fluid@{Fluid}!Step@{Step}}
+\index{Step@{Step}!Fluid@{Fluid}}
+\doxysubsubsection{\texorpdfstring{Step()}{Step()}}
+{\footnotesize\ttfamily void Fluid\+::\+Step (\begin{DoxyParamCaption}\item[{double}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Do a time step on fluid. Send density map to visualization to perform rendering 
+
+Implements \mbox{\hyperlink{classIFluid}{I\+Fluid}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid.\+h\item 
+Fluid.\+cpp\end{DoxyCompactItemize}

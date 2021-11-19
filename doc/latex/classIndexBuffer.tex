@@ -1,0 +1,96 @@
+\hypertarget{classIndexBuffer}{}\doxysection{Index\+Buffer Class Reference}
+\label{classIndexBuffer}\index{IndexBuffer@{IndexBuffer}}
+
+
+Inheritance diagram for Index\+Buffer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{classIndexBuffer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Index\+Buffer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{classIndexBuffer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classIndexBuffer_a82b63c7ec059ccb9d6018c661fe0d26d}{Index\+Buffer}} (const G\+Luint $\ast$data, uint32\+\_\+t count)
+\item 
+\mbox{\hyperlink{classIndexBuffer_a348889936f378b7942c1e01d83e42866}{$\sim$\+Index\+Buffer}} ()
+\item 
+void \mbox{\hyperlink{classIndexBuffer_ab22e63ce3c66873da7a3c6439c6d1967}{Bind}} () const override
+\item 
+void \mbox{\hyperlink{classIndexBuffer_ab0782b07bb656aa8f6dbea17dd4f97bc}{Unbind}} () const override
+\item 
+\mbox{\Hypertarget{classIndexBuffer_af431414f3a29e8d96dc759bdfbae1fc4}\label{classIndexBuffer_af431414f3a29e8d96dc759bdfbae1fc4}} 
+uint32\+\_\+t {\bfseries Count} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIndexBuffer_a5af47421af94f3e8b3e5eda9a9110d5e}\label{classIndexBuffer_a5af47421af94f3e8b3e5eda9a9110d5e}} 
+G\+Luint {\bfseries \+\_\+id}
+\item 
+\mbox{\Hypertarget{classIndexBuffer_affb86f8be1752b9444deb13e1bef01cf}\label{classIndexBuffer_affb86f8be1752b9444deb13e1bef01cf}} 
+uint32\+\_\+t {\bfseries \+\_\+count}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classIndexBuffer_a82b63c7ec059ccb9d6018c661fe0d26d}\label{classIndexBuffer_a82b63c7ec059ccb9d6018c661fe0d26d}} 
+\index{IndexBuffer@{IndexBuffer}!IndexBuffer@{IndexBuffer}}
+\index{IndexBuffer@{IndexBuffer}!IndexBuffer@{IndexBuffer}}
+\doxysubsubsection{\texorpdfstring{IndexBuffer()}{IndexBuffer()}}
+{\footnotesize\ttfamily Index\+Buffer\+::\+Index\+Buffer (\begin{DoxyParamCaption}\item[{const G\+Luint $\ast$}]{data,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+Create buffer 
+\begin{DoxyParams}{Parameters}
+{\em data} & index buffer data \\
+\hline
+{\em size} & number of indices \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classIndexBuffer_a348889936f378b7942c1e01d83e42866}\label{classIndexBuffer_a348889936f378b7942c1e01d83e42866}} 
+\index{IndexBuffer@{IndexBuffer}!````~IndexBuffer@{$\sim$IndexBuffer}}
+\index{````~IndexBuffer@{$\sim$IndexBuffer}!IndexBuffer@{IndexBuffer}}
+\doxysubsubsection{\texorpdfstring{$\sim$IndexBuffer()}{~IndexBuffer()}}
+{\footnotesize\ttfamily Index\+Buffer\+::$\sim$\+Index\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destroy (delete) buffer 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classIndexBuffer_ab22e63ce3c66873da7a3c6439c6d1967}\label{classIndexBuffer_ab22e63ce3c66873da7a3c6439c6d1967}} 
+\index{IndexBuffer@{IndexBuffer}!Bind@{Bind}}
+\index{Bind@{Bind}!IndexBuffer@{IndexBuffer}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Index\+Buffer\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Bind buffer 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classIndexBuffer_ab0782b07bb656aa8f6dbea17dd4f97bc}\label{classIndexBuffer_ab0782b07bb656aa8f6dbea17dd4f97bc}} 
+\index{IndexBuffer@{IndexBuffer}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!IndexBuffer@{IndexBuffer}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Index\+Buffer\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Undbind buffer 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Index\+Buffer.\+h\item 
+Index\+Buffer.\+cpp\end{DoxyCompactItemize}

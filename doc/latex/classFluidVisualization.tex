@@ -1,0 +1,85 @@
+\hypertarget{classFluidVisualization}{}\doxysection{Fluid\+Visualization Class Reference}
+\label{classFluidVisualization}\index{FluidVisualization@{FluidVisualization}}
+
+
+Inheritance diagram for Fluid\+Visualization\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{classFluidVisualization__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Fluid\+Visualization\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{classFluidVisualization__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFluidVisualization_a56ba94a4c223d65823151442a5bae4b7}{Update}} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&density\+Map) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFluidVisualization_ae058b7727d72c37794c20354cb4324a9}{Fluid\+Visualization}} (\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$pixel\+Map)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidVisualization_ae6b29f9ce739148baac1580cd67807f7}\label{classFluidVisualization_ae6b29f9ce739148baac1580cd67807f7}} 
+\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$ {\bfseries \+\_\+pixel\+Map}
+\item 
+\mbox{\Hypertarget{classFluidVisualization_a73f139eddf06675a39fbe7ee1bd7ffaf}\label{classFluidVisualization_a73f139eddf06675a39fbe7ee1bd7ffaf}} 
+uint8\+\_\+t {\bfseries \+\_\+single\+Pixel\+Dye\+Amount}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidVisualization_aa529f510438219e208b44f04da44e9cc}\label{classFluidVisualization_aa529f510438219e208b44f04da44e9cc}} 
+class {\bfseries Fluid\+Visualization\+Builder}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluidVisualization_ae058b7727d72c37794c20354cb4324a9}\label{classFluidVisualization_ae058b7727d72c37794c20354cb4324a9}} 
+\index{FluidVisualization@{FluidVisualization}!FluidVisualization@{FluidVisualization}}
+\index{FluidVisualization@{FluidVisualization}!FluidVisualization@{FluidVisualization}}
+\doxysubsubsection{\texorpdfstring{FluidVisualization()}{FluidVisualization()}}
+{\footnotesize\ttfamily Fluid\+Visualization\+::\+Fluid\+Visualization (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIPixelMap}{I\+Pixel\+Map}} $\ast$}]{pixel\+Map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Constructs new abstraction of fluid visualization. This class is visualizing fluid as a box where a higher density is symbolized by darker pixel 
+\begin{DoxyParams}{Parameters}
+{\em dye\+Map} & map of \char`\"{}dye\char`\"{} -\/ the higher density the higher dye amount \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluidVisualization_a56ba94a4c223d65823151442a5bae4b7}\label{classFluidVisualization_a56ba94a4c223d65823151442a5bae4b7}} 
+\index{FluidVisualization@{FluidVisualization}!Update@{Update}}
+\index{Update@{Update}!FluidVisualization@{FluidVisualization}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Fluid\+Visualization\+::\+Update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMatrix}{Matrix}} \&}]{density\+Map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Perform step -\/ send density map do dye map to perform necessary calculations 
+\begin{DoxyParams}{Parameters}
+{\em density\+Map} & map of density at whole simulation \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidVisualization}{I\+Fluid\+Visualization}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid\+Visualisation.\+h\item 
+Fluid\+Visualisation.\+cpp\end{DoxyCompactItemize}

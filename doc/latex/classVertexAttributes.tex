@@ -1,0 +1,106 @@
+\hypertarget{classVertexAttributes}{}\doxysection{Vertex\+Attributes Class Reference}
+\label{classVertexAttributes}\index{VertexAttributes@{VertexAttributes}}
+
+
+Inheritance diagram for Vertex\+Attributes\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classVertexAttributes__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vertex\+Attributes\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classVertexAttributes__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structVertexAttributes_1_1VertexAttributeElement}{Vertex\+Attribute\+Element}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classVertexAttributes_a801849b605c2c189592665cd48e4d08a}{Bind}} () const override
+\item 
+\mbox{\Hypertarget{classVertexAttributes_a3064c157ea9a55d41c43b14879f07bb2}\label{classVertexAttributes_a3064c157ea9a55d41c43b14879f07bb2}} 
+void {\bfseries Unbind} () const override
+\item 
+void \mbox{\hyperlink{classVertexAttributes_a8612895043d6a8eade6a07fa16c8b9d4}{Add\+Attribute}} (uint32\+\_\+t count, G\+Lenum type)
+\item 
+\mbox{\Hypertarget{classVertexAttributes_a28463fda78c7360670c27be4f6ab0bfb}\label{classVertexAttributes_a28463fda78c7360670c27be4f6ab0bfb}} 
+uint32\+\_\+t {\bfseries Get\+Stride} () const
+\item 
+\mbox{\Hypertarget{classVertexAttributes_a0ff509a15a2c5b4aa8fee790050ceb1c}\label{classVertexAttributes_a0ff509a15a2c5b4aa8fee790050ceb1c}} 
+uint32\+\_\+t {\bfseries Get\+Last\+Offset} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static uint32\+\_\+t \mbox{\hyperlink{classVertexAttributes_a5dd7e3d14cc2bce082950a5b46ac43b7}{Gl\+Type\+To\+Size}} (G\+Lenum type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classVertexAttributes_ac184b1087da3f8dddedfa0138df91cdf}\label{classVertexAttributes_ac184b1087da3f8dddedfa0138df91cdf}} 
+std\+::vector$<$ \mbox{\hyperlink{structVertexAttributes_1_1VertexAttributeElement}{Vertex\+Attribute\+Element}} $>$ {\bfseries \+\_\+attributes}
+\item 
+\mbox{\Hypertarget{classVertexAttributes_aafd4fead3fc47b256a04a703d1d4fac8}\label{classVertexAttributes_aafd4fead3fc47b256a04a703d1d4fac8}} 
+uint32\+\_\+t {\bfseries \+\_\+stride}
+\item 
+\mbox{\Hypertarget{classVertexAttributes_a61468227deeb7ccee2e754cd85bc1a12}\label{classVertexAttributes_a61468227deeb7ccee2e754cd85bc1a12}} 
+uint32\+\_\+t {\bfseries \+\_\+last\+Offset}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classVertexAttributes_a8612895043d6a8eade6a07fa16c8b9d4}\label{classVertexAttributes_a8612895043d6a8eade6a07fa16c8b9d4}} 
+\index{VertexAttributes@{VertexAttributes}!AddAttribute@{AddAttribute}}
+\index{AddAttribute@{AddAttribute}!VertexAttributes@{VertexAttributes}}
+\doxysubsubsection{\texorpdfstring{AddAttribute()}{AddAttribute()}}
+{\footnotesize\ttfamily void Vertex\+Attributes\+::\+Add\+Attribute (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{count,  }\item[{G\+Lenum}]{type }\end{DoxyParamCaption})}
+
+Do not normalize!!! 
+\begin{DoxyParams}{Parameters}
+{\em count} & \\
+\hline
+{\em type} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVertexAttributes_a801849b605c2c189592665cd48e4d08a}\label{classVertexAttributes_a801849b605c2c189592665cd48e4d08a}} 
+\index{VertexAttributes@{VertexAttributes}!Bind@{Bind}}
+\index{Bind@{Bind}!VertexAttributes@{VertexAttributes}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Vertex\+Attributes\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Bind vertex attributes 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classVertexAttributes_a5dd7e3d14cc2bce082950a5b46ac43b7}\label{classVertexAttributes_a5dd7e3d14cc2bce082950a5b46ac43b7}} 
+\index{VertexAttributes@{VertexAttributes}!GlTypeToSize@{GlTypeToSize}}
+\index{GlTypeToSize@{GlTypeToSize}!VertexAttributes@{VertexAttributes}}
+\doxysubsubsection{\texorpdfstring{GlTypeToSize()}{GlTypeToSize()}}
+{\footnotesize\ttfamily uint32\+\_\+t Vertex\+Attributes\+::\+Gl\+Type\+To\+Size (\begin{DoxyParamCaption}\item[{G\+Lenum}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert G\+L\+Type (eg. G\+L\+\_\+\+F\+L\+O\+AT to sizeof type -\/ eg. sizeof(float)) 
+\begin{DoxyParams}{Parameters}
+{\em type} & GL type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+size of type 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vertex\+Attributes.\+h\item 
+Vertex\+Attributes.\+cpp\end{DoxyCompactItemize}
