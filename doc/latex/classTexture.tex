@@ -1,0 +1,135 @@
+\hypertarget{classTexture}{}\doxysection{Texture Class Reference}
+\label{classTexture}\index{Texture@{Texture}}
+
+
+Inheritance diagram for Texture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classTexture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Texture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classTexture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTexture_aecf16871318e0fb95a87304b4f4cfe04}{Texture}} (G\+Lenum texture\+Type, \mbox{\hyperlink{structDimensions}{Dimensions}} dimensions, G\+Lenum pixel\+Format, G\+Lenum data\+Type, const void $\ast$data)
+\item 
+\mbox{\hyperlink{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}{$\sim$\+Texture}} ()
+\item 
+void \mbox{\hyperlink{classTexture_a11a0797970418086ae8761320fe4a7e0}{Set\+Texture\+Parameters}} () const override
+\item 
+void \mbox{\hyperlink{classTexture_aac93b1ff3180cefd9938a43270fdd862}{Sub\+Image}} (void $\ast$pixels) const override
+\item 
+void \mbox{\hyperlink{classTexture_aa4396f5bdc382a995552f43c8b7c4f40}{Bind}} () const override
+\item 
+void \mbox{\hyperlink{classTexture_adc4b1d99a3faf0113ad3b6cf1c2e8708}{Unbind}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTexture_af6563b9b08f4bf2749639eb4434c9c35}\label{classTexture_af6563b9b08f4bf2749639eb4434c9c35}} 
+G\+Luint {\bfseries \+\_\+id}
+\item 
+\mbox{\Hypertarget{classTexture_a7240922837a1cfca87b1a4841f5c0b93}\label{classTexture_a7240922837a1cfca87b1a4841f5c0b93}} 
+G\+Lenum {\bfseries \+\_\+target}
+\item 
+\mbox{\Hypertarget{classTexture_ae8ae796985d438a8cc40b2402093273f}\label{classTexture_ae8ae796985d438a8cc40b2402093273f}} 
+\mbox{\hyperlink{structDimensions}{Dimensions}} {\bfseries \+\_\+dimensions}
+\item 
+\mbox{\Hypertarget{classTexture_a47208b87f31c9fd1a4e601cd9a2c28f0}\label{classTexture_a47208b87f31c9fd1a4e601cd9a2c28f0}} 
+G\+Lenum {\bfseries \+\_\+pixel\+Format}
+\item 
+\mbox{\Hypertarget{classTexture_acb9512c6877cbb595a1f1ea59337e03f}\label{classTexture_acb9512c6877cbb595a1f1ea59337e03f}} 
+G\+Lenum {\bfseries \+\_\+data\+Type}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTexture_aecf16871318e0fb95a87304b4f4cfe04}\label{classTexture_aecf16871318e0fb95a87304b4f4cfe04}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{G\+Lenum}]{texture\+Type,  }\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions,  }\item[{G\+Lenum}]{pixel\+Format,  }\item[{G\+Lenum}]{data\+Type,  }\item[{const void $\ast$}]{data }\end{DoxyParamCaption})}
+
+Create new texture 
+\begin{DoxyParams}{Parameters}
+{\em texture\+Type} & texture\+Type type of texture (eg. G\+L\+\_\+\+T\+E\+X\+T\+U\+R\+E\+\_\+2D) \\
+\hline
+{\em dimensions} & dimension of the texture \\
+\hline
+{\em pixel\+Format} & pixel internal format (eg. G\+L\+\_\+\+R\+G\+BA) \\
+\hline
+{\em data\+Type} & pixel type (eg. G\+L\+\_\+\+U\+N\+S\+I\+G\+N\+E\+D\+\_\+\+B\+Y\+TE) \\
+\hline
+{\em data} & texture data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}\label{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}} 
+\index{Texture@{Texture}!````~Texture@{$\sim$Texture}}
+\index{````~Texture@{$\sim$Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{$\sim$Texture()}{~Texture()}}
+{\footnotesize\ttfamily Texture\+::$\sim$\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructs the texture and deletes it 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTexture_aa4396f5bdc382a995552f43c8b7c4f40}\label{classTexture_aa4396f5bdc382a995552f43c8b7c4f40}} 
+\index{Texture@{Texture}!Bind@{Bind}}
+\index{Bind@{Bind}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Texture\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Bind texture 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+\mbox{\Hypertarget{classTexture_a11a0797970418086ae8761320fe4a7e0}\label{classTexture_a11a0797970418086ae8761320fe4a7e0}} 
+\index{Texture@{Texture}!SetTextureParameters@{SetTextureParameters}}
+\index{SetTextureParameters@{SetTextureParameters}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{SetTextureParameters()}{SetTextureParameters()}}
+{\footnotesize\ttfamily void Texture\+::\+Set\+Texture\+Parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Set texture parameters 
+
+Implements \mbox{\hyperlink{classITexture}{I\+Texture}}.
+
+\mbox{\Hypertarget{classTexture_aac93b1ff3180cefd9938a43270fdd862}\label{classTexture_aac93b1ff3180cefd9938a43270fdd862}} 
+\index{Texture@{Texture}!SubImage@{SubImage}}
+\index{SubImage@{SubImage}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{SubImage()}{SubImage()}}
+{\footnotesize\ttfamily void Texture\+::\+Sub\+Image (\begin{DoxyParamCaption}\item[{void $\ast$}]{pixels }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Update subimage of the texture with data 
+\begin{DoxyParams}{Parameters}
+{\em pixels} & pixels buffer (empty for P\+BO) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classITexture}{I\+Texture}}.
+
+\mbox{\Hypertarget{classTexture_adc4b1d99a3faf0113ad3b6cf1c2e8708}\label{classTexture_adc4b1d99a3faf0113ad3b6cf1c2e8708}} 
+\index{Texture@{Texture}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Texture\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Unbind texture 
+
+Implements \mbox{\hyperlink{classIBoundable}{I\+Boundable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Texture.\+h\item 
+Texture.\+cpp\end{DoxyCompactItemize}

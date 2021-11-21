@@ -1,0 +1,7 @@
+<map id="FluidBuilder" name="FluidBuilder">
+<area shape="rect" id="node1" title=" " alt="" coords="145,184,245,211"/>
+<area shape="rect" id="node2" href="$classFluidSimulationBuilder.html" title=" " alt="" coords="110,95,281,121"/>
+<area shape="rect" id="node3" href="$structDimensions.html" title=" " alt="" coords="47,5,146,32"/>
+<area shape="rect" id="node4" href="$classFluidVisualizationBuilder.html" title=" " alt="" coords="305,95,489,121"/>
+<area shape="rect" id="node5" href="$classIPixelMap.html" title=" " alt="" coords="354,5,439,32"/>
+</map>

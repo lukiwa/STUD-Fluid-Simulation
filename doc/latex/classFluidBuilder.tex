@@ -1,0 +1,95 @@
+\hypertarget{classFluidBuilder}{}\doxysection{Fluid\+Builder Class Reference}
+\label{classFluidBuilder}\index{FluidBuilder@{FluidBuilder}}
+
+
+Collaboration diagram for Fluid\+Builder\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFluidBuilder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFluidBuilder_afe6ef7fc5886ed8c02b1b050510f6672}{Fluid\+Builder}} ()
+\item 
+\mbox{\hyperlink{classFluidBuilder}{Fluid\+Builder}} \& \mbox{\hyperlink{classFluidBuilder_a5c94150d0d2ecc1584812254254f75c2}{Size}} (\mbox{\hyperlink{structDimensions}{Dimensions}} dimensions)
+\item 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& \mbox{\hyperlink{classFluidBuilder_ae5cf6fa8f982f377e25e9aeb8f955a4e}{Simulation}} ()
+\item 
+\mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& \mbox{\hyperlink{classFluidBuilder_abef40766d0fde5081f5bc5d7489fe06a}{Visualization}} ()
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluid}{I\+Fluid}} $>$ \mbox{\hyperlink{classFluidBuilder_a868e57c3a791f18fa3b562ae1533334f}{Build}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidBuilder_ab6dd3599c2249600cc3f96eb65abf88d}\label{classFluidBuilder_ab6dd3599c2249600cc3f96eb65abf88d}} 
+\mbox{\hyperlink{structDimensions}{Dimensions}} {\bfseries \+\_\+dimensions}
+\item 
+\mbox{\Hypertarget{classFluidBuilder_ad32dfc6421d63f37d70c10527d90816c}\label{classFluidBuilder_ad32dfc6421d63f37d70c10527d90816c}} 
+\mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} {\bfseries \+\_\+simulation\+Builder}
+\item 
+\mbox{\Hypertarget{classFluidBuilder_ad604606214710d3903650b7dd5fb25a3}\label{classFluidBuilder_ad604606214710d3903650b7dd5fb25a3}} 
+\mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} {\bfseries \+\_\+visualization\+Builder}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluidBuilder_afe6ef7fc5886ed8c02b1b050510f6672}\label{classFluidBuilder_afe6ef7fc5886ed8c02b1b050510f6672}} 
+\index{FluidBuilder@{FluidBuilder}!FluidBuilder@{FluidBuilder}}
+\index{FluidBuilder@{FluidBuilder}!FluidBuilder@{FluidBuilder}}
+\doxysubsubsection{\texorpdfstring{FluidBuilder()}{FluidBuilder()}}
+{\footnotesize\ttfamily Fluid\+Builder\+::\+Fluid\+Builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs new fluid builder 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluidBuilder_a868e57c3a791f18fa3b562ae1533334f}\label{classFluidBuilder_a868e57c3a791f18fa3b562ae1533334f}} 
+\index{FluidBuilder@{FluidBuilder}!Build@{Build}}
+\index{Build@{Build}!FluidBuilder@{FluidBuilder}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classIFluid}{I\+Fluid}} $>$ Fluid\+Builder\+::\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructs new fluid abstraction \begin{DoxyReturn}{Returns}
+fluid abstraction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidBuilder_ae5cf6fa8f982f377e25e9aeb8f955a4e}\label{classFluidBuilder_ae5cf6fa8f982f377e25e9aeb8f955a4e}} 
+\index{FluidBuilder@{FluidBuilder}!Simulation@{Simulation}}
+\index{Simulation@{Simulation}!FluidBuilder@{FluidBuilder}}
+\doxysubsubsection{\texorpdfstring{Simulation()}{Simulation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidSimulationBuilder}{Fluid\+Simulation\+Builder}} \& Fluid\+Builder\+::\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get simulation builder \begin{DoxyReturn}{Returns}
+simulation builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidBuilder_a5c94150d0d2ecc1584812254254f75c2}\label{classFluidBuilder_a5c94150d0d2ecc1584812254254f75c2}} 
+\index{FluidBuilder@{FluidBuilder}!Size@{Size}}
+\index{Size@{Size}!FluidBuilder@{FluidBuilder}}
+\doxysubsubsection{\texorpdfstring{Size()}{Size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidBuilder}{Fluid\+Builder}} \& Fluid\+Builder\+::\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions }\end{DoxyParamCaption})}
+
+Dimension of the simulation 
+\begin{DoxyParams}{Parameters}
+{\em dimensions} & dimension parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+builder reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidBuilder_abef40766d0fde5081f5bc5d7489fe06a}\label{classFluidBuilder_abef40766d0fde5081f5bc5d7489fe06a}} 
+\index{FluidBuilder@{FluidBuilder}!Visualization@{Visualization}}
+\index{Visualization@{Visualization}!FluidBuilder@{FluidBuilder}}
+\doxysubsubsection{\texorpdfstring{Visualization()}{Visualization()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFluidVisualizationBuilder}{Fluid\+Visualization\+Builder}} \& Fluid\+Builder\+::\+Visualization (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get visualization builder \begin{DoxyReturn}{Returns}
+visualization builder reference 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid\+Builder.\+h\item 
+Fluid\+Builder.\+cpp\end{DoxyCompactItemize}

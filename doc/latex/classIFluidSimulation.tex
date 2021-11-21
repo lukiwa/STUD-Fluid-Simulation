@@ -1,0 +1,60 @@
+\hypertarget{classIFluidSimulation}{}\doxysection{I\+Fluid\+Simulation Class Reference}
+\label{classIFluidSimulation}\index{IFluidSimulation@{IFluidSimulation}}
+
+
+Inheritance diagram for I\+Fluid\+Simulation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classIFluidSimulation__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structIFluidSimulation_1_1State}{State}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a2907cd7a96a6d88b66ad073613810633}\label{classIFluidSimulation_a2907cd7a96a6d88b66ad073613810633}} 
+enum {\bfseries Boundary\+Type} \{ {\bfseries V\+E\+R\+T\+I\+C\+AL}, 
+{\bfseries H\+O\+R\+I\+Z\+O\+N\+T\+AL}, 
+{\bfseries A\+LL}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_ac90134b2c853a2af139f61faaf023e5d}\label{classIFluidSimulation_ac90134b2c853a2af139f61faaf023e5d}} 
+virtual void {\bfseries Add\+Velocity} (int x, int y, double amount, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocity) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a6fa9e5af90b2d678a040e556c613100a}\label{classIFluidSimulation_a6fa9e5af90b2d678a040e556c613100a}} 
+virtual void {\bfseries Add\+Density} (int x, int y, double amount, \mbox{\hyperlink{classMatrix}{Matrix}} \&density) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_abd4847603207bb1319e6fad8ea019c45}\label{classIFluidSimulation_abd4847603207bb1319e6fad8ea019c45}} 
+virtual void {\bfseries Diffuse} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, double spread\+Speed, double delta\+Time) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a5f7920d7594414ab77007d3a37339a72}\label{classIFluidSimulation_a5f7920d7594414ab77007d3a37339a72}} 
+virtual void {\bfseries Linear\+Solve} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, double k, double c) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_ad72726d3ec84de48f04297908527d912}\label{classIFluidSimulation_ad72726d3ec84de48f04297908527d912}} 
+virtual void {\bfseries Project} (\mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, \mbox{\hyperlink{classMatrix}{Matrix}} \&p, \mbox{\hyperlink{classMatrix}{Matrix}} \&divergence) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a02be6c9351eded3e62583a1fdd1b2932}\label{classIFluidSimulation_a02be6c9351eded3e62583a1fdd1b2932}} 
+virtual void {\bfseries Advect} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, const \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, const \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, const \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, double delta\+Time) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_aaa19c6c76d962cf16e9bd96d0b3a2ea6}\label{classIFluidSimulation_aaa19c6c76d962cf16e9bd96d0b3a2ea6}} 
+virtual void {\bfseries Set\+Boundary\+Conditions} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a07dc9200466cc7b3e9cb2aaf449d3f78}\label{classIFluidSimulation_a07dc9200466cc7b3e9cb2aaf449d3f78}} 
+virtual void {\bfseries Velocity\+Step} (\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&velocityX, \mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&velocityY, double delta\+Time) const =0
+\item 
+\mbox{\Hypertarget{classIFluidSimulation_a64b0cedfe3e6dc5de244a230e3973dfe}\label{classIFluidSimulation_a64b0cedfe3e6dc5de244a230e3973dfe}} 
+virtual void {\bfseries Density\+Step} (\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&density, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, double delta\+Time) const =0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+I\+Fluid.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,202 @@
+\hypertarget{classShaderProgramBuilder}{}\doxysection{Shader\+Program\+Builder Class Reference}
+\label{classShaderProgramBuilder}\index{ShaderProgramBuilder@{ShaderProgramBuilder}}
+
+
+Collaboration diagram for Shader\+Program\+Builder\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classShaderProgramBuilder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_a58fc1ec405ef01cb396f8b5a427f7dbc}{Shaders\+Root}} (const std\+::string \&root)
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_a1d83691a2ca3a6378c3b7ad0d610da36}{Shader\+Filename}} (G\+Luint type, const std\+::string \&shader\+Filename)
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_ae9d4d1e85f3331940ef214af0e0b4c5b}{Create\+Program}} ()
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_a6728384dd54a3b0ed76b61dca6e70cfa}{Compile\+Shader}} (G\+Luint type)
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_ad5c53da94fb81cd4274c6513b48d26a9}{Link\+Shaders}} ()
+\item 
+\mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& \mbox{\hyperlink{classShaderProgramBuilder_adb6d06494369b29d2117387784870f9d}{Validate}} (int \&out\+Result)
+\item 
+\mbox{\hyperlink{classShaderProgram}{Shader\+Program}} \mbox{\hyperlink{classShaderProgramBuilder_a8acc0ac14ba10714972032428bfeb10c}{Build}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{classShaderProgramBuilder_a84db3b9a0482c8fb02e30365b5a85bd0}{Get\+Shader\+Source}} (G\+Luint type) const
+\item 
+G\+Luint \mbox{\hyperlink{classShaderProgramBuilder_a03635014138d4fab50759ced1e6e070a}{Get\+Program\+Id}} () const
+\item 
+G\+Luint \mbox{\hyperlink{classShaderProgramBuilder_a4c83c007d63376f396c76a95428aa4b7}{Get\+Shader\+Id}} (G\+Luint type) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{classShaderProgramBuilder_a6cd6549739be40b4a8d96cefaa3bf65e}{File\+To\+String}} (const std\+::string \&filepath)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_acc8634a77eadad7d2e857d1fa3161280}\label{classShaderProgramBuilder_acc8634a77eadad7d2e857d1fa3161280}} 
+std\+::string {\bfseries \+\_\+shaders\+Root}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_a3a4e7bf102dcc1bf06a5e4c226441cf8}\label{classShaderProgramBuilder_a3a4e7bf102dcc1bf06a5e4c226441cf8}} 
+G\+Luint {\bfseries \+\_\+program\+Id}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_aa8177b582d99122dfd179e2044b2104f}\label{classShaderProgramBuilder_aa8177b582d99122dfd179e2044b2104f}} 
+G\+Luint {\bfseries \+\_\+vertex\+Shader\+Id}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_a68ff2db7ede8ff27ca45b90df5a3ddbe}\label{classShaderProgramBuilder_a68ff2db7ede8ff27ca45b90df5a3ddbe}} 
+G\+Luint {\bfseries \+\_\+fragment\+Shader\+Id}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_ae79be55802f431f1badb8fbd9f4e590d}\label{classShaderProgramBuilder_ae79be55802f431f1badb8fbd9f4e590d}} 
+std\+::string {\bfseries \+\_\+vertex\+Shader\+Source}
+\item 
+\mbox{\Hypertarget{classShaderProgramBuilder_a6a4c252722bbc96af51cf8320a73e821}\label{classShaderProgramBuilder_a6a4c252722bbc96af51cf8320a73e821}} 
+std\+::string {\bfseries \+\_\+fragment\+Shader\+Source}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classShaderProgramBuilder_a8acc0ac14ba10714972032428bfeb10c}\label{classShaderProgramBuilder_a8acc0ac14ba10714972032428bfeb10c}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!Build@{Build}}
+\index{Build@{Build}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgram}{Shader\+Program}} Shader\+Program\+Builder\+::\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Build program \begin{DoxyReturn}{Returns}
+builded program 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a6728384dd54a3b0ed76b61dca6e70cfa}\label{classShaderProgramBuilder_a6728384dd54a3b0ed76b61dca6e70cfa}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!CompileShader@{CompileShader}}
+\index{CompileShader@{CompileShader}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{CompileShader()}{CompileShader()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Compile\+Shader (\begin{DoxyParamCaption}\item[{G\+Luint}]{type }\end{DoxyParamCaption})}
+
+Compile single shader 
+\begin{DoxyParams}{Parameters}
+{\em type} & type of the shader to be compiled \\
+\hline
+{\em source} & source code of th shader \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_ae9d4d1e85f3331940ef214af0e0b4c5b}\label{classShaderProgramBuilder_ae9d4d1e85f3331940ef214af0e0b4c5b}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!CreateProgram@{CreateProgram}}
+\index{CreateProgram@{CreateProgram}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{CreateProgram()}{CreateProgram()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Create\+Program (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Create shader program \begin{DoxyReturn}{Returns}
+this reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a6cd6549739be40b4a8d96cefaa3bf65e}\label{classShaderProgramBuilder_a6cd6549739be40b4a8d96cefaa3bf65e}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!FileToString@{FileToString}}
+\index{FileToString@{FileToString}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{FileToString()}{FileToString()}}
+{\footnotesize\ttfamily std\+::string Shader\+Program\+Builder\+::\+File\+To\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Read content of filepath and store return as string 
+\begin{DoxyParams}{Parameters}
+{\em filepath} & path to file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+read content 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a03635014138d4fab50759ced1e6e070a}\label{classShaderProgramBuilder_a03635014138d4fab50759ced1e6e070a}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!GetProgramId@{GetProgramId}}
+\index{GetProgramId@{GetProgramId}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{GetProgramId()}{GetProgramId()}}
+{\footnotesize\ttfamily G\+Luint Shader\+Program\+Builder\+::\+Get\+Program\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get id of the program (0 on error) \begin{DoxyReturn}{Returns}
+program id 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a4c83c007d63376f396c76a95428aa4b7}\label{classShaderProgramBuilder_a4c83c007d63376f396c76a95428aa4b7}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!GetShaderId@{GetShaderId}}
+\index{GetShaderId@{GetShaderId}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{GetShaderId()}{GetShaderId()}}
+{\footnotesize\ttfamily G\+Luint Shader\+Program\+Builder\+::\+Get\+Shader\+Id (\begin{DoxyParamCaption}\item[{G\+Luint}]{type }\end{DoxyParamCaption}) const}
+
+Get id of the shader 
+\begin{DoxyParams}{Parameters}
+{\em type} & shader type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+shader ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a84db3b9a0482c8fb02e30365b5a85bd0}\label{classShaderProgramBuilder_a84db3b9a0482c8fb02e30365b5a85bd0}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!GetShaderSource@{GetShaderSource}}
+\index{GetShaderSource@{GetShaderSource}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{GetShaderSource()}{GetShaderSource()}}
+{\footnotesize\ttfamily const std\+::string \& Shader\+Program\+Builder\+::\+Get\+Shader\+Source (\begin{DoxyParamCaption}\item[{G\+Luint}]{type }\end{DoxyParamCaption}) const}
+
+Get shader source of type 
+\begin{DoxyParams}{Parameters}
+{\em type} & type of shader \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+shader source 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_ad5c53da94fb81cd4274c6513b48d26a9}\label{classShaderProgramBuilder_ad5c53da94fb81cd4274c6513b48d26a9}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!LinkShaders@{LinkShaders}}
+\index{LinkShaders@{LinkShaders}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{LinkShaders()}{LinkShaders()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Link\+Shaders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Link programs. \begin{DoxyReturn}{Returns}
+\char`\"{}this\char`\"{} reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a1d83691a2ca3a6378c3b7ad0d610da36}\label{classShaderProgramBuilder_a1d83691a2ca3a6378c3b7ad0d610da36}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!ShaderFilename@{ShaderFilename}}
+\index{ShaderFilename@{ShaderFilename}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{ShaderFilename()}{ShaderFilename()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Shader\+Filename (\begin{DoxyParamCaption}\item[{G\+Luint}]{type,  }\item[{const std\+::string \&}]{shader\+Filename }\end{DoxyParamCaption})}
+
+Read shaders source from filename inside \+\_\+shaders\+Root directory 
+\begin{DoxyParams}{Parameters}
+{\em type} & type of the shader \\
+\hline
+{\em shader\+Filename} & filename of the shader \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}this\char`\"{} reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_a58fc1ec405ef01cb396f8b5a427f7dbc}\label{classShaderProgramBuilder_a58fc1ec405ef01cb396f8b5a427f7dbc}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!ShadersRoot@{ShadersRoot}}
+\index{ShadersRoot@{ShadersRoot}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{ShadersRoot()}{ShadersRoot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Shaders\+Root (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{root }\end{DoxyParamCaption})}
+
+Change default shaders root (default\+: src/\+Open\+G\+L/shaders/) 
+\begin{DoxyParams}{Parameters}
+{\em root} & new root \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}this\char`\"{} reference 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classShaderProgramBuilder_adb6d06494369b29d2117387784870f9d}\label{classShaderProgramBuilder_adb6d06494369b29d2117387784870f9d}} 
+\index{ShaderProgramBuilder@{ShaderProgramBuilder}!Validate@{Validate}}
+\index{Validate@{Validate}!ShaderProgramBuilder@{ShaderProgramBuilder}}
+\doxysubsubsection{\texorpdfstring{Validate()}{Validate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShaderProgramBuilder}{Shader\+Program\+Builder}} \& Shader\+Program\+Builder\+::\+Validate (\begin{DoxyParamCaption}\item[{int \&}]{out\+Result }\end{DoxyParamCaption})}
+
+Validate linked program proper error message will be displayed on error/ \begin{DoxyReturn}{Returns}
+this reference 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Shader\+Program.\+h\item 
+Shader\+Program.\+cpp\end{DoxyCompactItemize}

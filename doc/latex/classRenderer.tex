@@ -1,0 +1,120 @@
+\hypertarget{classRenderer}{}\doxysection{Renderer Class Reference}
+\label{classRenderer}\index{Renderer@{Renderer}}
+
+
+Collaboration diagram for Renderer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRenderer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRenderer_a35c272d3e057b64471ac5ab301bbbce0}{Renderer}} (\mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&vao, \mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&ibo, \mbox{\hyperlink{classShaderProgram}{Shader\+Program}} \&program)
+\item 
+void \mbox{\hyperlink{classRenderer_a866deec34f4e206302a185c318ba853c}{Draw}} () const
+\item 
+void \mbox{\hyperlink{classRenderer_a9dd70b9133739b42334b11b183573b51}{Set\+Pixel\+Map}} (\mbox{\hyperlink{classPixelMap}{Pixel\+Map}} $\ast$pixel\+Map)
+\item 
+void \mbox{\hyperlink{classRenderer_a287f716dcbd2670bd46749dbc207b113}{Set\+Im\+Gui\+Handler}} (\mbox{\hyperlink{classImGui_1_1Handler}{Im\+Gui\+::\+Handler}} $\ast$imgui\+Handler)
+\item 
+void \mbox{\hyperlink{classRenderer_a3d0a8e7c1782b5542fce310f42f6a9b1}{Clear\+Color}} (const std\+::vector$<$ int $>$ \&components) const
+\item 
+void \mbox{\hyperlink{classRenderer_a39adf4c82c15dad54d7f42f6bd035ff6}{Clear}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRenderer_ae196df2e86c434711fc7eccb0e924e8d}\label{classRenderer_ae196df2e86c434711fc7eccb0e924e8d}} 
+\mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \& {\bfseries \+\_\+vao}
+\item 
+\mbox{\Hypertarget{classRenderer_aa8d0e00f200e779070591a28eecd9c05}\label{classRenderer_aa8d0e00f200e779070591a28eecd9c05}} 
+\mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \& {\bfseries \+\_\+ibo}
+\item 
+\mbox{\Hypertarget{classRenderer_a29db3acd3ada239712787d50af8ea56a}\label{classRenderer_a29db3acd3ada239712787d50af8ea56a}} 
+\mbox{\hyperlink{classShaderProgram}{Shader\+Program}} \& {\bfseries \+\_\+program}
+\item 
+\mbox{\Hypertarget{classRenderer_a4068c7decf15a648b292a9bc94e8aef3}\label{classRenderer_a4068c7decf15a648b292a9bc94e8aef3}} 
+\mbox{\hyperlink{classPixelMap}{Pixel\+Map}} $\ast$ {\bfseries \+\_\+pixel\+Map}
+\item 
+\mbox{\Hypertarget{classRenderer_a9e6958ff1502bbd3a18ea58f54eb9d73}\label{classRenderer_a9e6958ff1502bbd3a18ea58f54eb9d73}} 
+\mbox{\hyperlink{classImGui_1_1Handler}{Im\+Gui\+::\+Handler}} $\ast$ {\bfseries \+\_\+imgui\+Handler}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRenderer_a35c272d3e057b64471ac5ab301bbbce0}\label{classRenderer_a35c272d3e057b64471ac5ab301bbbce0}} 
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Renderer()}{Renderer()}}
+{\footnotesize\ttfamily Renderer\+::\+Renderer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&}]{vao,  }\item[{\mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&}]{ibo,  }\item[{\mbox{\hyperlink{classShaderProgram}{Shader\+Program}} \&}]{program }\end{DoxyParamCaption})}
+
+Create new renderer 
+\begin{DoxyParams}{Parameters}
+{\em vao} & vertex array object bound with Vertex\+Attrubutes and \mbox{\hyperlink{classVertexBuffer}{Vertex\+Buffer}} \\
+\hline
+{\em ibo} & index buffer bound with vertices \\
+\hline
+{\em program} & compiled and validated shader program \\
+\hline
+{\em pixel\+Map} & map pixels to be displayed \\
+\hline
+{\em imgui\+Handler} & imgui handler (to draw imgui related stuff) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classRenderer_a39adf4c82c15dad54d7f42f6bd035ff6}\label{classRenderer_a39adf4c82c15dad54d7f42f6bd035ff6}} 
+\index{Renderer@{Renderer}!Clear@{Clear}}
+\index{Clear@{Clear}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily void Renderer\+::\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Clear screen \mbox{\Hypertarget{classRenderer_a3d0a8e7c1782b5542fce310f42f6a9b1}\label{classRenderer_a3d0a8e7c1782b5542fce310f42f6a9b1}} 
+\index{Renderer@{Renderer}!ClearColor@{ClearColor}}
+\index{ClearColor@{ClearColor}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{ClearColor()}{ClearColor()}}
+{\footnotesize\ttfamily void Renderer\+::\+Clear\+Color (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{components }\end{DoxyParamCaption}) const}
+
+Set screen clear color 
+\begin{DoxyParams}{Parameters}
+{\em components} & components of the background color N\+O\+TE\+: Have to have size 4 -\/ R\+G\+BA \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRenderer_a866deec34f4e206302a185c318ba853c}\label{classRenderer_a866deec34f4e206302a185c318ba853c}} 
+\index{Renderer@{Renderer}!Draw@{Draw}}
+\index{Draw@{Draw}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Renderer\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Bind components and issue draw call \mbox{\Hypertarget{classRenderer_a287f716dcbd2670bd46749dbc207b113}\label{classRenderer_a287f716dcbd2670bd46749dbc207b113}} 
+\index{Renderer@{Renderer}!SetImGuiHandler@{SetImGuiHandler}}
+\index{SetImGuiHandler@{SetImGuiHandler}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{SetImGuiHandler()}{SetImGuiHandler()}}
+{\footnotesize\ttfamily void Renderer\+::\+Set\+Im\+Gui\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classImGui_1_1Handler}{Im\+Gui\+::\+Handler}} $\ast$}]{imgui\+Handler }\end{DoxyParamCaption})}
+
+Set handler to display Im\+Gui elements 
+\begin{DoxyParams}{Parameters}
+{\em imgui\+Handler} & handler for imgui \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRenderer_a9dd70b9133739b42334b11b183573b51}\label{classRenderer_a9dd70b9133739b42334b11b183573b51}} 
+\index{Renderer@{Renderer}!SetPixelMap@{SetPixelMap}}
+\index{SetPixelMap@{SetPixelMap}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{SetPixelMap()}{SetPixelMap()}}
+{\footnotesize\ttfamily void Renderer\+::\+Set\+Pixel\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPixelMap}{Pixel\+Map}} $\ast$}]{pixel\+Map }\end{DoxyParamCaption})}
+
+Set pixel map for renderer 
+\begin{DoxyParams}{Parameters}
+{\em pixel\+Map} & pixel map to be displayed \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Renderer.\+h\item 
+Renderer.\+cpp\end{DoxyCompactItemize}

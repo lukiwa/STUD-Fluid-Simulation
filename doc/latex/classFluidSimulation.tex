@@ -1,0 +1,296 @@
+\hypertarget{classFluidSimulation}{}\doxysection{Fluid\+Simulation Class Reference}
+\label{classFluidSimulation}\index{FluidSimulation@{FluidSimulation}}
+
+
+Inheritance diagram for Fluid\+Simulation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classFluidSimulation__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Fluid\+Simulation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classFluidSimulation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFluidSimulation_af80db65ee38bd78ab4eb342095456764}{Add\+Velocity}} (int x, int y, double amount, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocity) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_a3b0b0a0db3d191811feffb753177e85e}{Add\+Density}} (int x, int y, double amount, \mbox{\hyperlink{classMatrix}{Matrix}} \&density) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_a6293ff3eaefd0ddbdbe0a52a8082bf65}{Velocity\+Step}} (\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&velocityX, \mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&velocityY, double delta\+Time) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_a5be28ba8ecb5b35d5433a7063672b1d3}{Density\+Step}} (\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&density, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, double delta\+Time) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_aa71ab03045d67bc3b6c49cf2cecfb032}{Diffuse}} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, double spread\+Speed, double delta\+Time) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_a72dee6fde7faa1802fd2e0d302540864}{Linear\+Solve}} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, double k, double c) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_ac71675199223cf2e7a2d1cdf9b5616e0}{Project}} (\mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, \mbox{\hyperlink{classMatrix}{Matrix}} \&p, \mbox{\hyperlink{classMatrix}{Matrix}} \&divergence) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_a237fa1b22d427866edded97194a2e813}{Advect}} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium, const \mbox{\hyperlink{classMatrix}{Matrix}} \&prev\+Medium, const \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityX, const \mbox{\hyperlink{classMatrix}{Matrix}} \&velocityY, double delta\+Time) const override
+\item 
+void \mbox{\hyperlink{classFluidSimulation_ab652c558a63b88a2f885482cad85ea3b}{Set\+Boundary\+Conditions}} (Boundary\+Type bound, \mbox{\hyperlink{classMatrix}{Matrix}} \&medium) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classFluidSimulation_af5c2df9b1f68c424cc12a781dfabdc07}{Linear\+Interpolation}} (double a, double b, double k) const
+\item 
+\mbox{\hyperlink{classFluidSimulation_adb6b44bc38c4ad6598dade7985f38de3}{Fluid\+Simulation}} (\mbox{\hyperlink{structDimensions}{Dimensions}} dimensions, double diffusion, double viscosity, double dt, int iterations)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_a0a853c90e07ef9764f9ebaa85d2cf744}\label{classFluidSimulation_a0a853c90e07ef9764f9ebaa85d2cf744}} 
+int {\bfseries \+\_\+size}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_ab5fc709201ebadc321a64089d92b853b}\label{classFluidSimulation_ab5fc709201ebadc321a64089d92b853b}} 
+double {\bfseries \+\_\+diffusion}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_a4ed3263bd7e975d6836ee20c4c71dd09}\label{classFluidSimulation_a4ed3263bd7e975d6836ee20c4c71dd09}} 
+double {\bfseries \+\_\+viscosity}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_a4d0979a03a2c828d832c4cc7ba100029}\label{classFluidSimulation_a4d0979a03a2c828d832c4cc7ba100029}} 
+double {\bfseries \+\_\+time\+Step}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_af898e9fb4a5910e3cee347d73d3ee261}\label{classFluidSimulation_af898e9fb4a5910e3cee347d73d3ee261}} 
+int {\bfseries \+\_\+iterations}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFluidSimulation_a71db3caf1bd6789dc4c063f995697f0d}\label{classFluidSimulation_a71db3caf1bd6789dc4c063f995697f0d}} 
+class {\bfseries Fluid\+Simulation\+Builder}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFluidSimulation_adb6b44bc38c4ad6598dade7985f38de3}\label{classFluidSimulation_adb6b44bc38c4ad6598dade7985f38de3}} 
+\index{FluidSimulation@{FluidSimulation}!FluidSimulation@{FluidSimulation}}
+\index{FluidSimulation@{FluidSimulation}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{FluidSimulation()}{FluidSimulation()}}
+{\footnotesize\ttfamily Fluid\+Simulation\+::\+Fluid\+Simulation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}}}]{dimensions,  }\item[{double}]{diffusion,  }\item[{double}]{viscosity,  }\item[{double}]{dt,  }\item[{int}]{iterations }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Constructs new fluid simulation abstraction 
+\begin{DoxyParams}{Parameters}
+{\em dimensions} & dimensions of the simulation (currently edge of x member is the size) -\/ square \\
+\hline
+{\em diffusion} & diffusion parameter \\
+\hline
+{\em viscosity} & viscosity parameter \\
+\hline
+{\em dt} & timestep \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFluidSimulation_a3b0b0a0db3d191811feffb753177e85e}\label{classFluidSimulation_a3b0b0a0db3d191811feffb753177e85e}} 
+\index{FluidSimulation@{FluidSimulation}!AddDensity@{AddDensity}}
+\index{AddDensity@{AddDensity}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{AddDensity()}{AddDensity()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Add\+Density (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{double}]{amount,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{out\+Density }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Add density on given field. Normalization based on time step (imagine dropping a drop of soy sauce into the water) 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coordinate \\
+\hline
+{\em y} & y coordinate \\
+\hline
+{\em amount} & amount of density to be added \\
+\hline
+{\em out\+Density} & resulted density (normalized) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_af80db65ee38bd78ab4eb342095456764}\label{classFluidSimulation_af80db65ee38bd78ab4eb342095456764}} 
+\index{FluidSimulation@{FluidSimulation}!AddVelocity@{AddVelocity}}
+\index{AddVelocity@{AddVelocity}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{AddVelocity()}{AddVelocity()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Add\+Velocity (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{double}]{amount,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{out\+Velocity }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Add velocity on given place (imagine on that pixel there is a fan blowing the particles) 
+\begin{DoxyParams}{Parameters}
+{\em x} & x coordinate \\
+\hline
+{\em y} & y coordinate \\
+\hline
+{\em amount} & amount of velocity to be added \\
+\hline
+{\em velocity} & resulting velocity \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_a237fa1b22d427866edded97194a2e813}\label{classFluidSimulation_a237fa1b22d427866edded97194a2e813}} 
+\index{FluidSimulation@{FluidSimulation}!Advect@{Advect}}
+\index{Advect@{Advect}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{Advect()}{Advect()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Advect (\begin{DoxyParamCaption}\item[{Fluid\+Simulation\+::\+Boundary\+Type}]{bound,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{medium,  }\item[{const \mbox{\hyperlink{classMatrix}{Matrix}} \&}]{prev\+Medium,  }\item[{const \mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityX,  }\item[{const \mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityY,  }\item[{double}]{delta\+Time }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calculate how density will move due to velocities. A \char`\"{}back tracing\char`\"{} method is used -\/ taking previous density value at x,y then trace from where this value comes from. The result will be somewhere in between grids, so a linear interpolation is used. 
+\begin{DoxyParams}{Parameters}
+{\em bound} & boundary \\
+\hline
+{\em medium} & current density \\
+\hline
+{\em prev\+Medium} & previous density \\
+\hline
+{\em velocityX} & current X velocity matrix \\
+\hline
+{\em velocityY} & current Y velocity matrix \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_a5be28ba8ecb5b35d5433a7063672b1d3}\label{classFluidSimulation_a5be28ba8ecb5b35d5433a7063672b1d3}} 
+\index{FluidSimulation@{FluidSimulation}!DensityStep@{DensityStep}}
+\index{DensityStep@{DensityStep}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{DensityStep()}{DensityStep()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Density\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&}]{density,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityX,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityY,  }\item[{double}]{delta\+Time }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Evolve density due to\+: addition of forces, addition of density, moving density along velocities, and diffusion 
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_aa71ab03045d67bc3b6c49cf2cecfb032}\label{classFluidSimulation_aa71ab03045d67bc3b6c49cf2cecfb032}} 
+\index{FluidSimulation@{FluidSimulation}!Diffuse@{Diffuse}}
+\index{Diffuse@{Diffuse}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{Diffuse()}{Diffuse()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Diffuse (\begin{DoxyParamCaption}\item[{Fluid\+Simulation\+::\+Boundary\+Type}]{bound,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{medium,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{prev\+Medium,  }\item[{double}]{spread\+Speed,  }\item[{double}]{delta\+Time }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Diffuse, spread medium across the grid no matter what velocity is. To make this method stable, instead of calculating next surrounding values (and thus using linear interpolation), a method of finding current values from the next ones is used. However this needs a solver -\/ see a Linear\+Solve method. 
+\begin{DoxyParams}{Parameters}
+{\em bound} & where a boundary condition should be st \\
+\hline
+{\em medium} & medium that should be diffused \\
+\hline
+{\em prev\+Medium} & previous medium \\
+\hline
+{\em spread\+Speed} & viscosity/diffusion \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_af5c2df9b1f68c424cc12a781dfabdc07}\label{classFluidSimulation_af5c2df9b1f68c424cc12a781dfabdc07}} 
+\index{FluidSimulation@{FluidSimulation}!LinearInterpolation@{LinearInterpolation}}
+\index{LinearInterpolation@{LinearInterpolation}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{LinearInterpolation()}{LinearInterpolation()}}
+{\footnotesize\ttfamily double Fluid\+Simulation\+::\+Linear\+Interpolation (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{k }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+Calculate linear interpolation between a and b for the parameter k (aka. std\+::lerp) 
+\begin{DoxyParams}{Parameters}
+{\em a} & first value \\
+\hline
+{\em b} & second value \\
+\hline
+{\em k} & interpolation point between a and b \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+linear interpolation between a and b 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFluidSimulation_a72dee6fde7faa1802fd2e0d302540864}\label{classFluidSimulation_a72dee6fde7faa1802fd2e0d302540864}} 
+\index{FluidSimulation@{FluidSimulation}!LinearSolve@{LinearSolve}}
+\index{LinearSolve@{LinearSolve}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{LinearSolve()}{LinearSolve()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Linear\+Solve (\begin{DoxyParamCaption}\item[{Fluid\+Simulation\+::\+Boundary\+Type}]{bound,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{medium,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{prev\+Medium,  }\item[{double}]{k,  }\item[{double}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Use Gauss-\/\+Seidel method to solve linear equations 
+\begin{DoxyParams}{Parameters}
+{\em bound} & depending on what parameter is currently being solved \\
+\hline
+{\em medium} & used medium \\
+\hline
+{\em prev\+Medium} & previous medium \\
+\hline
+{\em k} & amount of how much should the medium change \\
+\hline
+{\em c} & denominator \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_ac71675199223cf2e7a2d1cdf9b5616e0}\label{classFluidSimulation_ac71675199223cf2e7a2d1cdf9b5616e0}} 
+\index{FluidSimulation@{FluidSimulation}!Project@{Project}}
+\index{Project@{Project}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{Project()}{Project()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Project (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityX,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{velocityY,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{p,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{divergence }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+After all operations on fluid it is no longer divergence-\/free. This step uses Helmholtz decomposition in order to get divergence-\/free fluid. This the fluid after this step will have a lot of \char`\"{}curl\char`\"{} 
+\begin{DoxyParams}{Parameters}
+{\em velocityX} & matrix of X velocities at each point \\
+\hline
+{\em velocityY} & matrix of Y velocities at each point N\+O\+TE\+: Those two parameters are passed only to avoid allocating additional memory -\/ they will be recalculated soon anyways \\
+\hline
+{\em p} & curl free part \\
+\hline
+{\em divergence} & divergence part \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_ab652c558a63b88a2f885482cad85ea3b}\label{classFluidSimulation_ab652c558a63b88a2f885482cad85ea3b}} 
+\index{FluidSimulation@{FluidSimulation}!SetBoundaryConditions@{SetBoundaryConditions}}
+\index{SetBoundaryConditions@{SetBoundaryConditions}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{SetBoundaryConditions()}{SetBoundaryConditions()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Set\+Boundary\+Conditions (\begin{DoxyParamCaption}\item[{Fluid\+Simulation\+::\+Boundary\+Type}]{bound,  }\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{medium }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+The fluid is assumed to be contained in a box so this function assures that\+:
+\begin{DoxyItemize}
+\item if a medium is a velocity\+: A No-\/\+Slip condition is met, and the appropriate velocity component is 0 relative to a boundary. That essentially means setting last cell near boundary minus penultimate cell (Prandtl no-\/slip boundary condition) (\href{https://en.wikipedia.org/wiki/Boundary_layer}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Boundary\+\_\+layer}} \href{https://en.wikipedia.org/wiki/No-slip_condition}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+No-\/slip\+\_\+condition}})
+\item if a medium is a density\+: As stated in\+: \href{https://www.dgp.toronto.edu/public_user/stam/reality/Research/pdf/GDC03.pdf}{\texttt{ https\+://www.\+dgp.\+toronto.\+edu/public\+\_\+user/stam/reality/\+Research/pdf/\+G\+D\+C03.\+pdf}} we assume continuity -\/ in case of density, last cells should be the same as penultimate cell 
+\begin{DoxyParams}{Parameters}
+{\em bound} & which type of boundary contidion will be handled \\
+\hline
+{\em medium} & medium on which boundary contidion will be set \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+\mbox{\Hypertarget{classFluidSimulation_a6293ff3eaefd0ddbdbe0a52a8082bf65}\label{classFluidSimulation_a6293ff3eaefd0ddbdbe0a52a8082bf65}} 
+\index{FluidSimulation@{FluidSimulation}!VelocityStep@{VelocityStep}}
+\index{VelocityStep@{VelocityStep}!FluidSimulation@{FluidSimulation}}
+\doxysubsubsection{\texorpdfstring{VelocityStep()}{VelocityStep()}}
+{\footnotesize\ttfamily void Fluid\+Simulation\+::\+Velocity\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&}]{velocityX,  }\item[{\mbox{\hyperlink{structIFluidSimulation_1_1State}{State}} \&}]{velocityY,  }\item[{double}]{delta\+Time }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Evolve velocities due to\+:
+\begin{DoxyItemize}
+\item addition of forces (done even before Step method in Add\+Velocity)
+\item diffusion
+\item advection 
+\end{DoxyItemize}
+
+Implements \mbox{\hyperlink{classIFluidSimulation}{I\+Fluid\+Simulation}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fluid\+Simulation.\+h\item 
+Fluid\+Simulation.\+cpp\end{DoxyCompactItemize}
