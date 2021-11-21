@@ -57,7 +57,6 @@ void FluidSimulation::VelocityStep(State& velocityX, State& velocityY, double de
     Project(velocityX.previous, velocityY.previous, velocityX.current, velocityY.current);
 
     Advect(BoundaryType::VERTICAL, velocityX.current, velocityX.previous, velocityX.previous, velocityY.previous, deltaTime);
-
     Advect(BoundaryType::HORIZONTAL, velocityY.current, velocityY.previous, velocityX.previous, velocityY.previous, deltaTime);
 
     Project(velocityX.current, velocityY.current, velocityX.previous, velocityY.previous);
@@ -145,8 +144,8 @@ void FluidSimulation::Project(Matrix& velocityX, Matrix& velocityY, Matrix& p, M
     for (int x = 1; x < _size - 1; x++) {
         for (int y = 1; y < _size - 1; y++) {
 
+            //calculate gradient of p and subtract from current vector field to get divergence-free field
             velocityX(x, y) -= 0.5f * (p(x + 1, y) - p(x - 1, y)) * _size;
-
             velocityY(x, y) -= 0.5f * (p(x, y + 1) - p(x, y - 1)) * _size;
         }
     }
